@@ -4,10 +4,10 @@ import axios from "axios";
 import './SignUp.css';
 
 function SignUp() {
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const history = useHistory();
 
     //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
 

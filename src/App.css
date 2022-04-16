@@ -1,34 +1,56 @@
-.App {
-  text-align: center;
+.content {
+  margin: 32px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/*Algemene button styling*/
+button {
+  border-radius: 4px;
+  min-width: 100px;
+  border: none;
+  padding: 8px 16px;
+  background-color: #bd4a4a;
   color: white;
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+/*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*/
+button + button {
+  margin-left: 20px;
 }
 
-@keyframes App-logo-spin {
+button:hover {
+  cursor: pointer;
+}
+
+a,
+a:visited,
+a:active {
+  color: #083b57;
+}
+
+a:hover {
+  color: #bd4a4a;
+}
+
+section  {
+  margin: 10px 0 40px 0;
+}
+
+p {
+  margin: 0 0 7px 0;
+}
+
+
+
+/*Eventueel gebruiken, later bekijken*/
+/*Zet mij op een element en ik blijf voor altijd draaien!*/
+.loading-icon {
+  width: 16px;
+  height: 16px;
+  animation: rotating 1.5s linear infinite;
+}
+
+@keyframes rotating {
   from {
     transform: rotate(0deg);
   }

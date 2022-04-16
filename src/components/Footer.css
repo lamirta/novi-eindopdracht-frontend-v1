@@ -1,0 +1,14 @@
+.footer-content {
+    position: center;
+}
+
+footer {
+    background-color: #ffeaac;
+    color: #bd4a4a;
+    display: flex;
+    padding: 10px 35px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*Hoe krijg ik die content nou in het midden 🥲*/

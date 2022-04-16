@@ -1,41 +1,55 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './NavBar.css';
-import logo from '../assets/logo_flash.png';
+import logo from '../assets/nav_logo.png';
 import {Link, useHistory} from "react-router-dom";
+import {AuthContext} from "../context/AuthContext";
 
 function NavBar() {
+    const {auth, logout} = useContext(AuthContext);
+    console.log(auth);
     const history = useHistory();
 
     return (
         <nav>
             <Link to="/">
-          <span className="nav-container">
+          <span className="logo-container">
             <img src={logo} alt="logo"/>
-            <h3>
-              Flash Word
-            </h3>
           </span>
             </Link>
+
+            <h3>
+                Woordjes Leren & Spellen!
+            </h3>
 
             <div>
                 <button
                     type="button"
-                    onClick={() => history.push('/signin')}
+                    onClick={() => history.push('/')}
                 >
-                    Log in
+                    Home
                 </button>
-                <button
-                    type="button"
-                    onClick={() => history.push('/signup')}
-                >
-                    Registreren
-                </button>
-                <button
-                    type="button"
-                    // onClick={logout}
-                >
-                    Log out
-                </button>
+                {!auth ?
+                    <>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/signin')}
+                        >
+                            Log in
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/signup')}
+                        >
+                            Registreren
+                        </button>
+                    </> :
+                    <button
+                        type="button"
+                        onClick={logout}
+                    >
+                        Log uit
+                    </button>
+                }
             </div>
         </nav>
     );
