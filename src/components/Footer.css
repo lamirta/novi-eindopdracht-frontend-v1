@@ -1,14 +1,27 @@
-.footer-content {
-    position: center;
-}
-
 footer {
     background-color: #ffeaac;
     color: #bd4a4a;
     display: flex;
     padding: 10px 35px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-/*Hoe krijg ik die content nou in het midden 🥲*/
+footer a,
+footer a:visited,
+footer a:active {
+    color: #bd4a4a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #083b57;
+}
+
+/*.footer-content {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    position: center;*/
+/*}*/
+

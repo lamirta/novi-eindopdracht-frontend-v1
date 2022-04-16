@@ -3,7 +3,13 @@ import './Footer.css';
 
 function Footer() {
     return (
-        <footer>
+        <footer
+            style={{
+                position: "fixed",
+                left: 0,
+                bottom: 0,
+                right: 0,
+            }}>
             <div className="footer-content">
                     <p>
                         © Copyright 2022{" "}
@@ -19,6 +25,6 @@ function Footer() {
             </div>
         </footer>
     );
-};
+}
 
 export default Footer;

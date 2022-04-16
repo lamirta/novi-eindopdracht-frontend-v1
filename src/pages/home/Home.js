@@ -7,23 +7,28 @@ function Home() {
         <>
             <h1>Flash Word</h1>
             <section>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem id libero provident! Accusantium at
-                    autem
-                    cumque, esse eum, fugiat ipsa ipsam quia quis ratione repudiandae sapiente sequi sit tempora
-                    voluptates.
-                    Accusantium aperiam asperiores, beatae dolor eius error expedita laboriosam maiores minima mollitia
-                    nisi
-                    pariatur quaerat quam ratione reiciendis rem similique unde veritatis vitae voluptatum. At atque
-                    beatae dolor
-                    fuga hic laudantium maxime praesentium quae quia repudiandae sapiente, sed sint, voluptas. Aliquid
-                    asperiores
-                    assumenda commodi consectetur cumque delectus, distinctio dolore ex facilis fugiat maiores officiis
-                    quo,
-                    saepe, sequi sunt tempora vero.</p>
-                <p>
-                    Aperiam dignissimos dolore ducimus eum explicabo numquam officia quia
-                    quibusdam totam velit. Beatae blanditiis consequatur, deserunt eveniet perspiciatis rem tempore
-                    voluptate?
+                <p>Flash Word is een online platform speciaal ontwikkeld voor het verbeteren van spellingvaardigheid.{" "}
+                    <a title="ProZwolle" href="https://www.pro-zwolle.nl/">
+                        Pro Zwolle
+                    </a> biedt deze webapplicatie aan tijdens hun behandelingen, zodat leerlingen spelling kunnen
+                    oefenen met woordenlijsten door middel van oefeningen en toetsen op het platform. Leerlingen kunnen
+                    een account aanmaken en hier hun woordenlijsten, oefeningen, resultaten en voortgang bijhouden.
+                </p>
+            </section>
+            <h2>Dyslexie</h2>
+            <section>
+                <p>Dyslexie is een stoornis die gekenmerkt wordt door een hardnekkig probleem met het aanleren en/of
+                    vlot toepassen van het lezen en/of spellen op woordniveau.</p>
+
+                <p>Hardnekkigheid is een belangrijk kenmerk van dyslexie, niet alleen bij het leren lezen en spellen,
+                    maar ook bij het snel en vlot kunnen lezen.</p>
+
+                <p>De behandelingen van {" "}
+                    <a title="ProZwolle" href="https://www.pro-zwolle.nl/">
+                        Pro Zwolle
+                    </a> voor dyslexie zijn gericht op het vergroten van de leesvaardigheid
+                    en/of spellingvaardigheid, het verminderen van de beperking, het omgaan met de beperking en het
+                    voorkomen van nadelige gevolgen ervan.
                 </p>
             </section>
             <section>
@@ -33,6 +38,6 @@ function Home() {
             </section>
         </>
     );
-};
+}
 
 export default Home;
