@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import './NavBar.css';
-import logo from '../assets/nav_logo.png';
+import logo from '../../assets/nav_logo.png';
 import {Link, useHistory} from "react-router-dom";
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../../context/AuthContext";
 
 function NavBar() {
     const {auth, logout} = useContext(AuthContext);
@@ -10,18 +10,25 @@ function NavBar() {
     const history = useHistory();
 
     return (
-        <nav>
+        <nav
+            // style={{
+            //     position: "fixed",
+            //     left: 0,
+            //     top: 0,
+            //     right: 0,
+            // }}
+            >
+
+          <span className="nav-logo-container-1">
             <Link to="/">
-          <span className="logo-container">
-            <img src={logo} alt="logo"/>
-          </span>
+                <img src={logo} alt="logo"/>
             </Link>
-
             <h3>
-                Woordjes Leren & Spellen!
+                Woordjes Spellen!
             </h3>
+          </span>
 
-            <div>
+            <div className="nav-logo-container-2">
                 <button
                     type="button"
                     onClick={() => history.push('/')}

@@ -5,23 +5,29 @@
 /*    align-items: center;*/
 /*}*/
 
-.logo-container {
+.nav-logo-container-1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 150px;
+    width: 250px;
 }
 
-.logo-container img {
-    width: 100px;
+.nav-logo-container-1 img {
+    width: 50px;
     /*margin-right: 8px;*/
 }
 
+.nav-logo-container-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 nav {
-    background-color: #ffeaac;
+    background-color: #ffeaad;
     color: #bd4a4a;
     display: flex;
-    padding: 10px 35px;
+    padding: 5px 35px;
     align-items: center;
     justify-content: space-between;
 }
