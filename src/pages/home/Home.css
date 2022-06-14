@@ -1,0 +1,17 @@
+.body-outer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #faeab3;
+    padding: 32px;
+    max-width: 100%;
+    border-radius: 7px;
+}
+
+.body-inner-container-small {
+
+}
+
+.body-inner-container-wide {
+
+}
