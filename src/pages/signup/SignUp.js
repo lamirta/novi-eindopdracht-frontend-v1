@@ -32,6 +32,14 @@ function SignUp() {
                 harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
                 doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?</p>
             <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username
+                    <input
+                        type="text"
+                        id="username"
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
+                    />
+                </label>
                 <label htmlFor="email">Email
                     <input
                         type="email"
@@ -46,14 +54,6 @@ function SignUp() {
                         id="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
-                    />
-                </label>
-                <label htmlFor="username">Username
-                    <input
-                        type="text"
-                        id="username"
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={username}
                     />
                 </label>
                 <button type="submit">Registreren</button>

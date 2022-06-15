@@ -8,6 +8,8 @@ import SignUp from './pages/signup/SignUp';
 import './App.css';
 import {AuthContext} from "./context/AuthContext";
 import Footer from "./components/foot/Footer";
+import WordLists from "./pages/wordlist/WordLists";
+import Users from "./pages/users/Users";
 
 function App() {
   const {auth} = useContext(AuthContext);
@@ -33,6 +35,14 @@ function App() {
 
           <Route path="/signup">
             <SignUp />
+          </Route>
+
+          <Route path="/woordenlijsten">
+            <WordLists />
+          </Route>
+
+          <Route path="/users">
+            <Users />
           </Route>
         </Switch>
       </div>

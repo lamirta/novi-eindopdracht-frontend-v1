@@ -5,7 +5,7 @@ import './SignIn.css';
 import {AuthContext} from "../../context/AuthContext";
 
 function SignIn() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const {login} = useContext(AuthContext);
     const history = useHistory();
@@ -14,8 +14,8 @@ function SignIn() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const result = await axios.post('http://localhost:3000/login', {
-                email: email,
+            const result = await axios.post('http://localhost:8080/authenticate', {
+                username: username,
                 password: password,
                 // deze paarse keys heten hetzelfde omdat dit vooraf is bepaald in de fake server die we nu gebruiken..
                 // Note: dus zelf in mijn eigen beckend aanpassen..
@@ -30,16 +30,15 @@ function SignIn() {
     return (
         <>
             <h1>Inloggen</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id
-                molestias qui quo unde?</p>
+            <p>Log hier in met jouw username en wachtwoord.</p>
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email
+                <label htmlFor="username">Username
                     <input
-                        type="email"
-                        id="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
+                        type="text"
+                        id="username"
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
                     />
                 </label>
                 <label htmlFor="password">Wachtwoord

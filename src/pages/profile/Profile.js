@@ -1,32 +1,59 @@
 import React from 'react';
 import './Profile.css';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 function Profile() {
+    const history = useHistory();
+
     return (
         <>
+            <div className="body-outer-container">
             <h1>Profielpagina</h1>
             <section>
-                <h2>Gegevens</h2>
+                <h2>User Gegevens</h2>
                 <p><strong>Profielfoto:</strong>..upload functie hier</p>
-                <p><strong>Gebruikersnaam:</strong> hardcoded-test</p>
+                <p><strong>Username:</strong> hardcoded-test</p>
+                <p><strong>Profiel ID:</strong> get request database.</p>
+            </section>
+            <section>
+                <h2>Gegevens Rol (Leerling / Docent / Admin)</h2>
+                <p><strong>Full Name</strong>Voornaam + Achternaam</p>
                 <p><strong>Email:</strong> hardcoded@test.com</p>
+                <p><strong>Leeftijd:</strong> hardcoded-test</p>
+                <p><strong>School:</strong> hardcoded-test</p>
             </section>
             <section>
-                <h2>Woordenlijsten</h2>
-                <button>Nieuwe Woordenlijst</button>
-                <ul>
-                    <li>Lijst 1</li>
-                    <li>Lijst 2</li>
-                    <li>Lijst 3</li>
-                </ul>
+                <button
+                    type="button"
+                    onClick={() => history.push('/woordenlijsten')}
+                >
+                    Woordenlijsten
+                </button>
+                <button
+                    type="button"
+                    onClick={() => history.push('/users')}
+                >
+                    Gebruikers
+                </button>
+                <button
+                    type="button"
+                    onClick={() => history.push('/toetsen')}
+                >
+                    Toetsen
+                </button>
+
             </section>
             <section>
-                <h2>Scorelijst</h2>
+                <h2>Jouw top score!</h2>
+                <ol>
+                    <li>exam result 1</li>
+                    <li>exam result 2</li>
+                    <li>exam result 3</li>
+                </ol>
                 <p>Ga <Link to="/">hier</Link> naar jouw resultaten van de afgelopen tijd</p>
-                {/*Hierboven een component of een pagina van maken..?*/}
             </section>
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
+            </div>
         </>
     );
 }
