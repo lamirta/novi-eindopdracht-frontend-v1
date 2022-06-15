@@ -9,6 +9,8 @@ function Profile() {
         <>
             <div className="body-outer-container">
             <h1>Profielpagina</h1>
+                <div className="body-inner-container-wide">
+                <div className="content-outer-container-big">
             <section>
                 <h2>User Gegevens</h2>
                 <p><strong>Profielfoto:</strong>..upload functie hier</p>
@@ -17,11 +19,13 @@ function Profile() {
             </section>
             <section>
                 <h2>Gegevens Rol (Leerling / Docent / Admin)</h2>
-                <p><strong>Full Name</strong>Voornaam + Achternaam</p>
+                <p><strong>Full Name: </strong>Voornaam + Achternaam</p>
                 <p><strong>Email:</strong> hardcoded@test.com</p>
                 <p><strong>Leeftijd:</strong> hardcoded-test</p>
                 <p><strong>School:</strong> hardcoded-test</p>
             </section>
+                </div>
+                <div className="content-outer-container-big">
             <section>
                 <button
                     type="button"
@@ -31,15 +35,15 @@ function Profile() {
                 </button>
                 <button
                     type="button"
-                    onClick={() => history.push('/users')}
-                >
-                    Gebruikers
-                </button>
-                <button
-                    type="button"
                     onClick={() => history.push('/toetsen')}
                 >
                     Toetsen
+                </button>
+                <button
+                    type="button"
+                    onClick={() => history.push('/users')}
+                >
+                    Gebruikers
                 </button>
 
             </section>
@@ -52,7 +56,11 @@ function Profile() {
                 </ol>
                 <p>Ga <Link to="/">hier</Link> naar jouw resultaten van de afgelopen tijd</p>
             </section>
+                </div>
+                </div>
+                <span className="profile-span-bottom">
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
+                </span>
             </div>
         </>
     );

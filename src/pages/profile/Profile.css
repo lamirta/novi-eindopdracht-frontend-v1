@@ -1,3 +1,8 @@
 li {
     margin: 10px 20px
 }
+
+.profile-span-bottom {
+    padding-top: 15px;
+    text-align: center;
+}
