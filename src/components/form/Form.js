@@ -1,7 +1,7 @@
 import React from 'react';
-import './SignUp.css';
+import './Form.css';
 
-function SignUp(props) {
+function Form(props) {
     return (
         <div>
 
@@ -9,4 +9,4 @@ function SignUp(props) {
     );
 };
 
-export default SignUp;
+export default Form;
