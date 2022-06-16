@@ -12,7 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000000;
-  background-color: #fff8e9;
+  background-color: #ffffff;
 }
 
 h1,
@@ -22,4 +22,99 @@ h4,
 h5,
 h6 {
   font-family: "PT Sans", sans-serif, cursive;
+}
+
+h1 {
+  text-align: center;
+}
+
+/*******CONTAINER STYLING*******/
+
+.body-outer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff8e9;
+  padding: 35px;
+  max-width: 100%;
+  border-radius: 7px;
+  margin-bottom: 70px;
+}
+
+.body-inner-container-wide {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 100%;
+  border-radius: 7px;
+}
+
+.body-inner-container-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 100%;
+  border-radius: 7px;
+}
+
+.content-container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 700px;
+  border-radius: 7px;
+  padding: 15px;
+  margin: 15px;
+  background-color: #ffffff;
+}
+
+.content-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 7px;
+  padding: 15px;
+  margin: 15px;
+  background-color: #c5c5c5;
+}
+
+
+/*******TABLE STYLING*******/
+table, td, th {
+  border: 1px solid #006e7f;
+  width: 100px
+}
+
+th {
+  background-color: #006e7f;
+  color: white;
+  text-align: left;
+}
+
+td, th {
+  padding: 8px;
+}
+
+/*tr.td {*/
+/*  min-width: 100px;*/
+/*}*/
+
+/*td > img {*/
+/*  width: 60px;*/
+/*  border-radius: 50%;*/
+/*}*/
+
+table {
+  border-collapse: unset;
+  border-radius: 10px;
+  width: 95%;
+  margin: 20px 0;
 }

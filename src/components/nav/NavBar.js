@@ -45,7 +45,7 @@ function NavBar() {
                         </button>
                         <button
                             type="button"
-                            onClick={() => history.push('/signup')}
+                            onClick={() => history.push('/registreren')}
                         >
                             Registreren
                         </button>
