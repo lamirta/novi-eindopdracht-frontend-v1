@@ -27,7 +27,7 @@ function WordLists() {
                 <section className="content-container-row">
                     <button
                         type="button"
-                        onClick={() => history.push('/woordenlijsten')}
+                        onClick={() => history.push('/woordenlijst-toevoegen')}
                     >
                         Nieuwe woordenlijst aanmaken
                     </button>
@@ -52,8 +52,7 @@ function WordLists() {
                             return <tr key={wl.title}>
                                 <td><Link to="/profile">Klik</Link></td>
                                 <td>{wl.title}</td>
-                                <td>{wl.title}</td>
-                                {/*<td>{wl.passed ? "Geslaagd" : "Gezakt"}</td>*/}
+                                <td>{wl.words.length}</td>
                             </tr>
                         })}
                         </tbody>
@@ -62,6 +61,6 @@ function WordLists() {
         </div>
         </>
     );
-};
+}
 
 export default WordLists;

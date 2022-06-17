@@ -21,15 +21,20 @@ function SignIn() {
                 // Note: dus zelf in mijn eigen beckend aanpassen..
             });
             login(result.data.accessToken);
-        } catch (e) {
-            console.error(e);
+        } catch (error) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+            console.error(error);
         }
         history.push('/profile');
     }
 
     return (
         <>
+            <div className="body-outer-container">
             <h1>Inloggen</h1>
+                <section className="body-inner-container-wide">
+                <section className="body-inner-container-small">
             <p>Log hier in met jouw username en wachtwoord.</p>
 
             <form onSubmit={handleSubmit}>
@@ -53,8 +58,11 @@ function SignIn() {
             </form>
 
             <p>Heb je nog geen account? Vraag dan aan jouw docent om een account voor je aan te maken. ///auth>  <Link to="/signup">Registreer</Link> je dan eerst.</p>
+                </section>
+                </section>
+            </div>
         </>
     );
-};
+}
 
 export default SignIn;
