@@ -86,78 +86,78 @@ function AddWordList() {
                             value={wordB}
                         />
                     </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordC"
-                            onChange={(e) => setWordC(e.target.value)}
-                            value={wordC}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordD"
-                            onChange={(e) => setWordD(e.target.value)}
-                            value={wordD}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordE"
-                            onChange={(e) => setWordE(e.target.value)}
-                            value={wordE}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordF"
-                            onChange={(e) => setWordF(e.target.value)}
-                            value={wordF}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordG"
-                            onChange={(e) => setWordG(e.target.value)}
-                            value={wordG}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordH"
-                            onChange={(e) => setWordH(e.target.value)}
-                            value={wordH}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordI"
-                            onChange={(e) => setWordI(e.target.value)}
-                            value={wordI}
-                        />
-                    </label>
-                    <label htmlFor="words">
-                        <input
-                            placeholder="Woord"
-                            type="text"
-                            id="wordJ"
-                            onChange={(e) => setWordJ(e.target.value)}
-                            value={wordJ}
-                        />
-                    </label>
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordC"*/}
+                    {/*        onChange={(e) => setWordC(e.target.value)}*/}
+                    {/*        value={wordC}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordD"*/}
+                    {/*        onChange={(e) => setWordD(e.target.value)}*/}
+                    {/*        value={wordD}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordE"*/}
+                    {/*        onChange={(e) => setWordE(e.target.value)}*/}
+                    {/*        value={wordE}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordF"*/}
+                    {/*        onChange={(e) => setWordF(e.target.value)}*/}
+                    {/*        value={wordF}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordG"*/}
+                    {/*        onChange={(e) => setWordG(e.target.value)}*/}
+                    {/*        value={wordG}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordH"*/}
+                    {/*        onChange={(e) => setWordH(e.target.value)}*/}
+                    {/*        value={wordH}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordI"*/}
+                    {/*        onChange={(e) => setWordI(e.target.value)}*/}
+                    {/*        value={wordI}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="words">*/}
+                    {/*    <input*/}
+                    {/*        placeholder="Woord"*/}
+                    {/*        type="text"*/}
+                    {/*        id="wordJ"*/}
+                    {/*        onChange={(e) => setWordJ(e.target.value)}*/}
+                    {/*        value={wordJ}*/}
+                    {/*    />*/}
+                    {/*</label>*/}
                     </section>
                     <button type="submit">Woordenlijst aanmaken</button>
                 </form>
