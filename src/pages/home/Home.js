@@ -6,8 +6,9 @@ function Home() {
     return (
         <>
             <div className="body-outer-container">
-            <div className="body-inner-container-small">
-            <h1>Flash Word</h1>
+                <h1>Flash Word</h1>
+                <div className="home-inner-container-wide">
+            <div className="home-inner-container-small">
             <section>
                 <p>Flash Word is een online platform speciaal ontwikkeld voor het verbeteren van spellingvaardigheid.{" "}
                     <a title="ProZwolle" href="https://www.pro-zwolle.nl/">
@@ -20,9 +21,7 @@ function Home() {
             <h2>Dyslexie</h2>
             <section>
                 <p>Dyslexie is een stoornis die gekenmerkt wordt door een hardnekkig probleem met het aanleren en/of
-                    vlot toepassen van het lezen en/of spellen op woordniveau.</p>
-
-                <p>Hardnekkigheid is een belangrijk kenmerk van dyslexie, niet alleen bij het leren lezen en spellen,
+                    vlot toepassen van het lezen en/of spellen op woordniveau. Hardnekkigheid is een belangrijk kenmerk van dyslexie, niet alleen bij het leren lezen en spellen,
                     maar ook bij het snel en vlot kunnen lezen.</p>
 
                 <p>De behandelingen van {" "}
@@ -42,6 +41,7 @@ function Home() {
                 <p>Ga naar: <Link to="/users">users</Link></p>
             </section>
             </div>
+                </div>
             </div>
         </>
     );

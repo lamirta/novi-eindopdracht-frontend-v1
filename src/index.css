@@ -28,12 +28,17 @@ h1 {
   text-align: center;
 }
 
+p {
+  text-align: justify;
+}
+
 /*******CONTAINER STYLING*******/
 
 .body-outer-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /*justify-content: center;*/
+  align-items: center;
   background-color: #fff8e9;
   padding: 35px;
   max-width: 100%;
@@ -47,6 +52,7 @@ h1 {
   justify-content: center;
   background-color: #ffffff;
   padding: 20px;
+  margin: 15px;
   max-width: 100%;
   border-radius: 7px;
 }
@@ -55,9 +61,12 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: #ffffff;
   padding: 20px;
-  max-width: 100%;
+  max-width: 50%;
+  /*min-width: 100px;*/
+  /*max-width: 1000px;*/
   border-radius: 7px;
 }
 
@@ -90,7 +99,8 @@ h1 {
 /*******TABLE STYLING*******/
 table, td, th {
   border: 1px solid #006e7f;
-  width: 100px
+  width: 100px;
+  /*max-width: 150px;*/
 }
 
 th {

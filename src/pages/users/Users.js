@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './Users.css';
 import axios from "axios";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 function Users() {
     const history = useHistory();
@@ -73,11 +73,16 @@ function Users() {
                     >
                         Gebruiker verwijderen
                     </button>
+                    <button
+                    >
+                        Gebruikersrol toevoegen
+                    </button>
                 </section>
                 <section className="content-container-row">
                     <table>
                         <thead>
                         <tr>
+                            <th>Ga naar Gebruiker</th>
                             <th>Username</th>
                             <th>E-mailadres</th>
                             <th>Gebruikersrol</th>
@@ -88,6 +93,7 @@ function Users() {
                         {users.map((user) => {
                             // De key moet op het buitenste element staan en uniek zijn
                         return <tr key={user.username}>
+                            <td><Link to="/profile">Klik</Link></td>
                             <td>{user.username}</td>
                             {/*Even checken of er uberhaupt een file is, en zo ja, dan laten we hem zien!*/}
                             <td>{user.email}</td>

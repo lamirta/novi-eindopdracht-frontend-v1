@@ -3,11 +3,13 @@ import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 import './SignUp.css';
 
+// hoe krijg ik een succes melding als user is aangemaakt?
+// hoe krijg ik een foutmelding als de username al bezet is? krijg die vanuit de backend hier?
 function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [enabled, setEnabled] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const history = useHistory();
 
     //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
@@ -19,11 +21,12 @@ function SignUp() {
                 username: username,
                 email: email,
                 password: password,
-                enabled: enabled,
             })
             history.push('/signin')
-        } catch(e) {
-            console.error(e);
+        } catch(error) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+            console.error(error);
         }
     }
 
@@ -48,14 +51,6 @@ function SignUp() {
                         id="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
-                    />
-                </label>
-                <label htmlFor="password">Wachtwoord
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
                     />
                 </label>
                 <label htmlFor="password">Wachtwoord
