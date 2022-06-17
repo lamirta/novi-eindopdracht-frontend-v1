@@ -2,7 +2,11 @@ footer {
     background-color: #ffeaad;
     color: #bd4a4a;
     display: flex;
-    padding: 10px 35px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 3px;
     align-items: center;
     justify-content: center;
 }
@@ -16,12 +20,12 @@ footer a:active {
 }
 
 footer a:hover {
-    color: #083b57;
+    color: #006e7f;
 }
 
-/*.footer-content {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    position: center;*/
-/*}*/
+.footer-content {
+    display: flex;
+    align-items: center;
+    position: center;
+}
 

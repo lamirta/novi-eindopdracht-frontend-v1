@@ -5,6 +5,10 @@ import './SignUp.css';
 
 // hoe krijg ik een succes melding als user is aangemaakt?
 // hoe krijg ik een foutmelding als de username al bezet is? krijg die vanuit de backend hier?
+
+// <div class="status">{2 woorden opgeslagen als een concept}</div>
+// "status" veranderd wanneer er een nieuwe melding komt..
+
 function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

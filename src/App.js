@@ -19,40 +19,47 @@ function App() {
 
   return (
     <>
-      <NavBar/>
       <div className="content">
         <Switch>
           <Route exact path="/">
-            <Home />
+            <NavBar/>
+            <Home/>
           </Route>
 
           {/*{auth &&*/}
           <Route path="/profile">
+            <NavBar/>
             <Profile />
           </Route>
           {/*}*/}
 
           <Route path="/signin">
+            <NavBar/>
             <SignIn />
           </Route>
 
           <Route path="/signup">
+            <NavBar/>
             <SignUp />
           </Route>
 
           <Route path="/woordenlijsten">
+            <NavBar/>
             <WordLists />
           </Route>
 
           <Route path="/users">
+            <NavBar/>
             <Users />
           </Route>
 
           <Route path="/userprofiles">
+            <NavBar/>
             <AllProfiles />
           </Route>
 
           <Route path="/toetsen">
+            <NavBar/>
             <Exams />
           </Route>
 
