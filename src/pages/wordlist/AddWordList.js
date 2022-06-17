@@ -58,15 +58,17 @@ function AddWordList() {
                 </section>
                 <section className="content-container-row">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="title">Titel
+                    <label htmlFor="title">TITEL
                         <input
+                            placeholder="Geef jouw lijst een titel"
                             type="text"
                             id="title"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
                         />
                     </label>
-                    <label htmlFor="words">
+                    <section>
+                    <label htmlFor="wordA">
                         <input
                             placeholder="Woord"
                             type="text"
@@ -129,6 +131,34 @@ function AddWordList() {
                             value={wordG}
                         />
                     </label>
+                    <label htmlFor="words">
+                        <input
+                            placeholder="Woord"
+                            type="text"
+                            id="wordH"
+                            onChange={(e) => setWordH(e.target.value)}
+                            value={wordH}
+                        />
+                    </label>
+                    <label htmlFor="words">
+                        <input
+                            placeholder="Woord"
+                            type="text"
+                            id="wordI"
+                            onChange={(e) => setWordI(e.target.value)}
+                            value={wordI}
+                        />
+                    </label>
+                    <label htmlFor="words">
+                        <input
+                            placeholder="Woord"
+                            type="text"
+                            id="wordJ"
+                            onChange={(e) => setWordJ(e.target.value)}
+                            value={wordJ}
+                        />
+                    </label>
+                    </section>
                     <button type="submit">Woordenlijst aanmaken</button>
                 </form>
                 </section>
