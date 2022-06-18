@@ -8,7 +8,7 @@ function AllProfiles() {
     const [userProfiles, setUserProfiles] = useState([]);
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchProfiles() {
             try {
                 const response = await axios.get('http://localhost:8080/userprofiles');
                 setUserProfiles(response.data);
@@ -18,7 +18,7 @@ function AllProfiles() {
             }
         }
 
-        fetchUsers();
+        fetchProfiles();
     }, []);
 
     return (

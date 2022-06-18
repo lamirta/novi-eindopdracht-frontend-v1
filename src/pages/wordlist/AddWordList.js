@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {Link, useHistory} from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 import './AddWordList.css';
 
@@ -202,8 +201,6 @@ function AddWordList() {
                         >
                             Woordenlijst aanmaken
                         </button>
-                        {/*// disable button als titel veld nog niet is ingevuld..*/}
-                        {/*Kijk bij Fruit perfection morgen...*/}
                     </form>
                 </section>
             </div>

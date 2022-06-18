@@ -1,0 +1,218 @@
+.main-exercise-page {
+    background: #f2f1f4;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-bottom: 24px;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.exercise-page-header {
+    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+    border-radius: 1px;
+    padding: 16px 8px;
+    background-color: #bd4a4a;
+
+}
+
+.exercise-header-inner {
+    display: flex;
+    align-items: center;
+}
+
+.exercise-header .progress-bar {
+    flex: 1 1 auto;
+    max-width: 100%;
+}
+.exercise-header-item+.exercise-header-item, .exercise-header-item+.progress-bar {
+    margin-left: 16px;
+}
+
+.progress-bar {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,.05);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.exercise-header .counter {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: .2px;
+    font-weight: 400;
+}
+
+.progress-bar .progress.transparent {
+    background-color: #dccbf4;
+}
+
+/*!*@media (min-width: 1024px) {*!*/
+/*    .exercise-header {*/
+/*        padding-left: 0;*/
+/*        padding-right: 0;*/
+/*    }*/
+/*!*}*!*/
+
+/*!*@media (min-width: 768px) {*!*/
+/*    .exercise-header {*/
+/*        position: fixed;*/
+/*        top: 0;*/
+/*        left: 0;*/
+/*        width: 100%;*/
+/*        padding: 16px;*/
+/*        background-color: #fff;*/
+/*        z-index: 50;*/
+/*    }*/
+/*!*}*!*/
+
+
+/******CONTAINER-STYLING******/
+.container-exercise-wrap{
+    width: 100%;
+    bottom: 16px;
+    display: block;
+    /*position: center;*/
+    margin-right: auto;
+    max-width: 1200px;
+    /*padding-top: 60px;*/
+    /*padding-bottom: 60px;*/
+}
+
+.exercise {
+    box-shadow: 0 2px 2px rgb(0 0 0 / 8%);
+    border-radius: 8px;
+    background-color: #fff;
+    position: relative;
+}
+
+.exercise-content {
+    min-height: 86px;
+    padding: 24px 16px;
+}
+
+.exam-entry-input {
+    font-size: 20px;
+    height: 50px;
+    line-height: 20px;
+    letter-spacing: .5px;
+    font-weight: 500;
+    border-bottom: 2px solid #d3d1d6;
+    /*padding-bottom: 2px;*/
+    border-radius: 0;
+    width: 100%;
+}
+
+.exercise-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.text-animation-hide {
+    /*font-size: 24px;*/
+    line-height: 28px;
+    letter-spacing: 0;
+    font-weight: 800;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+
+.exercise-bottom-bar {
+    position: relative;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: hidden;
+}
+
+.btn-block {
+    text-align: right;
+    padding: 32px;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+
+
+
+
+
+.wordlist-title {
+    font-weight: 200;
+}
+
+.wordlist-title-p {
+    font-style: italic;
+    font-weight: 800;
+}
+
+@media (min-width: 768px) {
+    .container-exercise-wrap {
+        flex: 0 0 auto;
+        margin: auto;
+        padding-top: 150px;
+        padding-bottom: 150px;
+        /*padding-top: 24px;*/
+        /*padding-bottom: 24px;*/
+    }
+    .exercise {
+        max-width: 744px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .exercise-content {
+        padding: 32px;
+    }
+}
+
+
+
+
+
+
+
+/*show element timer seconds try styling*/
+/*.text-animation-hide {*/
+/*    !*font-size: 24px;*!*/
+/*    line-height: 28px;*/
+/*    letter-spacing: 0;*/
+/*    font-weight: 800;*/
+/*    vertical-align: middle;*/
+/*    margin-right: 8px;*/
+/*    !*-webkit-animation: fadeOut 5s linear;*!*/
+/*    !*animation: fadeOut 5s linear;*!*/
+/*    visibility: visible;*/
+/*    opacity: 1;*/
+/*    transition-delay: 3s;*/
+/*}*/
+
+/*.text-animation-hide {*/
+/*    !*-webkit-animation: cssAnimation 0s ease-in 5s forwards;*!*/
+/*    -webkit-animation-fill-mode: forwards;*/
+/*    animation-fill-mode: forwards;*/
+/*        -webkit-animation: fadeOut 5s linear;*/
+/*        animation: fadeOut 5s linear;*/
+
+/*}*/
+
+/*@keyframes fadeOut {*/
+/*    to {*/
+/*        width:0;*/
+/*        height:0;*/
+/*        overflow:hidden;*/
+/*    }*/
+/*}*/
+/*@-webkit-keyframes fadeOut {*/
+/*    to {*/
+/*        width:0;*/
+/*        height:0;*/
+/*        visibility:hidden;*/
+/*    }*/
+/*}*/
+
+
+

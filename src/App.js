@@ -13,6 +13,7 @@ import Users from "./pages/users/Users";
 import AllProfiles from "./pages/profile/AllProfiles";
 import Exams from "./pages/exam/Exams";
 import AddWordList from "./pages/wordlist/AddWordList";
+import StartExam from "./pages/exam/StartExam";
 
 function App() {
   const {auth} = useContext(AuthContext);
@@ -48,6 +49,10 @@ function App() {
             <WordLists />
           </Route>
 
+          <Route path="/woordenlijst-toevoegen">
+            <AddWordList />
+          </Route>
+
           <Route path="/users">
             <NavBar/>
             <Users />
@@ -63,9 +68,9 @@ function App() {
             <Exams />
           </Route>
 
-        <Route path="/woordenlijst-toevoegen">
-          <AddWordList />
-        </Route>
+          <Route path="/toets-maken">
+            <StartExam />
+          </Route>
       </Switch>
       </div>
       <Footer/>

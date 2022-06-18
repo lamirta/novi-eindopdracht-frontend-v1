@@ -8,7 +8,7 @@ function WordLists() {
     const [wordLists, setWordLists] = useState([]);
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchLists() {
             try {
                 const response = await axios.get('http://localhost:8080/wordlists');
                 setWordLists(response.data);
@@ -17,7 +17,7 @@ function WordLists() {
                 console.error(e);
             }
         }
-        fetchUsers();
+        fetchLists();
     }, []);
 
     return (

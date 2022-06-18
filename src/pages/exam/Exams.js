@@ -8,7 +8,7 @@ function Exams() {
     const [exams, setExams] = useState([]);
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchExams() {
             try {
                 const response = await axios.get('http://localhost:8080/exams');
                 setExams(response.data);
@@ -17,7 +17,7 @@ function Exams() {
                 console.error(e);
             }
         }
-        fetchUsers();
+        fetchExams();
     }, []);
 
     return (
@@ -27,9 +27,9 @@ function Exams() {
                 <section className="content-container-row">
                     <button
                         type="button"
-                        onClick={() => history.push('/users')}
+                        onClick={() => history.push('/toets-maken')}
                     >
-                        Nieuwe toets starten (users)
+                        Nieuwe toets starten
                     </button>
                     <button
                         type="button"
@@ -48,7 +48,7 @@ function Exams() {
                             <th>Woordenlijst</th>
                             <th>Geslaagd</th>
                             <th>Aantal fouten</th>
-                            <th>Timestamp</th>
+                            {/*<th>Timestamp</th>*/}
                         </tr>
                         </thead>
                         <tbody>
@@ -60,7 +60,7 @@ function Exams() {
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                <td>klopt niet {exam.timestamp}</td>
+                                {/*<td>klopt niet {exam.timestamp}</td>*/}
                             </tr>
                         })}
                         </tbody>

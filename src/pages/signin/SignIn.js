@@ -57,7 +57,7 @@ function SignIn() {
                 <button type="submit">Inloggen</button>
             </form>
 
-            <p>Heb je nog geen account? Vraag dan aan jouw docent om een account voor je aan te maken. ///auth>  <Link to="/signup">Registreer</Link> je dan eerst.</p>
+            <p>Heb je nog geen account? Vraag dan aan jouw docent om een account voor je aan te maken. ///auth>  <Link to="/registreren">Registreer</Link> je dan eerst.</p>
                 </section>
                 </section>
             </div>
