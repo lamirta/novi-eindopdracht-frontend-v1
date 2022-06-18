@@ -102,14 +102,18 @@ function StartExam() {
                     <div className="exercise-bottom-bar">
                         <div className="btn-block">
                     {/*        HIER NOG STYLING & INCLUDE ERROR MESSAGE*/}
-                    {/*        <div className="btn-right">*/}
-                    {/*            <button type="button" name=""*/}
-                    {/*                    id="Controleer">*/}
-                    {/*                <div className="visual"><span className="text">volgende</span></div>*/}
-                    {/*            </button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                            <div className="btn-right">
+                                <button
+                                    type="button"
+                                    name=""
+                                    id="volgende"
+                                    // onClick={(e) => **on click > naar volgende woord? setUserEntry(e.target.value)}
+                                >
+                                    <div className="visual"><span className="text-exam-btn">volgende</span></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>
