@@ -10,15 +10,8 @@ function NavBar() {
     const history = useHistory();
 
     return (
-        <nav
-            // style={{
-            //     position: "fixed",
-            //     left: 0,
-            //     top: 0,
-            //     right: 0,
-            // }}
-            >
-
+        <nav>
+            <div className="nav-container">
           <span className="nav-logo-container-1">
             <Link to="/">
                 <img src={logo} alt="logo"/>
@@ -57,6 +50,7 @@ function NavBar() {
                         Log uit
                     </button>
                 }
+            </div>
             </div>
         </nav>
     );

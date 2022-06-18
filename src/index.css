@@ -43,7 +43,8 @@ p {
   padding: 35px;
   max-width: 100%;
   border-radius: 7px;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
+  margin-top: 90px;
 }
 
 .body-inner-container-wide {
@@ -127,4 +128,19 @@ table {
   border-radius: 10px;
   width: 95%;
   margin: 20px 0;
+}
+
+
+/*******ERROR STYLING*******/
+.error-message {
+  color: #bd4a4a;
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+  margin-top: -3px;
+  margin-bottom: 2px;
+}
+
+input[type=text].input-error {
+  border: 1px solid #bd4a4a;
 }

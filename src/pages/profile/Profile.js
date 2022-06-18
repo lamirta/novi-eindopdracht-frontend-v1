@@ -50,11 +50,11 @@ function Profile() {
             <section>
                 <h2>Jouw top score!</h2>
                 <ol>
-                    <li>exam result 1</li>
-                    <li>exam result 2</li>
-                    <li>exam result 3</li>
+                    <li>TO DO: implement data from backend</li>
+                    <li>TO DO: implement data from backend</li>
+                    <li>TO DO: implement data from backend</li>
                 </ol>
-                <p>Ga <Link to="/">hier</Link> naar jouw resultaten van de afgelopen tijd</p>
+                <p>Ga <Link to="/toetsen">hier</Link> naar al jouw resultaten van de afgelopen tijd</p>
             </section>
                 </div>
                 </div>

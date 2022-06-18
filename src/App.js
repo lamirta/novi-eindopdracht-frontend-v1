@@ -13,52 +13,64 @@ import Users from "./pages/users/Users";
 import AllProfiles from "./pages/profile/AllProfiles";
 import Exams from "./pages/exam/Exams";
 import AddWordList from "./pages/wordlist/AddWordList";
+import StartExam from "./pages/exam/StartExam";
 
 function App() {
   const {auth} = useContext(AuthContext);
 
   return (
     <>
-      <NavBar/>
       <div className="content">
         <Switch>
           <Route exact path="/">
-            <Home />
+            <NavBar/>
+            <Home/>
           </Route>
 
           {/*{auth &&*/}
           <Route path="/profile">
+            <NavBar/>
             <Profile />
           </Route>
           {/*}*/}
 
           <Route path="/signin">
+            <NavBar/>
             <SignIn />
           </Route>
 
-          <Route path="/signup">
+          <Route path="/registreren">
+            <NavBar/>
             <SignUp />
           </Route>
 
           <Route path="/woordenlijsten">
+            <NavBar/>
             <WordLists />
           </Route>
 
+          <Route path="/woordenlijst-toevoegen">
+            <AddWordList />
+          </Route>
+
           <Route path="/users">
+            <NavBar/>
             <Users />
           </Route>
 
           <Route path="/userprofiles">
+            <NavBar/>
             <AllProfiles />
           </Route>
 
           <Route path="/toetsen">
+            <NavBar/>
             <Exams />
           </Route>
 
-        <Route path="/woordenlijst-toevoegen">
-          <AddWordList />
-        </Route>
+          <Route path="/toets-maken">
+            <StartExam />
+          </Route>
       </Switch>
       </div>
       <Footer/>
