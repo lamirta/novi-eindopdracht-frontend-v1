@@ -129,3 +129,18 @@ table {
   width: 95%;
   margin: 20px 0;
 }
+
+
+/*******ERROR STYLING*******/
+.error-message {
+  color: #bd4a4a;
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+  margin-top: -3px;
+  margin-bottom: 2px;
+}
+
+input[type=text].input-error {
+  border: 1px solid #bd4a4a;
+}

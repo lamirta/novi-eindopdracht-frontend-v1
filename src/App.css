@@ -2,7 +2,7 @@
   margin: 32px;
 }
 
-/*Algemene button styling*/
+/*******BUTTON STYLING*******/
 button {
   border-radius: 4px;
   min-width: 100px;
@@ -23,6 +23,17 @@ button:hover {
   font-style: italic;
 }
 
+button[disabled] {
+  background-color: rgba(189, 74, 74, 0.58);
+}
+
+button[disabled]:hover {
+  cursor: inherit;
+  font-style: normal;
+}
+
+
+/*******LINK STYLING*******/
 a,
 a:visited,
 a:active {
@@ -64,6 +75,8 @@ form input {
   padding: 4px 8px;
   margin: 6px 0;
 }
+
+
 
 
 

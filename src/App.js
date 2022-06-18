@@ -38,7 +38,7 @@ function App() {
             <SignIn />
           </Route>
 
-          <Route path="/signup">
+          <Route path="/registreren">
             <NavBar/>
             <SignUp />
           </Route>

@@ -8,7 +8,7 @@ import './AddWordList.css';
 // TO DO: for loop maken voor alle worden in 'words' & 'count' in <span>
 
 function AddWordList() {
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(null);
     const [wordA, setWordA] = useState(null);
     const [wordB, setWordB] = useState(null);
     const [wordC, setWordC] = useState(null);
@@ -19,6 +19,7 @@ function AddWordList() {
     const [wordH, setWordH] = useState(null);
     const [wordI, setWordI] = useState(null);
     const [wordJ, setWordJ] = useState(null);
+    const [consoleError, setConsoleError] = useState('');
     const history = useHistory();
 
 
@@ -33,7 +34,7 @@ function AddWordList() {
             });
             history.push('/woordenlijsten');
         } catch (error) {
-            console.log(error.response.status);
+            setConsoleError(error.response.data);
             console.log(error.response.data);
             console.error(error);
         }
@@ -64,10 +65,12 @@ function AddWordList() {
                                 placeholder="Geef jouw lijst een titel"
                                 type="text"
                                 id="title"
+                                className={!title ? 'input-error' : ''}
                                 onChange={(e) => setTitle(e.target.value)}
                                 value={title}
                             />
                         </label>
+                        {!title && <p className="error-message">Jouw lijst heeft een titel nodig</p>}
                         <section>
                             <div className="word-container">
                                 <span className="count">1</span>
@@ -192,10 +195,10 @@ function AddWordList() {
                             </label>
                             </div>
                         </section>
+                        <span>{consoleError && <p className="error-message">{consoleError}</p>}</span>
                         <button
                             type="submit"
-                            // disabled={!clicked}
-                            // onClick={handleClick}
+                            disabled={!title || !wordA}
                         >
                             Woordenlijst aanmaken
                         </button>

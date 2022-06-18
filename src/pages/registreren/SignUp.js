@@ -11,9 +11,9 @@ import './SignUp.css';
 
 function SignUp() {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('');  //kan ik dit niet null maken..? en dan if null?
     const [username, setUsername] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [consoleError, setConsoleError] = useState('');
     const history = useHistory();
 
     //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
@@ -28,11 +28,16 @@ function SignUp() {
             })
             history.push('/signin')
         } catch(error) {
-            console.log(error.response.status);
+            setConsoleError(error.response.data);
             console.log(error.response.data);
             console.error(error);
         }
     }
+
+    // function handleClick() {
+    //     toggleDisabled()
+    //     {username == null || email == null || password == null}
+    // }
 
     return (
         <>
@@ -41,14 +46,17 @@ function SignUp() {
             <section className="body-inner-container-small">
             <p>Alleen een admin kan nieuwe users aanmaken. Kijk bij jouw gebruikersrol of jij een admin bent.</p>
             <form onSubmit={handleSubmit}>
+                {consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}
                 <label htmlFor="username">Username
                     <input
                         type="text"
                         id="username"
+                        // className={username.length < 0 ? 'input-error' : ''}
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
                     />
                 </label>
+                {!username && <p className="error-message">Alle velden zijn verplicht</p>}
                 <label htmlFor="email">Email
                     <input
                         type="email"
@@ -57,6 +65,7 @@ function SignUp() {
                         value={email}
                     />
                 </label>
+                {!email && <p className="error-message">Alle velden zijn verplicht</p>}
                 <label htmlFor="password">Wachtwoord
                     <input
                         type="password"
@@ -65,7 +74,14 @@ function SignUp() {
                         value={password}
                     />
                 </label>
-                <button type="submit">Registreren</button>
+                {!password && <p className="error-message">Alle velden zijn verplicht</p>}
+
+                <br></br>
+                <button
+                    type="submit"
+                    disabled={!username || !email || !password}
+                >Registreren
+                </button>
             </form>
                 <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
             </section>
