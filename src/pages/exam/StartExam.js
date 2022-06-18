@@ -101,14 +101,15 @@ function StartExam() {
                     </div>
                     <div className="exercise-bottom-bar">
                         <div className="btn-block">
-                            <div className="btn-right">
-                                <button type="button" name=""
-                                        id="Controleer">
-                                    <div className="visual"><span className="text">volgende</span></div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {/*        HIER NOG STYLING & INCLUDE ERROR MESSAGE*/}
+                    {/*        <div className="btn-right">*/}
+                    {/*            <button type="button" name=""*/}
+                    {/*                    id="Controleer">*/}
+                    {/*                <div className="visual"><span className="text">volgende</span></div>*/}
+                    {/*            </button>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
                 </div>
             </div>
