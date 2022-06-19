@@ -81,33 +81,27 @@ function StartExam() {
                                         className="exam-entry-input"
                                         type="text"
                                         id="userEntry"
-                                        onChange={(e) => setUserEntry(e.target.value)}
+                                        onChange={(e) => //HandleChange function met log in console && vang in variable die weer vergelijkt met woord..??
+                                            setUserEntry(e.target.value.toLowerCase())}
                                         value={userEntry}
                                     />
                                 </label>
+                                <span className="typo-msg">
+                                {userEntry !== word && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}
+                                </span>
                             </>}
                         </h1>
-
-                        {/*<label htmlFor="userEntry">*/}
-                        {/*    <input*/}
-                        {/*    placeholder="typ hier jouw antwoord"*/}
-                        {/*    className="exam-entry-input"*/}
-                        {/*    type="text"*/}
-                        {/*    id="userEntry"*/}
-                        {/*    onChange={(e) => setUserEntry(e.target.value)}*/}
-                        {/*    value={userEntry}*/}
-                        {/*    />*/}
-                        {/*</label>*/}
+                    {/*    Hier label userEntry neerzetten als het niet lukt met elke keer vernieuwen na word change*/}
                     </div>
                     <div className="exercise-bottom-bar">
                         <div className="btn-block">
-                    {/*        HIER NOG STYLING & INCLUDE ERROR MESSAGE*/}
+                            {/*HIER NOG TERNARY RESPONSE MESSAGE IF WRONG LETTER*/}
                             <div className="btn-right">
                                 <button
                                     type="button"
-                                    name=""
+                                    disabled={userEntry !== word}
                                     id="volgende"
-                                    // onClick={(e) => **on click > naar volgende woord? setUserEntry(e.target.value)}
+                                    // onClick={(e) => **on click > naar volgende woord? setWord(e.target. *NEXT WORD* ??)}
                                 >
                                     <div className="visual"><span className="text-exam-btn">volgende</span></div>
                                 </button>
