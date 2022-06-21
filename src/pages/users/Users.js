@@ -7,7 +7,6 @@ function Users() {
     const history = useHistory();
     // de vraag is of ik ook via get request naar users bij userProfiles kan.. want ze hebben wel een relatie, alleen wordt het onder userprofile opgeslagen..
     // Uitproberen met eigen backend.. TO DO
-
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -21,7 +20,6 @@ function Users() {
                 console.error(e);
             }
         }
-
         fetchUsers();
     }, []);
 
@@ -58,24 +56,14 @@ function Users() {
                 </section>
                 <section>
                     <button
+                        type="button"
+                        onClick={() => history.push('/registreren')}
                     >
                         Nieuwe gebruiker aanmaken
                     </button>
                     <button
                     >
-                        Gebruiker zoeken
-                    </button>
-                    <button
-                    >
-                        Gebruiker aanpassen
-                    </button>
-                    <button
-                    >
-                        Gebruiker verwijderen
-                    </button>
-                    <button
-                    >
-                        Gebruikersrol toevoegen
+                        Naar gebruikerspage
                     </button>
                 </section>
                 <section className="content-container-row">
@@ -93,12 +81,19 @@ function Users() {
                         {users.map((user) => {
                             // De key moet op het buitenste element staan en uniek zijn
                         return <tr key={user.username}>
-                            <td><Link to="/profile">Klik</Link></td>
+                            {/*<td><Link to="/profile">Naar gebruiker</Link></td>*/}
+                            <td><button
+                                type="button"
+                                onClick={() => history.push(`/user/${user.username}`)}
+                            >
+                                Naar gebruiker
+                            </button></td>
                             <td>{user.username}</td>
                             {/*Even checken of er uberhaupt een file is, en zo ja, dan laten we hem zien!*/}
                             <td>{user.email}</td>
                             <td>
                                 {(() => {
+                                    //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..
                                     switch (user.authorities[0].authority) {
                                         case "ROLE_USER":
                                             return "Leerling";
@@ -111,7 +106,7 @@ function Users() {
                                     }
                                 })()}
                                 </td>
-                            <td>{user.enabled === true ? "Actief" : "Deactief"}</td>
+                            <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
                         </tr>
                         })}
                         </tbody>

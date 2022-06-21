@@ -186,6 +186,9 @@
 
 /*TO DO: TO IMPLEMENT*/
 .success-message {
+    border: #44a40f;
+    border-style: solid;
+    border-radius: 7px;
     color: #083b57;
     font-size: 16px;
     font-weight: 500;

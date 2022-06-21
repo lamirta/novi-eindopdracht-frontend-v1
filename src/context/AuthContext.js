@@ -6,6 +6,7 @@ import axios from "axios";
 export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
+    const history = useHistory();
     const [isAuth, toggleIsAuth] = useState({
         auth: false,
         user: null,
@@ -38,11 +39,9 @@ function AuthContextProvider({children}) {
 
     }, []);
 
-    const history = useHistory();
-
     async function getUserData(id, token) {
         try {
-            const result = await axios.get(`http://localhost:3000/600/users/${id}`, { headers: {
+            const result = await axios.get(`http://localhost:3000/users/${id}`, { headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`}
             })

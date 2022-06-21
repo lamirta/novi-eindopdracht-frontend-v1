@@ -14,9 +14,12 @@ import AllProfiles from "./pages/profile/AllProfiles";
 import Exams from "./pages/exam/Exams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
+import ImagePage from "./pages/profile/image/ImagePage";
+import AssignImage from "./pages/profile/image/AssignImage";
+import UserPage from "./pages/users/UserPage";
 
 function App() {
-  const {auth} = useContext(AuthContext);
+  // const {auth} = useContext(AuthContext);
 
   return (
     <>
@@ -33,6 +36,20 @@ function App() {
             <Profile />
           </Route>
           {/*}*/}
+
+          <Route path="/foto-uploaden">
+            <NavBar/>
+            <ImagePage />
+          </Route>
+
+          <Route path="/foto-koppelen">
+            <AssignImage />
+          </Route>
+
+          <Route path="/userprofiles">
+            <NavBar/>
+            <AllProfiles />
+          </Route>
 
           <Route path="/signin">
             <NavBar/>
@@ -53,14 +70,14 @@ function App() {
             <AddWordList />
           </Route>
 
-          <Route path="/users">
+          <Route exact path="/users">
             <NavBar/>
             <Users />
           </Route>
 
-          <Route path="/userprofiles">
+          <Route exact path="/user/:username">
             <NavBar/>
-            <AllProfiles />
+            <UserPage />
           </Route>
 
           <Route path="/toetsen">

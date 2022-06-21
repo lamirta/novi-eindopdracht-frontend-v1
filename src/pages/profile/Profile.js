@@ -13,7 +13,7 @@ function Profile() {
                 <div className="content-outer-container-big">
             <section>
                 <h2>User Gegevens</h2>
-                <p><strong>Profielfoto:</strong>..upload functie hier</p>
+                <p><strong><Link to="/foto-uploaden">Profielfoto Uploaden</Link></strong></p>
                 <p><strong>Username:</strong> hardcoded-test</p>
                 <p><strong>Profiel ID:</strong> get request database.</p>
             </section>

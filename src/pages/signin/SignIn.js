@@ -21,12 +21,12 @@ function SignIn() {
                 // Note: dus zelf in mijn eigen beckend aanpassen..
             });
             login(result.data.accessToken);
+            history.push('/profile');
         } catch (error) {
             console.log(error.response.status);
             console.log(error.response.data);
             console.error(error);
         }
-        history.push('/profile');
     }
 
     return (
