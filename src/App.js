@@ -19,7 +19,7 @@ import AssignImage from "./pages/profile/image/AssignImage";
 import UserPage from "./pages/users/UserPage";
 
 function App() {
-  // const {auth} = useContext(AuthContext);
+  const {auth} = useContext(AuthContext);
 
   return (
     <>
@@ -30,12 +30,17 @@ function App() {
             <Home/>
           </Route>
 
-          {/*{auth &&*/}
-          <Route path="/profile">
+          {auth &&
+          <Route path="/profile/:id">
             <NavBar/>
             <Profile />
           </Route>
-          {/*}*/}
+          }
+
+          <Route path="/userprofiles">
+            <NavBar/>
+            <AllProfiles />
+          </Route>
 
           <Route path="/foto-uploaden">
             <NavBar/>
@@ -44,11 +49,6 @@ function App() {
 
           <Route path="/foto-koppelen">
             <AssignImage />
-          </Route>
-
-          <Route path="/userprofiles">
-            <NavBar/>
-            <AllProfiles />
           </Route>
 
           <Route path="/signin">
