@@ -10,7 +10,7 @@ function AllProfiles() {
     useEffect(() => {
         async function fetchProfiles() {
             try {
-                const response = await axios.get('http://localhost:8080/userprofiles');
+                const response = await axios.get(`http://localhost:8080/userprofiles`);
                 setUserProfiles(response.data);
                 console.log(response.data);
             } catch(e) {
@@ -61,16 +61,21 @@ function AllProfiles() {
                             </tr>
                             </thead>
                             <tbody>
-                            {userProfiles.map((userprofile) => {
-                                return <tr key={userprofile.id}>
-                                    <td><Link to="/profile">Klik</Link></td>
-                                    <td>{userprofile.id}</td>
-                                    <td>{userprofile.firstName + " " + userprofile.lastName}</td>
-                                    <td>{userprofile.age}</td>
-                                    <td>{userprofile.school}</td>
+                            {userProfiles.map((up) => {
+                                return <tr key={up.id}>
+                                    <td><button
+                                        type="button"
+                                        onClick={() => history.push(`/profile/${up.id}`)}
+                                    >
+                                        Naar profielpagina
+                                    </button></td>
+                                    <td>{up.id}</td>
+                                    <td>{up.firstName + " " + up.lastName}</td>
+                                    <td>{up.age}</td>
+                                    <td>{up.school}</td>
                                     <td>
                                         {(() => {
-                                            switch (userprofile.username.authorities[0].authority) {
+                                            switch (up.username.authorities[0].authority) {
                                                 case "ROLE_USER":
                                                     return "Leerling";
                                                 case "ROLE_DOCENT":
@@ -82,8 +87,8 @@ function AllProfiles() {
                                             }
                                         })()}
                                     </td>
-                                    <td>{userprofile.username.username}</td>
-                                    <td>{userprofile.username.email}</td>
+                                    <td>{up.username.username}</td>
+                                    <td>{up.username.email}</td>
                                 </tr>
                             })}
                             </tbody>
@@ -93,6 +98,6 @@ function AllProfiles() {
             </div>
         </>
     );
-};
+}
 
 export default AllProfiles;

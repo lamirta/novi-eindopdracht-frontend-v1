@@ -16,12 +16,13 @@ function Profile() {
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
+                console.log(e.response.data);
             }
         }
         fetchUser();
-    }, [{id}]);
+    }, [id]);
 
-
+// DILEMMAAAAA: Waarom flipt de pagina en laat hij de content niet zien wanneer er geneste data moet worden laten zien??
 
     return (
         <>
@@ -32,26 +33,31 @@ function Profile() {
             <section>
                 <h2>User Gegevens</h2>
                 <p><strong><Link to="/foto-uploaden">Profielfoto Uploaden</Link></strong></p>
-                <p><strong>Username:</strong> {userProfile.username.username}</p>
+                <p><strong>Username:</strong>
+                    {/*{userProfile.username.username}*/}
+                </p>
                 <p><strong>Profiel ID:</strong> ===>>> {userProfile.id}</p>
             </section>
             <section>
-                <h2>
-                    {(() => {
-                        //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..
-                        switch (userProfile.username.authorities[0].authority) {
-                            case "ROLE_USER":
-                                return "Leerling";
-                            case "ROLE_DOCENT":
-                                return "Docent";
-                            case "ROLE_ADMIN":
-                                return "Admin";
-                            default:
-                                return "Undefined";
-                        }
-                    })()}</h2>
+                <h2>GEBRUIKERSROL *data request error*
+                    {/*{(() => {*/}
+                    {/*    //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..*/}
+                    {/*    switch (userProfile.username.authorities[0].authority) {*/}
+                    {/*        case "ROLE_USER":*/}
+                    {/*            return "Leerling";*/}
+                    {/*        case "ROLE_DOCENT":*/}
+                    {/*            return "Docent";*/}
+                    {/*        case "ROLE_ADMIN":*/}
+                    {/*            return "Admin";*/}
+                    {/*        default:*/}
+                    {/*            return "Undefined";*/}
+                    {/*    }*/}
+                    {/*})()}*/}
+                </h2>
                 <p><strong>Full Name: </strong>{userProfile.firstName} {userProfile.lastName}</p>
-                <p><strong>Email:</strong> {userProfile.username.email}</p>
+                <p><strong>Email:</strong>
+                    {/*{userProfile.username.email}*/}
+                </p>
                 <p><strong>Leeftijd:</strong> {userProfile.age}</p>
                 <p><strong>School:</strong> {userProfile.school}</p>
             </section>
@@ -80,10 +86,10 @@ function Profile() {
             </section>
             <section>
                 <h2>Jouw top score!</h2>
-                <ol>
-                    <li>Aantal fouten: {userProfile.exams[0].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>
-                    <li>Aantal fouten: {userProfile.exams[1].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>
-                    <li>Aantal fouten: {userProfile.exams[2].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>
+                <ol> <i> To be implemented...</i>
+                    {/*<li>Aantal fouten: {userProfile.exams[0].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
+                    {/*<li>Aantal fouten: {userProfile.exams[1].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
+                    {/*<li>Aantal fouten: {userProfile.exams[2].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
                 </ol>
                 <p>Ga <Link to="/toetsen">hier</Link> naar al jouw resultaten van de afgelopen tijd</p>
             </section>

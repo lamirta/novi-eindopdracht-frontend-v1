@@ -42,7 +42,6 @@ function Exams() {
                     <table>
                         <thead>
                         <tr>
-                            <th>Ga naar Toets</th>
                             <th>Toets ID</th>
                             <th>Username</th>
                             <th>Woordenlijst</th>
@@ -54,7 +53,6 @@ function Exams() {
                         <tbody>
                         {exams.map((exam) => {
                             return <tr key={exam.id}>
-                                <td><Link to="/profile">Klik</Link></td>
                                 <td>{exam.id}</td>
                                 <td>{exam.userProfile.username.username}</td>
                                 <td>{exam.wordList.title}</td>
@@ -70,5 +68,8 @@ function Exams() {
         </>
     );
 }
+
+// Alert opzoeken.
+// requeired opzoeken bij input
 
 export default Exams;

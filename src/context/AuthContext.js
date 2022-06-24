@@ -96,7 +96,7 @@ function AuthContextProvider({children}) {
         <div>
             <AuthContext.Provider value={data}>
                 {isAuth.status === 'done' ? children : <p>Loading...</p>}
-                {children}
+                {/*{children}*/}
             </AuthContext.Provider>
         </div>
     );

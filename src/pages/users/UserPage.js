@@ -5,6 +5,7 @@ import axios from "axios";
 
 function UserPage() {
     const [user, setUser] = useState([]);
+    const [userRoles, setUserRoles] = useState([]);
     const { username } = useParams();
     const history = useHistory();
 
@@ -13,6 +14,8 @@ function UserPage() {
             try {
                 const response = await axios.get(`http://localhost:8080/users/${username}`);
                 setUser(response.data);
+                setUserRoles(response.data.authorities[0]);
+                console.log(response.data.userProfile.id); // waarom laat ie het wel in de console zien maar niet op de pagina?!?!?!
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
@@ -25,7 +28,7 @@ function UserPage() {
     return (
         <>
             <div className="body-outer-container">
-                <h1>Gebruiker: "{username}"</h1>
+                <h1>Gebruiker username: "{username}"</h1>
                 <section className="users-table-container">
                     <section>
                         <button
@@ -65,7 +68,8 @@ function UserPage() {
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
-                                    <td><i>To Be Implemented..</i>
+                                    <td>
+                                        <i>To Be Implemented..</i>
                                         {/*{user.authorities[0].authority}*/}
                                         {/*{(() => {*/}
                                         {/*    //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..*/}
@@ -81,7 +85,9 @@ function UserPage() {
                                         {/*    }*/}
                                         {/*})()}*/}
                                     </td>
-                                <td>To Be Implemented..</td>
+                                <td><i>To Be Implemented..</i>
+                                    {/*{user.children.data.id}*/}
+                                </td>
                             </tr>
                             </tbody>
                         </table>

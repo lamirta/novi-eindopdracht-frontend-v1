@@ -4,6 +4,11 @@ import axios from "axios";
 import './SignIn.css';
 import {AuthContext} from "../../context/AuthContext";
 
+// TO DO:
+// Uitvinden of ik ook gelijk door kan linken naar profiel..
+// Oplossing, direct na inloggen (alleen eerste keer..??)
+    // aparte pagina, waar je assign profiel to user gelijk aanroept?
+
 function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -23,7 +28,7 @@ function SignIn() {
                 // Note: dus zelf in mijn eigen beckend aanpassen..
             });
             login(result.data.jwt);
-            history.push('/profile');
+            history.push(`/user/${username}`);
         } catch (error) {
             console.log(error.response.data);
             console.error(error);
