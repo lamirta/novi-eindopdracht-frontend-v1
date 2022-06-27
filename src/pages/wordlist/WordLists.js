@@ -50,7 +50,12 @@ function WordLists() {
                         <tbody>
                         {wordLists.map((wl) => {
                             return <tr key={wl.title}>
-                                <td><Link to="/profile">Klik</Link></td>
+                                <td><button
+                                    type="button"
+                                    onClick={() => history.push(`/woordenlijst/${wl.title}`)}
+                                >
+                                    Naar deze lijst
+                                </button></td>
                                 <td>{wl.title}</td>
                                 <td>{wl.words.length}</td>
                             </tr>

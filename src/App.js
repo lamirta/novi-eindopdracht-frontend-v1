@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './components/nav/NavBar';
-import Profile from './pages/profile/Profile';
+import ProfilePage from './pages/profile/ProfilePage';
 import Home from './pages/home/Home';
 import SignIn from './pages/signin/SignIn';
 import SignUp from './pages/registreren/SignUp';
@@ -17,6 +17,8 @@ import StartExam from "./pages/exam/StartExam";
 import ImagePage from "./pages/profile/image/ImagePage";
 import AssignImage from "./pages/profile/image/AssignImage";
 import UserPage from "./pages/users/UserPage";
+import WordListPage from "./pages/wordlist/WordListPage";
+import MyExams from "./pages/exam/MyExams";
 
 function App() {
   const {auth} = useContext(AuthContext);
@@ -33,7 +35,7 @@ function App() {
           {auth &&
           <Route path="/profile/:id">
             <NavBar/>
-            <Profile />
+            <ProfilePage />
           </Route>
           }
 
@@ -66,6 +68,11 @@ function App() {
             <WordLists />
           </Route>
 
+          <Route path="/woordenlijst/:title">
+            <NavBar/>
+            <WordListPage />
+          </Route>
+
           <Route path="/woordenlijst-toevoegen">
             <AddWordList />
           </Route>
@@ -83,6 +90,11 @@ function App() {
           <Route path="/toetsen">
             <NavBar/>
             <Exams />
+          </Route>
+
+          <Route path="/mijn-toetsen/:id">
+            <NavBar/>
+            <MyExams />
           </Route>
 
           <Route path="/toets-maken">

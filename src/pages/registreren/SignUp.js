@@ -11,7 +11,7 @@ import './SignUp.css';
 
 function SignUp() {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');  //kan ik dit niet null maken..? en dan if null?
+    const [password, setPassword] = useState(null);  //kan ik dit niet null maken..? en dan if null?
     const [username, setUsername] = useState('');
     const [consoleError, setConsoleError] = useState('');
     const [addSuccess, toggleAddSuccess] = useState(false);
@@ -24,8 +24,8 @@ function SignUp() {
         try {
             await axios.post('http://localhost:8080/users', {
                 username: username,
-                email: email,
                 password: password,
+                email: email,
             })
             // history.push('/signin')
             toggleAddSuccess(true);
@@ -57,6 +57,7 @@ function SignUp() {
                     <input
                         type="email"
                         id="email"
+                        name="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
@@ -66,6 +67,7 @@ function SignUp() {
                     <input
                         type="password"
                         id="password"
+                        name="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
@@ -89,6 +91,6 @@ function SignUp() {
             </div>
         </>
     );
-};
+}
 
 export default SignUp;

@@ -6,6 +6,7 @@ import axios from "axios";
 function UserPage() {
     const [user, setUser] = useState([]);
     const [userRoles, setUserRoles] = useState([]);
+    const [profile, setProfile] = useState([]);
     const { username } = useParams();
     const history = useHistory();
 
@@ -15,10 +16,11 @@ function UserPage() {
                 const response = await axios.get(`http://localhost:8080/users/${username}`);
                 setUser(response.data);
                 setUserRoles(response.data.authorities[0]);
-                console.log(response.data.userProfile.id); // waarom laat ie het wel in de console zien maar niet op de pagina?!?!?!
+                setProfile(response.data.userProfile);
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
+                console.log(e.response.data);
             }
         }
         fetchUser();
@@ -69,24 +71,23 @@ function UserPage() {
                                 <td>{user.email}</td>
                                 <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
                                     <td>
-                                        <i>To Be Implemented..</i>
-                                        {/*{user.authorities[0].authority}*/}
-                                        {/*{(() => {*/}
-                                        {/*    //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..*/}
-                                        {/*    switch (user.authorities[0].authority) {*/}
-                                        {/*        case "ROLE_USER":*/}
-                                        {/*            return "Leerling";*/}
-                                        {/*        case "ROLE_DOCENT":*/}
-                                        {/*            return "Docent";*/}
-                                        {/*        case "ROLE_ADMIN":*/}
-                                        {/*            return "Admin";*/}
-                                        {/*        default:*/}
-                                        {/*            return "Undefined";*/}
-                                        {/*    }*/}
-                                        {/*})()}*/}
+                                        {/*<i>To Be Implemented..</i>*/}
+                                        {/*{userRoles.authority}*/}
+                                        {(() => {
+                                            //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..
+                                            switch (userRoles.authority) {
+                                                case "ROLE_USER":
+                                                    return "Leerling";
+                                                case "ROLE_DOCENT":
+                                                    return "Docent";
+                                                case "ROLE_ADMIN":
+                                                    return "Admin";
+                                                default:
+                                                    return "Undefined";
+                                            }
+                                        })()}
                                     </td>
-                                <td><i>To Be Implemented..</i>
-                                    {/*{user.children.data.id}*/}
+                                <td>{profile.id}
                                 </td>
                             </tr>
                             </tbody>

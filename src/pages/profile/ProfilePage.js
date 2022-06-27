@@ -1,28 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import './Profile.css';
+import './ProfilePage.css';
 import {Link, useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 
-function Profile() {
+function ProfilePage() {
     const [userProfile, setUserProfile] = useState([]);
+    const [user, setUser] = useState([]);
+    const [userRole, setUserRole] = useState([]);
+    const [exams, setExams] = useState([]);
+    const [image, setImage] = useState([]);
     const history = useHistory();
     const { id } = useParams();
 
     useEffect(() => {
-        async function fetchUser() {
+        async function fetchProfile() {
             try {
                 const response = await axios.get(`http://localhost:8080/userprofiles/${id}`);
                 setUserProfile(response.data);
+                setUser(response.data.username);
+                setUserRole(response.data.username.authorities[0]);
+                setExams(response.data.exams);
+                setImage(response.data.profilePic);
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
                 console.log(e.response.data);
             }
         }
-        fetchUser();
-    }, [id]);
-
-// DILEMMAAAAA: Waarom flipt de pagina en laat hij de content niet zien wanneer er geneste data moet worden laten zien??
+        fetchProfile();
+    }, []);
 
     return (
         <>
@@ -33,31 +39,29 @@ function Profile() {
             <section>
                 <h2>User Gegevens</h2>
                 <p><strong><Link to="/foto-uploaden">Profielfoto Uploaden</Link></strong></p>
-                <p><strong>Username:</strong>
-                    {/*{userProfile.username.username}*/}
+                <p><strong>Username: </strong>
+                    "{user.username}"
                 </p>
-                <p><strong>Profiel ID:</strong> ===>>> {userProfile.id}</p>
+                <p><strong>Profiel ID:</strong> #{userProfile.id}</p>
             </section>
             <section>
-                <h2>GEBRUIKERSROL *data request error*
-                    {/*{(() => {*/}
-                    {/*    //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..*/}
-                    {/*    switch (userProfile.username.authorities[0].authority) {*/}
-                    {/*        case "ROLE_USER":*/}
-                    {/*            return "Leerling";*/}
-                    {/*        case "ROLE_DOCENT":*/}
-                    {/*            return "Docent";*/}
-                    {/*        case "ROLE_ADMIN":*/}
-                    {/*            return "Admin";*/}
-                    {/*        default:*/}
-                    {/*            return "Undefined";*/}
-                    {/*    }*/}
-                    {/*})()}*/}
+                <h2>GEBRUIKERSROL:
+                    {(() => {
+                        //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..
+                        switch (userRole.authority) {
+                            case "ROLE_USER":
+                                return " Leerling";
+                            case "ROLE_DOCENT":
+                                return " Docent";
+                            case "ROLE_ADMIN":
+                                return " Admin";
+                            default:
+                                return " Undefined";
+                        }
+                    })()}
                 </h2>
                 <p><strong>Full Name: </strong>{userProfile.firstName} {userProfile.lastName}</p>
-                <p><strong>Email:</strong>
-                    {/*{userProfile.username.email}*/}
-                </p>
+                <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Leeftijd:</strong> {userProfile.age}</p>
                 <p><strong>School:</strong> {userProfile.school}</p>
             </section>
@@ -86,12 +90,12 @@ function Profile() {
             </section>
             <section>
                 <h2>Jouw top score!</h2>
-                <ol> <i> To be implemented...</i>
-                    {/*<li>Aantal fouten: {userProfile.exams[0].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
-                    {/*<li>Aantal fouten: {userProfile.exams[1].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
-                    {/*<li>Aantal fouten: {userProfile.exams[2].wrongEntries} / {userProfile.exams[0].passed === true ? "Geslaagd!!" : ""}</li>*/}
+                <ol>
+                    {exams.map((exam) => {
+                    return <li key={exam.id}> Aantal fouten: {exam.wrongEntries} <strong>{exam.passed === true ? " & Geslaagd!!" : ""}</strong></li>
+                })}
                 </ol>
-                <p>Ga <Link to="/toetsen">hier</Link> naar al jouw resultaten van de afgelopen tijd</p>
+                <p>Ga <Link to={`/mijn-toetsen/${id}`}>hier</Link> naar al jouw resultaten van de afgelopen tijd</p>
             </section>
                 </div>
                 </div>
@@ -103,4 +107,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default ProfilePage;

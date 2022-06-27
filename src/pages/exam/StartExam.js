@@ -11,8 +11,8 @@ import axios from "axios";
 
 function StartExam() {
     const [userEntry, setUserEntry] = useState(null);
-    const [word, setWord] = useState(null);
-    // const [wordList, setWordList] = useState([]);
+    const [words, setWords] = useState([]);
+    const [animalName, setAnimalName] = useState(0);
     const [showElement, setShowElement] = useState(true)
 
     const [wrongEntries, setWrongEntries] = useState(null);
@@ -30,21 +30,47 @@ function StartExam() {
                 //     setWord(response.data.words[i]);
                 // }
                 setWordListTitle(response.data.title.toUpperCase());
-                setWord(response.data.words[0]);
+                setWords(response.data.words);
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
             }
         }
         fetchLists();
-    }, []);
+    }, [animalName]);
 
 
     useEffect(()=>{
             setTimeout(function() {
                 setShowElement(false)
             }, 4000);
-    }, [])
+    }, [animalName])
+
+
+    function animalNames() {
+        if (words[animalName] === 'aap'){
+            return 'aap';
+        } else if (words[animalName] === 'slang'){
+            return 'slang';
+        } else if (words[animalName] === 'kat') {
+            return 'kat';
+        } else if (words[animalName] === 'vogel') {
+            return 'vogel';
+        } else if (words[animalName] === 'eekhoorn') {
+            return 'eekhoorn';
+        } else if (words[animalName] === 'tijger') {
+            return 'tijger';
+        } else if (words[animalName] === 'dolfijn') {
+            return 'dolfijn';
+        }
+    }
+
+    function handleClick() {
+        setAnimalName(animalName + 1)
+        setShowElement(true)
+        setUserEntry('');
+        console.log(animalNames());
+    }
 
 
     async function handleSubmit(e) {
@@ -74,7 +100,8 @@ function StartExam() {
                 <div className="exercise">
                     <div className="exercise-content">
                         <h1 className="exercise-title">
-                            {showElement ? <span className="text-animation-hide">{word}</span> : <>
+                            {showElement ? <span className="text-animation-hide"> {animalNames()}
+                            </span> : <>
                                 <label htmlFor="userEntry">
                                     <input
                                         placeholder="typ hier jouw antwoord"
@@ -87,7 +114,7 @@ function StartExam() {
                                     />
                                 </label>
                                 <span className="typo-msg">
-                                {userEntry !== word && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}
+                                {/*{userEntry !== words && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}*/}
                                 </span>
                             </>}
                         </h1>
@@ -99,9 +126,10 @@ function StartExam() {
                             <div className="btn-right">
                                 <button
                                     type="button"
-                                    disabled={userEntry !== word}
+                                    // disabled={userEntry !== words}
                                     id="volgende"
-                                    // onClick={(e) => **on click > naar volgende woord? setWord(e.target. *NEXT WORD* ??)}
+                                    // onClick={(e) => setAnimalName(animalName + 1)}
+                                    onClick={() => handleClick()}
                                 >
                                     <div className="visual"><span className="text-exam-btn">volgende</span></div>
                                 </button>
