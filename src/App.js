@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './components/nav/NavBar';
-import Profile from './pages/profile/Profile';
+import ProfilePage from './pages/profile/ProfilePage';
 import Home from './pages/home/Home';
 import SignIn from './pages/signin/SignIn';
 import SignUp from './pages/registreren/SignUp';
@@ -14,6 +14,14 @@ import AllProfiles from "./pages/profile/AllProfiles";
 import Exams from "./pages/exam/Exams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
+import ImagePage from "./pages/profile/image/ImagePage";
+import AssignImage from "./pages/profile/image/AssignImage";
+import UserPage from "./pages/users/UserPage";
+import WordListPage from "./pages/wordlist/WordListPage";
+import MyExams from "./pages/exam/MyExams";
+
+// Alert opzoeken.
+// requeired opzoeken bij input
 
 function App() {
   const {auth} = useContext(AuthContext);
@@ -28,11 +36,25 @@ function App() {
           </Route>
 
           {/*{auth &&*/}
-          <Route path="/profile">
+          <Route path="/profile/:id">
             <NavBar/>
-            <Profile />
+            <ProfilePage />
           </Route>
           {/*}*/}
+
+          <Route path="/userprofiles">
+            <NavBar/>
+            <AllProfiles />
+          </Route>
+
+          <Route path="/foto-uploaden">
+            <NavBar/>
+            <ImagePage />
+          </Route>
+
+          <Route path="/foto-koppelen">
+            <AssignImage />
+          </Route>
 
           <Route path="/signin">
             <NavBar/>
@@ -49,23 +71,33 @@ function App() {
             <WordLists />
           </Route>
 
+          <Route path="/woordenlijst/:title">
+            <NavBar/>
+            <WordListPage />
+          </Route>
+
           <Route path="/woordenlijst-toevoegen">
             <AddWordList />
           </Route>
 
-          <Route path="/users">
+          <Route exact path="/users">
             <NavBar/>
             <Users />
           </Route>
 
-          <Route path="/userprofiles">
+          <Route exact path="/user/:username">
             <NavBar/>
-            <AllProfiles />
+            <UserPage />
           </Route>
 
           <Route path="/toetsen">
             <NavBar/>
             <Exams />
+          </Route>
+
+          <Route path="/mijn-toetsen/:id">
+            <NavBar/>
+            <MyExams />
           </Route>
 
           <Route path="/toets-maken">

@@ -33,7 +33,7 @@ function Home() {
                 </p>
             </section>
             <section>
-                <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>
+                <p>Als je ingelogd bent, bekijk dan de <Link to="/userprofiles">Profielpagina's</Link></p>
                 <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/registreren">registreren</Link> als je
                     nog geen account hebt. (Dit kan alleen jouw docent doen..)</p>
                 <p>Ga naar: <Link to="/woordenlijsten">woordenlijsten</Link></p>

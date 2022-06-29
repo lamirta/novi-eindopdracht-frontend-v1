@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import './Exams.css';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
+// import './MyExams.css';
 
-function Exams() {
-    const history = useHistory();
+function MyExams() {
+    const [profile, setProfile] = useState([]);
     const [exams, setExams] = useState([]);
+    const history = useHistory();
+    const { id } = useParams();
+
 
     useEffect(() => {
         async function fetchExams() {
             try {
-                const response = await axios.get('http://localhost:8080/exams');
-                setExams(response.data);
+                const response = await axios.get(`http://localhost:8080/userprofiles/${id}`);
+                setProfile(response.data);
+                setExams(response.data.exams);
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
@@ -23,7 +27,7 @@ function Exams() {
     return (
         <>
             <div className="body-outer-container">
-                <h1>Toetsen</h1>
+                <h1>Toets Resultaten van: <i>"{profile.firstName} {profile.lastName}"</i></h1>
                 <section className="content-container-row">
                     <button
                         type="button"
@@ -33,32 +37,32 @@ function Exams() {
                     </button>
                     <button
                         type="button"
-                        onClick={() => history.push('/')}
+                        onClick={() => history.push(`/profile/${profile.id}`)}
                     >
-                        Home
+                        Terug
                     </button>
                 </section>
                 <section className="content-container-row">
                     <table>
                         <thead>
                         <tr>
-                            <th>Toets ID</th>
-                            <th>Username</th>
+                            {/*<th>Toets ID</th>*/}
+                            {/*<th>Jouw username</th>*/}
                             <th>Woordenlijst</th>
                             <th>Geslaagd</th>
                             <th>Aantal fouten</th>
-                            {/*<th>Timestamp</th>*/}
+                            <th>Datum</th>
                         </tr>
                         </thead>
                         <tbody>
                         {exams.map((exam) => {
                             return <tr key={exam.id}>
-                                <td>{exam.id}</td>
-                                <td>{exam.userProfile.username.username}</td>
+                                {/*<td>{exam.id}</td>*/}
+                                {/*<td>{profile.username.username}</td>*/}
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                {/*<td>klopt niet {exam.timestamp}</td>*/}
+                                <td> TO DO{exam.timestamp}</td>
                             </tr>
                         })}
                         </tbody>
@@ -69,5 +73,4 @@ function Exams() {
     );
 }
 
-
-export default Exams;
+export default MyExams;

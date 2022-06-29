@@ -98,8 +98,8 @@
 
 .exam-entry-input {
     font-size: 20px;
-    height: 50px;
-    line-height: 20px;
+    height: 60px;
+    line-height: 30px;
     letter-spacing: .5px;
     font-weight: 500;
     border-bottom: 2px solid #d3d1d6;
@@ -110,16 +110,17 @@
 
 .exercise-title {
     text-align: center;
-    margin-bottom: 50px;
+    margin: 50px 50px;
 }
 
 .text-animation-hide {
     /*font-size: 24px;*/
-    line-height: 28px;
+    line-height: 20px;
     letter-spacing: 0;
     font-weight: 800;
     vertical-align: middle;
-    margin-right: 8px;
+    /*margin: 15px 8px;*/
+    /*padding: 25px 15px;*/
 }
 
 
@@ -127,7 +128,7 @@
     position: relative;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .btn-block {
@@ -136,7 +137,73 @@
     border-top: 1px solid rgba(0,0,0,.1);
 }
 
+.btn-right button .visual {
+    position: relative;
+    display: inline-block;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 10px 24px;
+    border-radius: inherit;
+    font-size: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    transition: all .08s linear 0s;
+    z-index: 1;
+    pointer-events: none;
+}
 
+.btn-right {
+    justify-content: flex-end;
+    display: flex;
+    margin: -4px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-right button {
+   border-radius: 10px;
+   box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+}
+
+.btn-right button .visual .text-exam-btn {
+    font-size: 17px;
+    letter-spacing: .2px;
+    /*font-weight: 500;*/
+    /*display: inline-block;*/
+    /*line-height: 24px;*/
+    /*vertical-align: middle;*/
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.typo-msg .error-message {
+    margin-top: 20px;
+    margin-bottom: -37px;
+}
+
+/*TO DO: TO IMPLEMENT*/
+.success-message {
+    border: #44a40f;
+    border-style: solid;
+    border-radius: 7px;
+    color: #083b57;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+    text-align: center;
+    margin-top: -3px;
+    margin-bottom: 2px;
+}
+
+.response-msg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 

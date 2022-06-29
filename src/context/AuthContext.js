@@ -6,13 +6,14 @@ import axios from "axios";
 export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
+    const history = useHistory();
     const [isAuth, toggleIsAuth] = useState({
         auth: false,
         user: null,
         status: 'pending',
     });
 
-    // maak een helper functie voor jwt expiration
+    // TO DO: maak een helper functie voor jwt expiration
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -38,11 +39,9 @@ function AuthContextProvider({children}) {
 
     }, []);
 
-    const history = useHistory();
-
-    async function getUserData(id, token) {
+    async function getUserData(username, token) {
         try {
-            const result = await axios.get(`http://localhost:3000/600/users/${id}`, { headers: {
+            const result = await axios.get(`http://localhost:8080/users/${username}`, { headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`}
             })
@@ -51,9 +50,9 @@ function AuthContextProvider({children}) {
                 ...isAuth,
                 auth: true,
                 user: {
-                    id: result.data.id,
-                    email: result.data.email,
                     username: result.data.username,
+                    email: result.data.email,
+                    // enabled: result.data.email,
                 },
                 status: 'done',
             });
@@ -72,7 +71,7 @@ function AuthContextProvider({children}) {
         const decoded = jwtDecode(jwt);
         getUserData(decoded.sub, jwt);
         console.log('Gebruiker is ingelogd');
-        history.push('/profile');
+        history.push('/');
     }
 
     function signOut() {
@@ -96,8 +95,8 @@ function AuthContextProvider({children}) {
     return (
         <div>
             <AuthContext.Provider value={data}>
-                {/*{isAuth.status === 'done' ? children : <p>Loading...</p>}*/}
-                {children}
+                {isAuth.status === 'done' ? children : <p>Loading...</p>}
+                {/*{children}*/}
             </AuthContext.Provider>
         </div>
     );

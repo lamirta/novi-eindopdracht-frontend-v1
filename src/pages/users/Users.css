@@ -4,3 +4,7 @@
     align-items: center;
     justify-content: center;
 }
+
+table button {
+    background-color: rgba(0, 110, 127, 0.84);
+}

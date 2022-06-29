@@ -11,9 +11,10 @@ import './SignUp.css';
 
 function SignUp() {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');  //kan ik dit niet null maken..? en dan if null?
+    const [password, setPassword] = useState(null);  //kan ik dit niet null maken..? en dan if null?
     const [username, setUsername] = useState('');
     const [consoleError, setConsoleError] = useState('');
+    const [addSuccess, toggleAddSuccess] = useState(false);
     const history = useHistory();
 
     //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
@@ -23,21 +24,17 @@ function SignUp() {
         try {
             await axios.post('http://localhost:8080/users', {
                 username: username,
-                email: email,
                 password: password,
+                email: email,
             })
-            history.push('/signin')
+            // history.push('/signin')
+            toggleAddSuccess(true);
         } catch(error) {
             setConsoleError(error.response.data);
             console.log(error.response.data);
             console.error(error);
         }
     }
-
-    // function handleClick() {
-    //     toggleDisabled()
-    //     {username == null || email == null || password == null}
-    // }
 
     return (
         <>
@@ -46,7 +43,6 @@ function SignUp() {
             <section className="body-inner-container-small">
             <p>Alleen een admin kan nieuwe users aanmaken. Kijk bij jouw gebruikersrol of jij een admin bent.</p>
             <form onSubmit={handleSubmit}>
-                {consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}
                 <label htmlFor="username">Username
                     <input
                         type="text"
@@ -61,6 +57,7 @@ function SignUp() {
                     <input
                         type="email"
                         id="email"
+                        name="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
@@ -70,6 +67,7 @@ function SignUp() {
                     <input
                         type="password"
                         id="password"
+                        name="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
@@ -77,6 +75,11 @@ function SignUp() {
                 {!password && <p className="error-message">Alle velden zijn verplicht</p>}
 
                 <br></br>
+                {addSuccess === true && <>
+                    <p className="success-message">Nieuwe gebruiker is opgeslagen!</p>
+                    <p>Ga door naar <Link to="/users">alle gebruikers</Link> <strong>of</strong> refresh de pagina</p>
+                </>}
+                {addSuccess ? <></> : <>{consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}</>}
                 <button
                     type="submit"
                     disabled={!username || !email || !password}
@@ -88,6 +91,6 @@ function SignUp() {
             </div>
         </>
     );
-};
+}
 
 export default SignUp;
