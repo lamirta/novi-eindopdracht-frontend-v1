@@ -70,6 +70,7 @@ function ImagePage() {
                             type="submit"
                             disabled={!previewUrl}
                         >Uploaden</button>
+                    {/*    implement een checkbox oid, met onClick functie voor koppelen aan profiel pagina..*/}
                     </form>
                 </section>
 
