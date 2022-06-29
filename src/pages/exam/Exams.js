@@ -69,7 +69,5 @@ function Exams() {
     );
 }
 
-// Alert opzoeken.
-// requeired opzoeken bij input
 
 export default Exams;

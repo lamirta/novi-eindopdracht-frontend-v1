@@ -55,7 +55,8 @@ function ImagePage() {
                         <section className="image-form-container">
                         <label htmlFor="user-image">
                             Kies een afbeelding (JPEG formaat)
-                            <input type="file" name="user-image-field" id="user-image" onChange={handleImageChange}/>
+                            <input type="file" name="user-image-field" id="user-image" />
+                            {/*onChange={handleImageChange}*/}
                         </label>
                         {/*Als er een preview url is, dan willen we deze in een afbeelding tonen*/}
                         {previewUrl &&

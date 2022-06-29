@@ -20,6 +20,9 @@ import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
 import MyExams from "./pages/exam/MyExams";
 
+// Alert opzoeken.
+// requeired opzoeken bij input
+
 function App() {
   const {auth} = useContext(AuthContext);
 
@@ -32,12 +35,12 @@ function App() {
             <Home/>
           </Route>
 
-          {auth &&
+          {/*{auth &&*/}
           <Route path="/profile/:id">
             <NavBar/>
             <ProfilePage />
           </Route>
-          }
+          {/*}*/}
 
           <Route path="/userprofiles">
             <NavBar/>
