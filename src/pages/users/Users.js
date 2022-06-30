@@ -27,7 +27,7 @@ function Users() {
         <>
         <div className="body-outer-container">
             <h1>Alle geregistreerde gebruikers</h1>
-            <section className="users-table-container">
+            <section className="table-container">
                 <section>
                     <button
                         type="button"
@@ -60,10 +60,6 @@ function Users() {
                         onClick={() => history.push('/registreren')}
                     >
                         Nieuwe gebruiker aanmaken
-                    </button>
-                    <button
-                    >
-                        Naar gebruikerspage
                     </button>
                 </section>
                 <section className="content-container-row">

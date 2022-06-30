@@ -43,7 +43,7 @@ function AddWordList() {
         <>
             <div className="create-list-outer-container">
                 <h1>Woordenlijst aanmaken</h1>
-                <section className="content-container-row">
+                <section>
                     <button
                         type="button"
                         onClick={() => history.push('/woordenlijsten')}
@@ -54,7 +54,7 @@ function AddWordList() {
                         type="button"
                         onClick={() => history.push('/users')}
                     >
-                        Gebruikers
+                        Alle gebruikers
                     </button>
                 </section>
                 <section className="content-container-row">

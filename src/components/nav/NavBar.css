@@ -6,13 +6,20 @@ nav {
     top: 0;
     right: 0;
     padding: 5px 35px;
+    border-style: solid;
+    border-color: rgba(8, 59, 87, 0.25);
+    border-width: 0 0 3px 0;
+    box-shadow: 0 3px 5px rgba(189, 74, 74, 0.35);
+}
+
+nav button {
+    min-width: 100px;
 }
 
 .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /*width: 100%;*/
 }
 
 .nav-logo-container-1 {

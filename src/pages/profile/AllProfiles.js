@@ -25,8 +25,34 @@ function AllProfiles() {
         <>
             <div className="body-outer-container">
                 <h1>Alle gebruiker profielen</h1>
-                <section className="users-table-container">
-                    <section className="content-container-row">
+                <section className="table-container">
+                    <section>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/woordenlijsten')}
+                        >
+                            Woordenlijsten
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/toetsen')}
+                        >
+                            Toetsen
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/users')}
+                        >
+                            Gebruikers
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/userprofiles')}
+                        >
+                            Profielen
+                        </button>
+                    </section>
+                    <section>
                         <button
                         >
                             Profiel zoeken
@@ -38,12 +64,6 @@ function AllProfiles() {
                         <button
                         >
                             Profiel verwijderen
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Gebruikers
                         </button>
                     </section>
                     <section className="content-container-row">

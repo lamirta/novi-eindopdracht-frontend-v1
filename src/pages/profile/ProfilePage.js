@@ -38,7 +38,7 @@ function ProfilePage() {
                 <div className="content-outer-container-big">
             <section>
                 <h2>User Gegevens</h2>
-                <p><strong><Link to="/foto-uploaden">Profielfoto Uploaden</Link></strong></p>
+                <p><strong><Link to={`/profile/${userProfile.id}/foto-uploaden`}>Profielfoto Uploaden</Link></strong></p>
                 <p><strong>Username: </strong>
                     "{user.username}"
                 </p>
@@ -76,12 +76,6 @@ function ProfilePage() {
                 </button>
                 <button
                     type="button"
-                    onClick={() => history.push('/toetsen')}
-                >
-                    Toetsen
-                </button>
-                <button
-                    type="button"
                     onClick={() => history.push('/users')}
                 >
                     Gebruikers
@@ -92,16 +86,13 @@ function ProfilePage() {
                 <h2>Jouw top score!</h2>
                 <ol>
                     {exams.map((exam) => {
-                    return <li key={exam.id}> Aantal fouten: {exam.wrongEntries} <strong>{exam.passed === true ? " & Geslaagd!!" : ""}</strong></li>
+                    return <li className="profile-page-li" key={exam.id}> Aantal fouten: {exam.wrongEntries} <strong>{exam.passed === true ? " & Geslaagd!!" : ""}</strong></li>
                 })}
                 </ol>
                 <p>Ga <Link to={`/mijn-toetsen/${id}`}>hier</Link> naar al jouw resultaten van de afgelopen tijd</p>
             </section>
                 </div>
                 </div>
-                <span className="profile-span-bottom">
-            <p>Terug naar de <Link to="/">Homepagina</Link></p>
-                </span>
             </div>
         </>
     );

@@ -14,7 +14,6 @@ function StartExam() {
     const [words, setWords] = useState([]);
     const [animalName, setAnimalName] = useState(0);
     const [showElement, setShowElement] = useState(true)
-
     const [wrongEntries, setWrongEntries] = useState(null);
     const [passed, togglePassed] = useState(false);
     const [userProfileID, setUserProfileID] = useState(null);

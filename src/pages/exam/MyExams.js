@@ -28,12 +28,14 @@ function MyExams() {
         <>
             <div className="body-outer-container">
                 <h1>Toets Resultaten van: <i>"{profile.firstName} {profile.lastName}"</i></h1>
+                <div className="table-container">
                 <section className="content-container-row">
                     <button
                         type="button"
                         onClick={() => history.push('/toets-maken')}
                     >
                         Nieuwe toets starten
+                    {/*    Hier een pop up maken, vragen welke woordenlijst..*/}
                     </button>
                     <button
                         type="button"
@@ -60,7 +62,7 @@ function MyExams() {
                                 {/*<td>{exam.id}</td>*/}
                                 {/*<td>{profile.username.username}</td>*/}
                                 <td>{exam.wordList.title}</td>
-                                <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
+                                <td>{exam.passed ? "Geslaagd 🎉" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
                                 <td> TO DO{exam.timestamp}</td>
                             </tr>
@@ -68,6 +70,7 @@ function MyExams() {
                         </tbody>
                     </table>
                 </section>
+                </div>
             </div>
         </>
     );

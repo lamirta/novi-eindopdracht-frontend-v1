@@ -15,13 +15,19 @@ import Exams from "./pages/exam/Exams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
 import ImagePage from "./pages/profile/image/ImagePage";
-import AssignImage from "./pages/profile/image/AssignImage";
+import GetImage from "./pages/profile/image/GetImage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
 import MyExams from "./pages/exam/MyExams";
 
 // Alert opzoeken.
 // requeired opzoeken bij input
+
+// Check if empty?
+// useEffect(() => {
+//   /* Check if a comment is being typed */
+//   const textArea = document.getElementById("commentInput");
+//   textArea.addEventListener("input", checkIfEmpty)
 
 function App() {
   const {auth} = useContext(AuthContext);
@@ -36,7 +42,7 @@ function App() {
           </Route>
 
           {/*{auth &&*/}
-          <Route path="/profile/:id">
+          <Route exact path="/profile/:id">
             <NavBar/>
             <ProfilePage />
           </Route>
@@ -47,13 +53,13 @@ function App() {
             <AllProfiles />
           </Route>
 
-          <Route path="/foto-uploaden">
+          <Route exact path="/profile/:id/foto-uploaden">
             <NavBar/>
             <ImagePage />
           </Route>
 
-          <Route path="/foto-koppelen">
-            <AssignImage />
+          <Route path="/foto-opvragen">
+            <GetImage />
           </Route>
 
           <Route path="/signin">

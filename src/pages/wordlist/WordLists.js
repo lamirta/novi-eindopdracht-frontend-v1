@@ -24,18 +24,39 @@ function WordLists() {
         <>
             <div className="body-outer-container">
                 <h1>Woordenlijsten</h1>
-                <section className="content-container-row">
+                <section className="table-container">
+                <section>
                     <button
                         type="button"
-                        onClick={() => history.push('/woordenlijst-toevoegen')}
+                        onClick={() => history.push('/woordenlijsten')}
                     >
-                        Nieuwe woordenlijst aanmaken
+                        Woordenlijsten
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => history.push('/toetsen')}
+                    >
+                        Toetsen
                     </button>
                     <button
                         type="button"
                         onClick={() => history.push('/users')}
                     >
                         Gebruikers
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => history.push('/userprofiles')}
+                    >
+                        Profielen
+                    </button>
+                </section>
+                <section className="content-container-row">
+                    <button
+                        type="button"
+                        onClick={() => history.push('/woordenlijst-toevoegen')}
+                    >
+                        Nieuwe woordenlijst aanmaken
                     </button>
                 </section>
                 <section className="content-container-row">
@@ -62,6 +83,7 @@ function WordLists() {
                         })}
                         </tbody>
                     </table>
+                </section>
                 </section>
         </div>
         </>

@@ -24,18 +24,39 @@ function Exams() {
         <>
             <div className="body-outer-container">
                 <h1>Toetsen</h1>
-                <section className="content-container-row">
+                <section className="table-container">
+                    <section>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/woordenlijsten')}
+                        >
+                            Woordenlijsten
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/toetsen')}
+                        >
+                            Toetsen
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/users')}
+                        >
+                            Gebruikers
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => history.push('/userprofiles')}
+                        >
+                            Profielen
+                        </button>
+                    </section>
+                <section>
                     <button
                         type="button"
                         onClick={() => history.push('/toets-maken')}
                     >
                         Nieuwe toets starten
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => history.push('/')}
-                    >
-                        Home
                     </button>
                 </section>
                 <section className="content-container-row">
@@ -64,6 +85,7 @@ function Exams() {
                         </tbody>
                     </table>
                 </section>
+             </section>
             </div>
         </>
     );
