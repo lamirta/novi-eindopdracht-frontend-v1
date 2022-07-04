@@ -10,7 +10,7 @@ function ImagePage() {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [imageId, setImageId] = useState(null);
     const [isUploaded, toggleIsUploaded] = useState(false);
-    const [showAssignImage, setShowAssignImage] = useState(false);
+    // const [showAssignImage, setShowAssignImage] = useState(false);
     const { profileId } = useParams();
 
     function handleImageChange(e) {
@@ -28,7 +28,9 @@ function ImagePage() {
             const result = await axios.post('http://localhost:8080/images', formData,
                 {
                     headers: {
-                        "Content-Type": "multipart/form-data"
+                        // "Content-Type": "multipart/form-data",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
                 })
             setImageId(result.data.id)
@@ -41,9 +43,9 @@ function ImagePage() {
         }
     }
 
-    function assignToProfile() {
-        setShowAssignImage(!showAssignImage);
-    }
+    // function assignToProfile() {
+    //     setShowAssignImage(!showAssignImage);
+    // }
 
     return (
         <>
@@ -76,9 +78,9 @@ function ImagePage() {
                     </form>
                 </section>
               {isUploaded &&
-              <Popup toggle={assignToProfile}>
+              <Popup >
                   <AssignImageToProfile
-                      assignToProfile={assignToProfile}
+                      // assignToProfile={assignToProfile}
                       imageId={imageId}
                       profileId={profileId}
                   />

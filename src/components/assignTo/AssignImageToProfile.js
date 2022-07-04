@@ -1,31 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useParams} from "react-router-dom";
 // import './AssignImageToProfile.css';
 
 function AssignImageToProfile({assignToProfile, imageId, profileId}) {
-    // const { profileId } = useParams();
     const [confirmAssign, toggleConfirmAssign] = useState(false);
-    const [clicked, toggleClicked] = useState(false);
 
-// Waar krijgt hij de profile ID vandaan?
-//     Image Page moet een component zijn IN profile page..
+//     Image Page moet een component zijn IN profile page...
 
+    // useEffect(() => {
     async function assignImgToProfile() {
         try {
-            await axios.put(`http://localhost:8080/userprofiles/${profileId}/profilepic`, {
-                input: {
-                    id: imageId }
-                }
-            )
-            assignToProfile();
+            const result = await axios.put(`http://localhost:8080/userprofiles/${profileId}/profilepic`, {
+                id: imageId
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+            })
+            console.log(result.status)
         } catch (e) {
             console.error(e)
         }
     }
+    //     assignImgToProfile();
+    // }, []);
 
-    function handleClick() {
-        toggleClicked(!clicked);
+    function handleClickBtn() {
+        assignImgToProfile();
     }
 
     return (
@@ -34,19 +36,20 @@ function AssignImageToProfile({assignToProfile, imageId, profileId}) {
             <h1>Afbeelding aan jouw profiel koppelen</h1>
             <p>Wil je deze afbeelding als jouw profielfoto instellen?</p>
             <section>
+                <label htmlFor="assign-img-profile">
                 <input
                     type="checkbox"
-                    name="assign-img-profile"
+                    name="assign-img-profile-chkbx"
                     id="assign-img-profile"
                     checked={confirmAssign}
-                    onChange={() => toggleConfirmAssign(!confirmAssign)}
-                />
+                    onChange={() => toggleConfirmAssign(!confirmAssign)} />
+                </label>
                 <p>Ja!</p>
             </section>
             <button
                 type="button"
-                disabled={!clicked}
-                onClick={handleClick}
+                disabled={!confirmAssign}
+                onClick={handleClickBtn}
             >
                 Instellen
             </button>

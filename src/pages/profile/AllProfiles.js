@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 // import './AllProfiles.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import ButtonContainer from "../../components/container/ButtonContainer";
 
 function AllProfiles() {
     const history = useHistory();
@@ -10,7 +11,12 @@ function AllProfiles() {
     useEffect(() => {
         async function fetchProfiles() {
             try {
-                const response = await axios.get(`http://localhost:8080/userprofiles`);
+                const response = await axios.get(`http://localhost:8080/userprofiles`,{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
                 setUserProfiles(response.data);
                 console.log(response.data);
             } catch(e) {
@@ -27,30 +33,7 @@ function AllProfiles() {
                 <h1>Alle gebruiker profielen</h1>
                 <section className="table-container">
                     <section>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/woordenlijsten')}
-                        >
-                            Woordenlijsten
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/toetsen')}
-                        >
-                            Toetsen
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Gebruikers
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/userprofiles')}
-                        >
-                            Profielen
-                        </button>
+                        <ButtonContainer />
                     </section>
                     <section>
                         <button
@@ -96,14 +79,14 @@ function AllProfiles() {
                                     <td>
                                         {(() => {
                                             switch (up.username.authorities[0].authority) {
-                                                case "ROLE_USER":
-                                                    return "Leerling";
-                                                case "ROLE_DOCENT":
-                                                    return "Docent";
-                                                case "ROLE_ADMIN":
-                                                    return "Admin";
+                                                case "STUDENT":
+                                                    return " Leerling";
+                                                case "TEACHER":
+                                                    return " Docent";
+                                                // case "ADMIN":
+                                                //     return " Admin";
                                                 default:
-                                                    return "Undefined";
+                                                    return " Undefined";
                                             }
                                         })()}
                                     </td>

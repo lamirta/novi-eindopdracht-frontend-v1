@@ -5,11 +5,10 @@ import {Link, useHistory, useParams} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 
 function NavBar() {
-    const {auth, logout} = useContext(AuthContext);
+    const {auth, user, logout} = useContext(AuthContext);
     console.log(auth);
-    const { username } = useParams();
+    console.log(user);
     const history = useHistory();
-
 
 
     return (
@@ -41,7 +40,7 @@ function NavBar() {
                     : <>
                     <button
                         type="button"
-                        onClick={() => history.push(`/user/${auth.user.username}`)}
+                        onClick={() => history.push(`/profile/${user.profileId}`)}
                     >
                         Mijn Profiel
                     </button>
@@ -57,6 +56,6 @@ function NavBar() {
             </div>
         </nav>
     );
-};
+}
 
 export default NavBar;

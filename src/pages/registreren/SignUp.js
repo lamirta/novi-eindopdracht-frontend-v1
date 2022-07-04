@@ -1,37 +1,35 @@
 import React, {useState} from 'react';
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import './SignUp.css';
 
-// hoe krijg ik een succes melding als user is aangemaakt?
-// hoe krijg ik een foutmelding als de username al bezet is? krijg die vanuit de backend hier?
-
-// <div class="status">{2 woorden opgeslagen als een concept}</div>
-// "status" veranderd wanneer er een nieuwe melding komt..
 
 function SignUp() {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(null);  //kan ik dit niet null maken..? en dan if null?
+    const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [consoleError, setConsoleError] = useState('');
     const [addSuccess, toggleAddSuccess] = useState(false);
-    const history = useHistory();
-
-    //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/users', {
+            const result = await axios.post('http://localhost:8080/users', {
                 username: username,
                 password: password,
                 email: email,
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
             })
-            // history.push('/signin')
             toggleAddSuccess(true);
+            console.log(result.data)
         } catch(error) {
             setConsoleError(error.response.data);
             console.log(error.response.data);
+            console.log(error.response.status);
             console.error(error);
         }
     }
@@ -52,7 +50,7 @@ function SignUp() {
                         value={username}
                     />
                 </label>
-                {!username && <p className="error-message">Alle velden zijn verplicht</p>}
+                {!username && <><p className="error-message">Alle velden zijn verplicht</p></>}
                 <label htmlFor="email">Email
                     <input
                         type="email"

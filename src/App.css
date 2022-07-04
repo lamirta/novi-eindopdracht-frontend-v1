@@ -56,7 +56,8 @@ p {
   justify-content: center;
   background-color: #ffffff;
   padding: 20px;
-  max-width: 50%;
+  /*max-width: 50%;*/
+  max-width: 400px;
   /*min-width: 100px;*/
   /*max-width: 1000px;*/
   border-radius: 7px;
@@ -190,6 +191,23 @@ button[disabled]:hover {
   font-style: normal;
 }
 
+.hidden-div {
+  display: none;
+  color: #fff6f2;
+  text-align: center;
+  background-color: #bd4a4a;
+  opacity: 75%;
+  border-radius: 30px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #f50000;
+  transform: translate(5px, -15px);
+}
+
+button[disabled]:hover + .hidden-div {
+  display: block;
+}
+
 
 /*******LINK STYLING*******/
 a,
@@ -216,10 +234,10 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #faeab3;
+  background-color: rgba(8, 59, 87, 0.23);
   padding: 32px;
   margin: 15px 0 15px 0;
-  max-width: 300px;
+  min-width: 400px;
   border-radius: 4px;
 }
 
@@ -247,6 +265,11 @@ form input {
 
 input[type=text].input-error {
   border: 1px solid #bd4a4a;
+}
+
+h1.error-message {
+  font-size: 25px;
+  margin-top: 250px;
 }
 
 

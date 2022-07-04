@@ -13,9 +13,14 @@ function MyExams() {
     useEffect(() => {
         async function fetchExams() {
             try {
-                const response = await axios.get(`http://localhost:8080/userprofiles/${id}`);
-                setProfile(response.data);
-                setExams(response.data.exams);
+                const response = await axios.get(`http://localhost:8080/userprofiles/${id}`,{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                setProfile(response.data)
+                setExams(response.data.exams)
                 console.log(response.data);
             } catch(e) {
                 console.error(e);

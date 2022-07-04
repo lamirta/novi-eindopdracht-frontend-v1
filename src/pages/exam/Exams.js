@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Exams.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import ButtonContainer from "../../components/container/ButtonContainer";
 
 function Exams() {
     const history = useHistory();
@@ -10,9 +11,14 @@ function Exams() {
     useEffect(() => {
         async function fetchExams() {
             try {
-                const response = await axios.get('http://localhost:8080/exams');
-                setExams(response.data);
-                console.log(response.data);
+                const response = await axios.get('http://localhost:8080/exams',{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                setExams(response.data)
+                console.log(response.data)
             } catch(e) {
                 console.error(e);
             }
@@ -26,30 +32,7 @@ function Exams() {
                 <h1>Toetsen</h1>
                 <section className="table-container">
                     <section>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/woordenlijsten')}
-                        >
-                            Woordenlijsten
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/toetsen')}
-                        >
-                            Toetsen
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Gebruikers
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/userprofiles')}
-                        >
-                            Profielen
-                        </button>
+                        <ButtonContainer />
                     </section>
                 <section>
                     <button

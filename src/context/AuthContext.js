@@ -52,7 +52,10 @@ function AuthContextProvider({children}) {
                 user: {
                     username: result.data.username,
                     email: result.data.email,
-                    // enabled: result.data.email,
+                    enabled: result.data.enabled,
+                    role: result.data.authorities[0].authority,
+                    profile: result.data.userProfile,
+                    profileId: result.data.userProfile.id,
                 },
                 status: 'done',
             });
@@ -88,6 +91,7 @@ function AuthContextProvider({children}) {
     const data = {
         auth: isAuth.auth,
         user: isAuth.user,
+        // profileId: isAuth.user.profileId,
         login: signIn,
         logout: signOut,
     };

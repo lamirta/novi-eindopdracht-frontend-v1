@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import './WordListPage.css';
+import {AuthContext} from "../../context/AuthContext";
 
 function WordListPage() {
+    const {user, auth} = useContext(AuthContext);
     const [wordList, setWordList] = useState([]);
     const [words, setWords] = useState([]);
     const history = useHistory();
@@ -12,7 +14,12 @@ function WordListPage() {
     useEffect(() => {
         async function fetchLists() {
             try {
-                const response = await axios.get(`http://localhost:8080/wordlists/${title}`);
+                const response = await axios.get(`http://localhost:8080/wordlists/${title}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
                 setWordList(response.data);
                 setWords(response.data.words);
                 console.log(response.data);
@@ -65,10 +72,12 @@ function WordListPage() {
                     <button
                         type="button"
                         id="delete"
+                        disabled={user.role !== 'TEACHER'}
                         onClick={() => handleDelete()}
                     >
                         Verwijder deze lijst
                     </button>
+                    <div className="hidden-div">Sorry, geen toegang 😔</div>
                 </section>
                 <section className="content-container-row">
                     <div className="content-container-row-page-list">

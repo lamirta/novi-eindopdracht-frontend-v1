@@ -1,16 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './WordLists.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import {AuthContext} from "../../context/AuthContext";
+import ButtonContainer from "../../components/container/ButtonContainer";
 
 function WordLists() {
+    const {user} = useContext(AuthContext);
     const history = useHistory();
     const [wordLists, setWordLists] = useState([]);
 
     useEffect(() => {
         async function fetchLists() {
             try {
-                const response = await axios.get('http://localhost:8080/wordlists');
+                const response = await axios.get('http://localhost:8080/wordlists',{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
                 setWordLists(response.data);
                 console.log(response.data);
             } catch(e) {
@@ -26,38 +34,17 @@ function WordLists() {
                 <h1>Woordenlijsten</h1>
                 <section className="table-container">
                 <section>
-                    <button
-                        type="button"
-                        onClick={() => history.push('/woordenlijsten')}
-                    >
-                        Woordenlijsten
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => history.push('/toetsen')}
-                    >
-                        Toetsen
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => history.push('/users')}
-                    >
-                        Gebruikers
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => history.push('/userprofiles')}
-                    >
-                        Profielen
-                    </button>
+                    <ButtonContainer />
                 </section>
-                <section className="content-container-row">
+                <section>
                     <button
                         type="button"
+                        disabled={user.role !== 'TEACHER'}
                         onClick={() => history.push('/woordenlijst-toevoegen')}
                     >
                         Nieuwe woordenlijst aanmaken
                     </button>
+                    <div className="hidden-div">Sorry, geen toegang 😔</div>
                 </section>
                 <section className="content-container-row">
                     <table>

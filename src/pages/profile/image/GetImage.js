@@ -12,9 +12,14 @@ function GetImage() {
     useEffect(() => {
         async function fetchImage() {
             try {
-                // const response = await axios.get(`http://localhost:8080/images/${id}`);
-                const response = await axios.get(`http://localhost:8080/images/2`);
-                setImage(response.data);
+                // const response = await axios.get(`http://localhost:8080/images/${id}`)
+                const response = await axios.get(`http://localhost:8080/images/2`,{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                setImage(response.data)
                 // setImageId(response.data.id);
                 console.log(response.data);
                 setPreviewUrl(URL.createObjectURL({image}));

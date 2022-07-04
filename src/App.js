@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route, useHistory} from 'react-router-dom';
 import NavBar from './components/nav/NavBar';
 import ProfilePage from './pages/profile/ProfilePage';
 import Home from './pages/home/Home';
@@ -19,6 +19,7 @@ import GetImage from "./pages/profile/image/GetImage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
 import MyExams from "./pages/exam/MyExams";
+import SideBarMenu from "./components/sidebar/SideBarMenu";
 
 // Alert opzoeken.
 // requeired opzoeken bij input
@@ -30,25 +31,41 @@ import MyExams from "./pages/exam/MyExams";
 //   textArea.addEventListener("input", checkIfEmpty)
 
 function App() {
-  const {auth} = useContext(AuthContext);
+  const {auth, user} = useContext(AuthContext);
+    const history = useHistory();
 
   return (
     <>
       <div className="content">
+          {/*<SideBarMenu />*/}
         <Switch>
           <Route exact path="/">
             <NavBar/>
             <Home/>
           </Route>
 
-          {/*{auth &&*/}
+          <Route exact path="/signin">
+            <NavBar/>
+            <SignIn />
+          </Route>
+
+            {/*dit even netjes in een component zetten straks*/}
+          {!auth ?
+              <div className="content-container-column">
+                  <h1 className="error-message"> Sorry, je moet ingelogd zijn voor dit deel van de applicatie 😔 </h1>
+                  <button
+                      type="button"
+                      onClick={() => history.push('/signin')}
+                  >
+                      Inloggen
+                  </button>
+              </div> : <>
           <Route exact path="/profile/:id">
             <NavBar/>
             <ProfilePage />
           </Route>
-          {/*}*/}
 
-          <Route path="/userprofiles">
+          <Route exact path="/userprofiles">
             <NavBar/>
             <AllProfiles />
           </Route>
@@ -58,31 +75,28 @@ function App() {
             <ImagePage />
           </Route>
 
-          <Route path="/foto-opvragen">
+          <Route exact path="/foto-opvragen">
             <GetImage />
           </Route>
 
-          <Route path="/signin">
+          {user.role === 'TEACHER' &&
+          <Route exact path="/registreren">
             <NavBar/>
-            <SignIn />
+            <SignUp/>
           </Route>
+          }
 
-          <Route path="/registreren">
-            <NavBar/>
-            <SignUp />
-          </Route>
-
-          <Route path="/woordenlijsten">
+          <Route exact path="/woordenlijsten">
             <NavBar/>
             <WordLists />
           </Route>
 
-          <Route path="/woordenlijst/:title">
+          <Route exact path="/woordenlijst/:title">
             <NavBar/>
             <WordListPage />
           </Route>
 
-          <Route path="/woordenlijst-toevoegen">
+          <Route exact path="/woordenlijst-toevoegen">
             <AddWordList />
           </Route>
 
@@ -96,19 +110,20 @@ function App() {
             <UserPage />
           </Route>
 
-          <Route path="/toetsen">
+          <Route exact path="/toetsen">
             <NavBar/>
             <Exams />
           </Route>
 
-          <Route path="/mijn-toetsen/:id">
+          <Route exact path="/mijn-toetsen/:id">
             <NavBar/>
             <MyExams />
           </Route>
 
-          <Route path="/toets-maken">
+          <Route exact path="/toets-maken">
             <StartExam />
           </Route>
+          </>}
       </Switch>
       </div>
       <Footer/>
