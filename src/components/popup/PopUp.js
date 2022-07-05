@@ -1,17 +1,14 @@
 import React from "react";
 import "./PopUp.css";
 
-function Popup({children, toggle}) {
+function Popup({children}) {
 
     return(
-        <div className="popup-general"
-             // onClick={toggle}
-        >
-            <section className="popup-inner"
-                     // Misschien: stopImmediatePropagation()
-                     // onClick={(e) => e.stopPropagation()}
-            >
+        <div className="popup-general">
+            <section className="popup-inner">
+                <div className="popup-inner-small">
                 {children}
+                </div>
             </section>
         </div>
     );

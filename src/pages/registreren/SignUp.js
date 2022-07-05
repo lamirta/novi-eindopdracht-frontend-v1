@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import './SignUp.css';
+import {AuthContext} from "../../context/AuthContext";
 
 
 function SignUp() {
+    const {user} = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -39,7 +41,17 @@ function SignUp() {
             <div className="body-outer-container">
                 <h1>Nieuwe gebruiker aanmaken</h1>
             <section className="body-inner-container-small">
-            <p>Alleen een admin kan nieuwe users aanmaken. Kijk bij jouw gebruikersrol of jij een admin bent.</p>
+            <p>Alleen een docent kan nieuwe gebruikers aanmaken. Jij bent: <strong>
+                {(() => {
+                    switch (user.role) {
+                        case "STUDENT":
+                            return " Leerling";
+                        case "TEACHER":
+                            return " Docent ☑️";
+                        default:
+                            return " Undefined";
+                    }
+                })()}</strong></p>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username
                     <input

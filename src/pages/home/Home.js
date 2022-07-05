@@ -20,20 +20,28 @@ function Home() {
                     oefeningen en toetsen maken, resultaten en voortgang bijhouden.
                 </p>
             </section>
-                <section>
+            <section className="home-column-container">
+                <div className="home-row-container">
                     <p>De ontwikkeling van deze applicaties is tevens onderdeel van de eindopdracht voor de Full Stack
                         Software Development bootcamp van Novi Hogeschool. Er is een demo versie beschikbaar voor het
                         testen en de beoordeling. Wanneer je de front- en backend local <i>up and running</i> hebt kan
                         je als docent inloggen:
                     </p>
-                    <p>username: TestDocent</p>
-                    <p>password: docentpassword</p>
-                    <p>Een docent heeft toegang tot alle functionaliteiten in de applicatie, inzicht in alle gegevens en
+                    <span className="home-user-info">
+                    <p className="home-p">username: TestDocent</p>
+                    <p className="home-p">password: password</p>
+                    </span>
+                </div>
+                <div className="home-row-container">
+                <p>Een docent heeft toegang tot alle functionaliteiten in de applicatie, inzicht in alle gegevens en
                         kan nieuwe accounts aanmaken. Er zijn al een paar 'test accounts' beschikbaar. Log bijvoorbeeld
                         in als leerling:</p>
-                    <p>username: TestLeerling</p>
-                    <p>password: userpassword</p>
-                </section>
+                    <span className="home-user-info">
+                    <p className="home-p">username: TestLeerling</p>
+                    <p className="home-p">password: password</p>
+                    </span>
+                </div>
+            </section>
             <section>
                 <h2>Dyslexie</h2>
                 <p>Dyslexie is een stoornis die gekenmerkt wordt door een hardnekkig probleem met het aanleren en/of

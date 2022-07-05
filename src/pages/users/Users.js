@@ -59,19 +59,19 @@ function Users() {
                         </tr>
                         </thead>
                         <tbody>
-                        {users.map((user) => {
-                        return <tr key={user.username}>
+                        {users.map((u) => {
+                        return <tr key={u.username}>
                             <td><button
                                 type="button"
-                                onClick={() => history.push(`/user/${user.username}`)}
+                                onClick={() => history.push(`/user/${u.username}`)}
                             >
                                 Naar gebruiker
                             </button></td>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
+                            <td>{u.username}</td>
+                            <td>{u.email}</td>
                             <td>
                                 {(() => {
-                                    switch (user.authorities[0].authority) {
+                                    switch (u.authorities[0].authority) {
                                         case "STUDENT":
                                             return " Leerling";
                                         case "TEACHER":
@@ -83,7 +83,7 @@ function Users() {
                                     }
                                 })()}
                                 </td>
-                            <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
+                            <td>{u.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
                         </tr>
                         })}
                         </tbody>

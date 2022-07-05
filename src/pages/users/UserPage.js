@@ -1,12 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
+import Popup from "../../components/popup/PopUp";
+import AssignImageToProfile from "../../components/assignTo/AssignImageToProfile";
+import AssignUserToProfile from "../../components/assignTo/AssignUserToProfile";
+import CreateEmptyProfile from "../../components/assignTo/CreateEmptyProfile";
+import {AuthContext} from "../../context/AuthContext";
 // import './UserPage.css';
 
 function UserPage() {
-    const [user, setUser] = useState([]);
+    const {user} = useContext(AuthContext);
+    const [userObject, setUserObject] = useState([]);
     const [userRole, setUserRole] = useState([]);
     const [profile, setProfile] = useState([]);
+    const [clicked, toggleClicked] = useState(false);
     const { username } = useParams();
     const history = useHistory();
 
@@ -19,7 +26,7 @@ function UserPage() {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
                 })
-                setUser(response.data)
+                setUserObject(response.data)
                 setUserRole(response.data.authorities[0])
                 setProfile(response.data.userProfile)
                 console.log(response.data);
@@ -31,12 +38,10 @@ function UserPage() {
         fetchUser();
     }, []);
 
-    // {history.push(`/profile/${profile.id}}
 
     function handleClick() {
-        // toggleClicked(!clicked);
+        toggleClicked(true)
     }
-
 
     return (
         <>
@@ -78,9 +83,9 @@ function UserPage() {
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{user.username}</td>
-                                <td>{user.email}</td>
-                                <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
+                                <td>{userObject.username}</td>
+                                <td>{userObject.email}</td>
+                                <td>{userObject.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
                                     <td>
                                         {(() => {
                                             switch (userRole.authority) {
@@ -88,30 +93,53 @@ function UserPage() {
                                                     return " Leerling";
                                                 case "TEACHER":
                                                     return " Docent";
-                                                // case "ADMIN":
-                                                //     return " Admin";
                                                 default:
                                                     return " Undefined";
                                             }
                                         })()}
                                     </td>
-                                <td>{profile.id !== null ? profile.id :
+                                <td>{!profile ?
                                     <button
                                         type="button"
                                         onClick={handleClick}
                                     >
                                         Profiel aanmaken
                                     </button>
-                                }
+                                    :
+                                    <button
+                                        type="button"
+                                        onClick={() => history.push(`/profiel/${profile.id}`)}
+                                    >
+                                        Naar profielpagina
+                                    </button>}
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </section>
                 </section>
+                {clicked &&
+                <section className="table-container">
+                    <CreateEmptyProfile
+                        userObject={userObject}
+                    />
+                </section>
+                }
             </div>
         </>
     );
 }
+
+// <AssignUserToProfile
+//     username={username}
+//     profileId={profile.id}
+// />
+
+// <div className="hidden-div">
+//                                         <span>Sorry, alleen
+//                                             "<strong>{ userObject.username }</strong>"
+//                                            kan een eigen profiel aanmaken
+//                                         </span>
+// </div>
 
 export default UserPage;

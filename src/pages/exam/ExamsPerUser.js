@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
-// import './MyExams.css';
+import './ExamsPerUser.css';
+import {AuthContext} from "../../context/AuthContext";
 
-function MyExams() {
+function ExamsPerUser() {
+    const {user} = useContext(AuthContext);
     const [profile, setProfile] = useState([]);
     const [exams, setExams] = useState([]);
     const history = useHistory();
@@ -35,26 +37,34 @@ function MyExams() {
                 <h1>Toets Resultaten van: <i>"{profile.firstName} {profile.lastName}"</i></h1>
                 <div className="table-container">
                 <section className="content-container-row">
+                    <span>
                     <button
                         type="button"
+                        disabled={profile.id !== user.profileId}
                         onClick={() => history.push('/toets-maken')}
                     >
                         Nieuwe toets starten
                     {/*    Hier een pop up maken, vragen welke woordenlijst..*/}
                     </button>
+                    <div className="hidden-div-2">Je bent niet ingelogd als {profile.firstName}</div>
+                    </span>
                     <button
                         type="button"
-                        onClick={() => history.push(`/profile/${profile.id}`)}
+                        onClick={() => history.push(`/profiel/${profile.id}`)}
                     >
                         Terug
                     </button>
                 </section>
+                    {!exams[0] ?
+                            <span className="exam-user-info">
+                                <p className="exam-p"> Nog geen toetsen van {profile.firstName}</p>
+                            </span>
+                     :
                 <section className="content-container-row">
                     <table>
                         <thead>
                         <tr>
-                            {/*<th>Toets ID</th>*/}
-                            {/*<th>Jouw username</th>*/}
+                            {/*<th>Username</th>*/}
                             <th>Woordenlijst</th>
                             <th>Geslaagd</th>
                             <th>Aantal fouten</th>
@@ -64,7 +74,6 @@ function MyExams() {
                         <tbody>
                         {exams.map((exam) => {
                             return <tr key={exam.id}>
-                                {/*<td>{exam.id}</td>*/}
                                 {/*<td>{profile.username.username}</td>*/}
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd 🎉" : "Gezakt"}</td>
@@ -75,10 +84,11 @@ function MyExams() {
                         </tbody>
                     </table>
                 </section>
+                    }
                 </div>
             </div>
         </>
     );
 }
 
-export default MyExams;
+export default ExamsPerUser;

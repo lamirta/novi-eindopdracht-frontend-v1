@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import './Exams.css';
+import './AllExams.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 import ButtonContainer from "../../components/container/ButtonContainer";
 
-function Exams() {
+function AllExams() {
     const history = useHistory();
     const [exams, setExams] = useState([]);
 
@@ -75,4 +75,4 @@ function Exams() {
 }
 
 
-export default Exams;
+export default AllExams;

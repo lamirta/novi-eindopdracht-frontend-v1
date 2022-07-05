@@ -19,7 +19,13 @@ h1 {
 
 p {
   text-align: justify;
+  margin: 7px 0 7px 0;
 }
+
+section {
+  margin: 10px 0 40px 0;
+}
+
 
 
 /*******CONTAINER STYLING*******/
@@ -134,6 +140,10 @@ table button {
   box-shadow: 0 3px 5px rgba(8, 59, 87, 0.50);
 }
 
+table button[disabled] {
+  background-color: rgba(0, 110, 127, 0.32);
+}
+
 
 /*******BUTTON STYLING*******/
 button {
@@ -191,6 +201,9 @@ button[disabled]:hover {
   font-style: normal;
 }
 
+
+/****HIDDEN-DIVS****/
+
 .hidden-div {
   display: none;
   color: #fff6f2;
@@ -208,6 +221,34 @@ button[disabled]:hover + .hidden-div {
   display: block;
 }
 
+.hidden-div span {
+  font-size: 13px;
+  margin: 10px;
+}
+
+.hidden-div-2 {
+  display: none;
+  color: #fff6f2;
+  text-align: center;
+  background-color: #bd4a4a;
+  opacity: 75%;
+  border-radius: 30px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #f50000;
+  transform: translate(-5px, -5px);
+}
+
+button[disabled]:hover + .hidden-div-2 {
+  display: block;
+}
+
+.hidden-div-2 span {
+  font-size: 13px;
+  margin: 10px;
+}
+
+
 
 /*******LINK STYLING*******/
 a,
@@ -218,14 +259,6 @@ a:active {
 
 a:hover {
   color: #bd4a4a;
-}
-
-section  {
-  margin: 10px 0 40px 0;
-}
-
-p {
-  margin: 7px 0 7px 0;
 }
 
 

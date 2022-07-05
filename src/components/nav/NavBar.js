@@ -1,15 +1,16 @@
 import React, {useContext} from 'react';
 import './NavBar.css';
 import logo from '../../assets/nav_logo.png';
-import {Link, useHistory, useParams} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 
 function NavBar() {
     const {auth, user, logout} = useContext(AuthContext);
-    console.log(auth);
-    console.log(user);
     const history = useHistory();
 
+    function NavToProfile() {
+
+    }
 
     return (
         <nav>
@@ -40,7 +41,7 @@ function NavBar() {
                     : <>
                     <button
                         type="button"
-                        onClick={() => history.push(`/profile/${user.profileId}`)}
+                        onClick={() => history.push(`/profiel/${user.profileId}`)}
                     >
                         Mijn Profiel
                     </button>

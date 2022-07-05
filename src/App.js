@@ -11,14 +11,14 @@ import Footer from "./components/foot/Footer";
 import WordLists from "./pages/wordlist/WordLists";
 import Users from "./pages/users/Users";
 import AllProfiles from "./pages/profile/AllProfiles";
-import Exams from "./pages/exam/Exams";
+import AllExams from "./pages/exam/AllExams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
 import ImagePage from "./pages/profile/image/ImagePage";
 import GetImage from "./pages/profile/image/GetImage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
-import MyExams from "./pages/exam/MyExams";
+import ExamsPerUser from "./pages/exam/ExamsPerUser";
 import SideBarMenu from "./components/sidebar/SideBarMenu";
 
 // Alert opzoeken.
@@ -60,7 +60,7 @@ function App() {
                       Inloggen
                   </button>
               </div> : <>
-          <Route exact path="/profile/:id">
+          <Route exact path="/profiel/:id">
             <NavBar/>
             <ProfilePage />
           </Route>
@@ -70,7 +70,7 @@ function App() {
             <AllProfiles />
           </Route>
 
-          <Route exact path="/profile/:id/foto-uploaden">
+          <Route exact path="/profiel/:id/foto-uploaden">
             <NavBar/>
             <ImagePage />
           </Route>
@@ -105,19 +105,19 @@ function App() {
             <Users />
           </Route>
 
-          <Route exact path="/user/:username">
+          <Route path="/user/:username">
             <NavBar/>
             <UserPage />
           </Route>
 
           <Route exact path="/toetsen">
             <NavBar/>
-            <Exams />
+            <AllExams />
           </Route>
 
-          <Route exact path="/mijn-toetsen/:id">
+          <Route exact path="/toetsen-van/:id">
             <NavBar/>
-            <MyExams />
+            <ExamsPerUser />
           </Route>
 
           <Route exact path="/toets-maken">

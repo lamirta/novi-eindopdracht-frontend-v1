@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {useHistory} from "react-router-dom";
 // import './AssignImageToProfile.css';
 
-function AssignImageToProfile({assignToProfile, imageId, profileId}) {
+function AssignImageToProfile({imageId, profileId}) {
     const [confirmAssign, toggleConfirmAssign] = useState(false);
+    const history = useHistory();
 
 //     Image Page moet een component zijn IN profile page...
 
@@ -19,6 +21,7 @@ function AssignImageToProfile({assignToProfile, imageId, profileId}) {
                 },
             })
             console.log(result.status)
+            history.push(`/profiel/${profileId}`);
         } catch (e) {
             console.error(e)
         }
@@ -34,7 +37,7 @@ function AssignImageToProfile({assignToProfile, imageId, profileId}) {
         <>
         <div className="body-inner-container-small">
             <h1>Afbeelding aan jouw profiel koppelen</h1>
-            <p>Wil je deze afbeelding als jouw profielfoto instellen?</p>
+            Wil je deze afbeelding als jouw profielfoto instellen?
             <section>
                 <label htmlFor="assign-img-profile">
                 <input

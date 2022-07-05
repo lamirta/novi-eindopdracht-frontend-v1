@@ -68,12 +68,15 @@ function AllProfiles() {
                                 return <tr key={up.id}>
                                     <td><button
                                         type="button"
-                                        onClick={() => history.push(`/profile/${up.id}`)}
+                                        onClick={() => history.push(`/profiel/${up.id}`)}
                                     >
                                         Naar profielpagina
                                     </button></td>
                                     <td>{up.id}</td>
-                                    <td>{up.firstName + " " + up.lastName}</td>
+                                    <td>
+                                        {up.firstName && <>{up.firstName}</>}
+                                        {up.lastName && <>{" " + up.lastName}</>}
+                                    </td>
                                     <td>{up.age}</td>
                                     <td>{up.school}</td>
                                     <td>

@@ -111,7 +111,7 @@ function StartExam() {
                 userProfile: user.profile,
                 wordList: wordList,
             });
-            history.push(`/mijn-toetsen/${user.profileId}`);
+            history.push(`/toetsen-van/${user.profileId}`);
         } catch (error) {
             setConsoleError(error.response.data);
             console.log(error.response.data);
@@ -120,7 +120,7 @@ function StartExam() {
     }
 
     function handleSubmitExam2() {
-        history.push(`/mijn-toetsen/${user.profileId}`);
+        history.push(`/toetsen-van/${user.profileId}`);
     }
 
     return (

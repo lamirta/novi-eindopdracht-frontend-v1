@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import axios from "axios";
 import './ImagePage.css';
-import {useParams} from "react-router-dom";
 import Popup from "../../../components/popup/PopUp";
 import AssignImageToProfile from "../../../components/assignTo/AssignImageToProfile";
+import {AuthContext} from "../../../context/AuthContext";
 
 function ImagePage() {
+    const {user} = useContext(AuthContext);
     const [file, setFile] = useState([]);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [imageId, setImageId] = useState(null);
     const [isUploaded, toggleIsUploaded] = useState(false);
     // const [showAssignImage, setShowAssignImage] = useState(false);
-    const { profileId } = useParams();
 
     function handleImageChange(e) {
         const uploadedFile = e.target.files[0];
@@ -66,7 +66,6 @@ function ImagePage() {
                         {previewUrl &&
                         <label className="label-image-preview">
                             Preview:
-                            hoi: {profileId}
                             <img src={previewUrl} alt="Voorbeeld van gekozen afbeelding" className="image-preview"/>
                         </label>
                         }
@@ -80,9 +79,10 @@ function ImagePage() {
               {isUploaded &&
               <Popup >
                   <AssignImageToProfile
-                      // assignToProfile={assignToProfile}
                       imageId={imageId}
-                      profileId={profileId}
+                      profileId={user.profileId}
+                      // haalt nu id uit ingelogde user.. en moet uit param halen eigenlijk..
+                      // Image page dus als component of private route maken met id vanuit profiel pagina.
                   />
               </Popup>
               }
