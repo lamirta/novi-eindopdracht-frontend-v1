@@ -1,61 +1,89 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 // import './SaveExam.css';
 import axios from "axios";
+import {AuthContext} from "../../context/AuthContext";
+import {useHistory} from "react-router-dom";
 
-function SaveExam({assignToProfile, imageId, profileId}) {
-    const [confirmAssign, toggleConfirmAssign] = useState(false);
+function SaveExam({wordList, wrongEntries, passed}) {
+    const {user} = useContext(AuthContext);
+    // const [confirmAssign, toggleConfirmAssign] = useState(false);
+    const history = useHistory();
 
-//     Image Page moet een component zijn IN profile page...
 
-    // useEffect(() => {
-    async function assignImgToProfile() {
+    async function saveExam() {
+        // e.preventDefault();
         try {
-            const result = await axios.put(`http://localhost:8080/userprofiles/${profileId}/profilepic`, {
-                id: imageId
+            const response = await axios.post('http://localhost:8080/exams', {
+                wrongEntries: wrongEntries,
+                passed: passed,
+                userProfile: user.profile,
+                wordList: wordList,
             }, {
-                headers: {
-                    "Content-Type": "application/json",
+            headers: {
+                "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`
-                },
-            })
-            console.log(result.status)
-        } catch (e) {
-            console.error(e)
+            }
+        })
+            console.log(response.data);
+        } catch (error) {
+            console.log(error.response.data);
+            console.error(error);
         }
     }
-    //     assignImgToProfile();
-    // }, []);
 
-    function handleClickBtn() {
-        assignImgToProfile();
+    function handleClickResults() {
+        saveExam()
+        history.push(`/toetsen-van/${user.profileId}`);
+    }
+
+    function handleClickProfile() {
+        saveExam()
+        history.push(`/profiel/${user.profileId}`);
     }
 
     return (
         <>
             <div className="body-inner-container-small">
-                <h1>Afbeelding aan jouw profiel koppelen</h1>
-                <p>Wil je deze afbeelding als jouw profielfoto instellen?</p>
-                <section>
-                    <label htmlFor="assign-img-profile">
-                        <input
-                            type="checkbox"
-                            name="assign-img-profile-chkbx"
-                            id="assign-img-profile"
-                            checked={confirmAssign}
-                            onChange={() => toggleConfirmAssign(!confirmAssign)} />
-                    </label>
-                    <p>Ja!</p>
-                </section>
+                <h1>GOED GEDAAN!! 🥳</h1>
+                <p>Einde van de toets. Bekijk je resultaten:</p>
+             <section>
+            <h3>Aantal fouten: "{wrongEntries}"</h3>
+            <p>{!passed && "Blijf onder de 10 fouten om te slagen"}<strong>{passed && "Geslaagd!!! 🎉"}</strong></p>
+             </section>
+                <div className="body-inner-container-wide">
                 <button
                     type="button"
-                    disabled={!confirmAssign}
-                    onClick={handleClickBtn}
+                    onClick={handleClickResults}
                 >
-                    Instellen
+                    Naar al mijn toetsen
                 </button>
+                <button
+                    type="button"
+                    onClick={handleClickProfile}
+                >
+                    Naar mijn profiel
+                </button>
+                </div>
             </div>
         </>
     );
 }
 
 export default SaveExam;
+
+//Assign To ..
+// async function assignProfileToExam() {
+//     try {
+//         const result = await axios.put(`http://localhost:8080/exams/${examId}/profileId`, {
+//             id: profileId
+//         }, {
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${localStorage.getItem("token")}`
+//             },
+//         })
+//         console.log(result.status)
+//     } catch (e) {
+//         console.error(e)
+//     }
+// }

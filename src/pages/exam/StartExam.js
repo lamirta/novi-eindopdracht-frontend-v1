@@ -5,6 +5,7 @@ import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import Popup from "../../components/popup/PopUp";
 import SaveExam from "../../components/exams/SaveExam";
+import wordLoop from "../../helpers/WordLoop";
 
 
 // when userEntry !== indexOf original word.. +1 to wrongEntries counter..?
@@ -21,9 +22,9 @@ function StartExam() {
     const [currentWord, setCurrentWord] = useState('');
     const [wordIndexNr, setWordIndexNr] = useState(0);
     const [showElement, setShowElement] = useState(true)
-    const [wrongEntries, setWrongEntries] = useState(null);
-    const [passed, togglePassed] = useState(false);
     const [consoleError, setConsoleError] = useState('');
+    const [wrongEntries, setWrongEntries] = useState(0);
+    const [passed, togglePassed] = useState(false);
     const history = useHistory();
 
     // aparte component functie van maken
@@ -55,7 +56,7 @@ function StartExam() {
     useEffect(()=>{
             setTimeout(function() {
                 setShowElement(false)
-            }, 4000);
+            }, 2000);
     }, [wordIndexNr])
 
 
@@ -66,32 +67,9 @@ function StartExam() {
         // return nextWord;
     }
 
-    function wordLoop() {
-        if (words[wordIndexNr] === words[0]){
-            return words[0];
-        } else if (words[wordIndexNr] === words[1]){
-            return words[1];
-        } else if (words[wordIndexNr] === words[2]) {
-            return words[2];
-        } else if (words[wordIndexNr] === words[3]) {
-            return words[3];
-        } else if (words[wordIndexNr] === words[4]) {
-            return words[4];
-        } else if (words[wordIndexNr] === words[5]) {
-            return words[5];
-        } else if (words[wordIndexNr] === words[6]) {
-            return words[6];
-        } else if (words[wordIndexNr] === words[7]) {
-            return words[7];
-        } else if (words[wordIndexNr] === words[8]) {
-            return words[8];
-        } else if (words[wordIndexNr] === words[9]) {
-            return words[9];
-        }
-    }
-
     function handleClickVolgende() {
-        if (wordLoop() === undefined) {
+        if (wordLoop(words, wordIndexNr) === null) {
+            setShowElement(false)
             setEndOfExam(true);
         } else {
             setWordIndexNr(wordIndexNr + 1)
@@ -101,57 +79,19 @@ function StartExam() {
         console.log(wordLoop());
     }
 
-// aparte component functie van maken
-    async function handleSubmitExam(e) {
-        e.preventDefault();
-        try {
-            await axios.post('http://localhost:8080/exams', {
-                wrongEntries: wrongEntries,
-                passed: passed,
-                userProfile: user.profile,
-                wordList: wordList,
-            });
-            history.push(`/toetsen-van/${user.profileId}`);
-        } catch (error) {
-            setConsoleError(error.response.data);
-            console.log(error.response.data);
-            console.error(error);
-        }
-    }
-
-    function handleSubmitExam2() {
-        history.push(`/toetsen-van/${user.profileId}`);
-    }
-
     return (
         <>
             <div className="main-exercise-page">
                 <header className="exercise-page-header">
                     <h2 className="wordlist-title">Titel Woordenlijst: <span className="wordlist-title-p">"{wordList.title}"</span></h2>
                 </header>
-                {endOfExam ? <section>
-                        <Popup >
-                            <div className="body-inner-container-small">
-                                <h1>GOED GEDAAN!! 🥳 </h1>
-                                <p>Einde van de toets. Bekijk je resultaten:</p>
-                                <div className="save-exam-btn">
-                                    <button
-                                        type="button"
-                                        // disabled
-                                        id="toets-klaar"
-                                        onClick={() => handleSubmitExam2()}
-                                    >
-                                        Naar jouw resultaat!
-                                    </button>
-                                </div>
-                            </div>
-                        </Popup>
-                    </section> :
                     <div className="container-exercise-wrap">
                         <div className="exercise">
                             <div className="exercise-content">
                                 <h1 className="exercise-title">
-                                    {showElement ? <span className="text-animation-hide"> {wordLoop()}
+                                    {showElement ? <span className="text-animation-hide">
+                                        {/*{wordLoop()}*/}
+                                            {wordLoop(words, wordIndexNr)}
                             </span> : <>
                                         <label htmlFor="userEntry">
                                             <input
@@ -190,10 +130,44 @@ function StartExam() {
                             </div>
                         </div>
                     </div>
-                }
+
+                {endOfExam &&
+                <Popup>
+                    <SaveExam
+                        wordList={wordList}
+                        wrongEntries={wrongEntries}
+                        passed={passed}
+                    />
+                </Popup> }
             </div>
         </>
     );
 }
 
 export default StartExam;
+
+
+
+// function wordLoop() {
+//     if (words[wordIndexNr] === words[0]){
+//         return words[0];
+//     } else if (words[wordIndexNr] === words[1]){
+//         return words[1];
+//     } else if (words[wordIndexNr] === words[2]) {
+//         return words[2];
+//     } else if (words[wordIndexNr] === words[3]) {
+//         return words[3];
+//     } else if (words[wordIndexNr] === words[4]) {
+//         return words[4];
+//     } else if (words[wordIndexNr] === words[5]) {
+//         return words[5];
+//     } else if (words[wordIndexNr] === words[6]) {
+//         return words[6];
+//     } else if (words[wordIndexNr] === words[7]) {
+//         return words[7];
+//     } else if (words[wordIndexNr] === words[8]) {
+//         return words[8];
+//     } else if (words[wordIndexNr] === words[9]) {
+//         return words[9];
+//     }
+// }

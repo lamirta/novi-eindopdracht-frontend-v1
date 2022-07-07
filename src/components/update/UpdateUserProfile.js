@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
 
-function UpdateUserProfile({profileId}) {
+function UpdateUserProfile({profileId, name, togglePopup}) {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [age, setAge] = useState(null);
@@ -29,13 +29,21 @@ function UpdateUserProfile({profileId}) {
 
     function handleSubmit() {
         updateUserProfile();
+        togglePopup();
     }
 
     return (
         <>
             <h1>Update Profiel</h1>
-            Deze profielpagina is nog erg leeg, vul alvast een voornaam in 👏
-            <section>
+            {!name ? "Deze profielpagina is nog erg leeg, vul alvast een voornaam in 👏"
+                : <>"Update dit profiel 👏"
+                    <button
+                        type="button"
+                        onClick={togglePopup}
+                    >
+                        Terug
+                    </button>
+                </>}
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="firstName">Voornaam
                         <input
@@ -45,7 +53,7 @@ function UpdateUserProfile({profileId}) {
                             value={firstName}
                         />
                     </label>
-                    {!firstName && <><p className="error-message">Vul alvast een voornaam in</p></>}
+                    {!firstName && <><p className="error-message">Vul een voornaam in</p></>}
                     <label htmlFor="lastName">Achternaam
                         <input
                             type="text"
@@ -80,7 +88,6 @@ function UpdateUserProfile({profileId}) {
                     >Update
                     </button>
                 </form>
-            </section>
         </>
     );
 }

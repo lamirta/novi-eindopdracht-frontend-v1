@@ -78,7 +78,7 @@ function ExamsPerUser() {
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd 🎉" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                <td> TO DO{exam.timestamp}</td>
+                                <td><i>To be implemented</i> {exam.timestamp}</td>
                             </tr>
                         })}
                         </tbody>

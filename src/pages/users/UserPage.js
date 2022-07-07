@@ -2,10 +2,11 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import Popup from "../../components/popup/PopUp";
-import AssignImageToProfile from "../../components/assignTo/AssignImageToProfile";
-import AssignUserToProfile from "../../components/assignTo/AssignUserToProfile";
-import CreateEmptyProfile from "../../components/assignTo/CreateEmptyProfile";
 import {AuthContext} from "../../context/AuthContext";
+import UpdateUserProfile from "../../components/update/UpdateUserProfile";
+import DeleteUser from "../../components/delete/DeleteUser";
+import UpdateUser from "../../components/update/UpdateUser";
+import UpdateRole from "../../components/update/UpdateRole";
 // import './UserPage.css';
 
 function UserPage() {
@@ -13,6 +14,10 @@ function UserPage() {
     const [userObject, setUserObject] = useState([]);
     const [userRole, setUserRole] = useState([]);
     const [profile, setProfile] = useState([]);
+    const [updateUser, toggleUpdateUser] = useState(false);
+    const [deleteUser, toggleDeleteUser] = useState(false);
+    const [updateRole, toggleUpdateRole] = useState(false);
+    const [showPopup, toggleShowPopup] = useState(false);
     const [clicked, toggleClicked] = useState(false);
     const { username } = useParams();
     const history = useHistory();
@@ -39,9 +44,22 @@ function UserPage() {
     }, []);
 
 
-    function handleClick() {
-        toggleClicked(true)
+    function handleUpdateUser() {
+        toggleShowPopup(!showPopup)
+        toggleUpdateUser(!updateUser)
     }
+
+    function handleClickDelete() {
+        toggleShowPopup(!showPopup)
+        toggleDeleteUser(!deleteUser)
+    }
+
+    function handleUpdateRole() {
+        toggleShowPopup(!showPopup)
+        toggleUpdateRole(!updateRole)
+    }
+
+
 
     return (
         <>
@@ -58,18 +76,29 @@ function UserPage() {
                     </section>
                     <section>
                         <button
+                            type="button"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleUpdateUser}
                         >
                             Gebruiker aanpassen
                         </button>
                         <button
+                            type="button"
+                            id="delete"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleClickDelete}
                         >
                             Gebruiker verwijderen
                         </button>
                         <button
+                            type="button"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleUpdateRole}
                         >
-                            Gebruikersrol toevoegen / verwijderen
+                            Gebruikersrol aanpassen
                         </button>
                     </section>
+                    {/*// component van maken table*/}
                     <section className="content-container-row">
                         <table>
                             <thead>
@@ -85,7 +114,8 @@ function UserPage() {
                             <tr>
                                 <td>{userObject.username}</td>
                                 <td>{userObject.email}</td>
-                                <td>{userObject.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
+                                <td>{userObject.enabled === true ? "Actief " : "Gedeactiveerd "}
+                                </td>
                                     <td>
                                         {(() => {
                                             switch (userRole.authority) {
@@ -98,37 +128,40 @@ function UserPage() {
                                             }
                                         })()}
                                     </td>
-                                <td>{!profile ?
-                                    <button
-                                        type="button"
-                                        onClick={handleClick}
-                                    >
-                                        Profiel aanmaken
-                                    </button>
-                                    :
+                                <td>
                                     <button
                                         type="button"
                                         onClick={() => history.push(`/profiel/${profile.id}`)}
                                     >
                                         Naar profielpagina
-                                    </button>}
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </section>
                 </section>
-                {clicked &&
-                <section className="table-container">
-                    <CreateEmptyProfile
-                        userObject={userObject}
-                    />
-                </section>
+                {showPopup &&
+                <Popup>
+                    {updateUser && <UpdateUser
+                        togglePopup={handleUpdateUser}
+                    />}
+                    {deleteUser && <DeleteUser
+                        profileId={profile.id}
+                        togglePopup={handleClickDelete}
+                    />}
+                    {updateRole && <UpdateRole
+                        togglePopup={handleUpdateRole}
+                        userRole={userRole}
+                    />}
+                </Popup>
                 }
             </div>
         </>
     );
 }
+
+export default UserPage;
 
 // <AssignUserToProfile
 //     username={username}
@@ -142,4 +175,31 @@ function UserPage() {
 //                                         </span>
 // </div>
 
-export default UserPage;
+
+
+// <td>{!profile ?
+//     <button
+//         type="button"
+//         onClick={handleClick}
+//     >
+//         Profiel aanmaken
+//     </button>
+//     :
+//     <button
+//         type="button"
+//         onClick={() => history.push(`/profiel/${profile.id}`)}
+//     >
+//         Naar profielpagina
+//     </button>}
+// </td>
+// </tr>
+// </tbody>
+// </table>
+// </section>
+// </section>
+// {clicked &&
+// <section className="table-container">
+//     <CreateEmptyProfile
+//         userObject={userObject}
+//     />
+// </section>

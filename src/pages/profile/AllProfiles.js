@@ -35,20 +35,6 @@ function AllProfiles() {
                     <section>
                         <ButtonContainer />
                     </section>
-                    <section>
-                        <button
-                        >
-                            Profiel zoeken
-                        </button>
-                        <button
-                        >
-                            Profiel aanpassen
-                        </button>
-                        <button
-                        >
-                            Profiel verwijderen
-                        </button>
-                    </section>
                     <section className="content-container-row">
                         <table>
                             <thead>

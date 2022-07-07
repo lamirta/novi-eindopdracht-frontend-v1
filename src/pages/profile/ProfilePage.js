@@ -5,7 +5,8 @@ import axios from "axios";
 import ButtonContainer from "../../components/container/ButtonContainer";
 import {AuthContext} from "../../context/AuthContext";
 import Popup from "../../components/popup/PopUp";
-import UpdateUserProfile from "../../components/assignTo/UpdateUserProfile";
+import UpdateUserProfile from "../../components/update/UpdateUserProfile";
+import DeleteUser from "../../components/delete/DeleteUser";
 
 function ProfilePage() {
     const {user} = useContext(AuthContext);
@@ -14,7 +15,8 @@ function ProfilePage() {
     const [userRole, setUserRole] = useState([]);
     const [exams, setExams] = useState([]);
     const [image, setImage] = useState([]);
-    const [showPopUp, toggleShowPopup] = useState(false);
+    const [confirmDelete, toggleConfirmDelete] = useState(false);
+    const [confirmUpdate, toggleConfirmUpdate] = useState(false);
     const [previewUrl, setPreviewUrl] = useState(null);
     const history = useHistory();
     const {id} = useParams();
@@ -44,9 +46,14 @@ function ProfilePage() {
         // setPreviewUrl(URL.createObjectURL({image}));
     }, [id]);
 
-    // function toggle() {
-    //     toggleShowPopup(true)
-    // }
+    function clickDelete() {
+        toggleConfirmDelete(!confirmDelete);
+    }
+
+    function clickUpdate() {
+        toggleConfirmUpdate(!confirmUpdate);
+    }
+
 
     return (
         <>
@@ -59,16 +66,17 @@ function ProfilePage() {
                     <div className="content-outer-container-big">
                     <section>
                     <section>
-                {!image ?
-                    <> <p><i>Nog geen profiel foto</i></p>
-                    <p><strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>Profielfoto
-                    Uploaden</Link></strong></p>
-                    </> : <div className="profile-pic-space">
-                    <label className="label-image-preview">
-                    <i>Afbeelding ophalen..</i>
-                {/*<img src={previewUrl} alt="profiel-foto" className="image-preview"/>*/}
-                    </label>
-                    </div>}
+                    <div className="profile-pic-space">
+                      <label className="label-image-preview">
+                          {!image ?
+                              <> 📸
+                                  <p><strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
+                                      Profielfoto Uploaden</Link></strong></p>
+                              </> :
+                              <img src={image.image} alt="profiel-foto"/>}
+                          {/*<img src={previewUrl} alt="profiel-foto" className="image-preview"/>*/}
+                      </label>
+                    </div>
                     </section>
                     <h2>Gegevens
                 {(() => {
@@ -95,6 +103,13 @@ function ProfilePage() {
                     </section>
                     </div>
                     <div className="content-outer-container-big">
+                        <button
+                            type="button"
+                            onClick={clickUpdate}
+                        >
+                            Deze gebruiker aanpassen
+                        </button>
+                        <br></br>
                 {user.role === 'STUDENT' &&
                     <button
                     type="button"
@@ -103,31 +118,60 @@ function ProfilePage() {
                     Woordenlijsten
                     </button>
                 }
-                    <section>
+                {user.role === 'TEACHER' &&
+                        <button
+                            type="button"
+                            id="delete"
+                            onClick={clickDelete}
+                        >
+                            Deze gebruiker verwijderen
+                        </button> }
+                        <br></br>
+                <section>
                     <h2>Top score!</h2>
                 {!exams[0] ? <p>Er zijn nog geen toetsen van {userProfile.firstName}</p> :
                     <ol>
                 {exams.map((exam) => {
+                    // TO DO: Show only first 3 & ordered best first
+                    // (exam.sort(function (a, b) {
+                    //     return a.wrongEntries - b.wrongEntries
+                    // }))
                     return <li className="profile-page-li" key={exam.id}> Aantal
                     fouten: {exam.wrongEntries}
                     <strong>{exam.passed === true ? " & Geslaagd!!" : ""}</strong></li>;
                 })}
                     </ol>
                 }
-                    </section>
+                </section>
                     <button
                     type="button"
                     onClick={() => history.push(`/toetsen-van/${id}`)}
-                    >
-                {userProfile.firstName}'s Toetsen
+                    > {userProfile.firstName}'s Toetsen
                     </button>
                     </div>
                     </div>
-
                 {!userProfile.firstName &&
+                <Popup
+                >
+                    <UpdateUserProfile
+                        profileId={id}
+                    />
+                </Popup>
+                }
+                {confirmDelete &&
+                <Popup>
+                    <DeleteUser
+                        profileId={id}
+                        togglePopup={clickDelete}
+                    />
+                </Popup>
+                }
+                {confirmUpdate &&
                 <Popup>
                     <UpdateUserProfile
                         profileId={id}
+                        name={userProfile.firstName}
+                        togglePopup={clickUpdate}
                     />
                 </Popup>
                 }

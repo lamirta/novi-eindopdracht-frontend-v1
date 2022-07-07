@@ -4,6 +4,7 @@ import './ImagePage.css';
 import Popup from "../../../components/popup/PopUp";
 import AssignImageToProfile from "../../../components/assignTo/AssignImageToProfile";
 import {AuthContext} from "../../../context/AuthContext";
+import {useParams} from "react-router-dom";
 
 function ImagePage() {
     const {user} = useContext(AuthContext);
@@ -11,6 +12,7 @@ function ImagePage() {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [imageId, setImageId] = useState(null);
     const [isUploaded, toggleIsUploaded] = useState(false);
+    const { id } = useParams();
     // const [showAssignImage, setShowAssignImage] = useState(false);
 
     function handleImageChange(e) {
@@ -64,7 +66,7 @@ function ImagePage() {
                                 onChange={handleImageChange}/>
                         </label>
                         {previewUrl &&
-                        <label className="label-image-preview">
+                        <label className="label-img-upl-preview">
                             Preview:
                             <img src={previewUrl} alt="Voorbeeld van gekozen afbeelding" className="image-preview"/>
                         </label>
@@ -80,9 +82,7 @@ function ImagePage() {
               <Popup >
                   <AssignImageToProfile
                       imageId={imageId}
-                      profileId={user.profileId}
-                      // haalt nu id uit ingelogde user.. en moet uit param halen eigenlijk..
-                      // Image page dus als component of private route maken met id vanuit profiel pagina.
+                      profileId={id}
                   />
               </Popup>
               }

@@ -3,11 +3,14 @@ import {Link, useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import './WordListPage.css';
 import {AuthContext} from "../../context/AuthContext";
+import Popup from "../../components/popup/PopUp";
+import DeleteWordList from "../../components/delete/DeleteWordList";
 
 function WordListPage() {
     const {user, auth} = useContext(AuthContext);
     const [wordList, setWordList] = useState([]);
     const [words, setWords] = useState([]);
+    const [confirmDelete, toggleConfirmDelete] = useState(false);
     const history = useHistory();
     const { title } = useParams();
 
@@ -41,21 +44,8 @@ function WordListPage() {
     }
     // propertiesMap.forEach((key, value) -> System.out.printf("%s=%s%n", key, value));
 
-    async function handleDelete(e) {
-        // e.preventDefault();
-        // try {
-        //     await axios.post('http://localhost:8080/exams', {
-        //         wrongEntries: wrongEntries,
-        //         passed: passed,
-        //         userProfile: userProfileID,
-        //         wordList: wordListTitle,
-        //     });
-        //     history.push('/toetsen');
-        // } catch (error) {
-        //     setConsoleError(error.response.data);
-        //     console.log(error.response.data);
-        //     console.error(error);
-        // }
+    function clickDelete() {
+        toggleConfirmDelete(!confirmDelete);
     }
 
     return (
@@ -73,7 +63,7 @@ function WordListPage() {
                         type="button"
                         id="delete"
                         disabled={user.role !== 'TEACHER'}
-                        onClick={() => handleDelete()}
+                        onClick={clickDelete}
                     >
                         Verwijder deze lijst
                     </button>
@@ -84,6 +74,13 @@ function WordListPage() {
                         {mapWords()}
                     </div>
                 </section>
+                {confirmDelete &&
+                <Popup>
+                    <DeleteWordList
+                        togglePopup={clickDelete}
+                    />
+                </Popup>
+                }
             </div>
         </>
     )

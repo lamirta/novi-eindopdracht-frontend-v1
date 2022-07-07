@@ -18,3 +18,33 @@
     margin: 10px 10px -5px 10px;
 }
 
+.profile-pic-space {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: center;*/
+    align-items: center;
+    /*max-width: 250px;*/
+    /*min-height: 50px;*/
+    /*background-color: black;*/
+}
+
+.label-image-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: solid 1px #083b57;
+    box-shadow: 0 3px 5px rgba(8, 59, 87, 0.50);
+    border-radius: 50%;
+    max-width: 125px;
+    max-height: 125px;
+    padding: 50px 10px;
+    /*min-height: 50px;*/
+}
+
+.label-image-preview p {
+    text-align: center;
+}
+
+

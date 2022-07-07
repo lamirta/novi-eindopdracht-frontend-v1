@@ -3,10 +3,14 @@ import './AllExams.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 import ButtonContainer from "../../components/container/ButtonContainer";
+import Popup from "../../components/popup/PopUp";
+import DeleteUser from "../../components/delete/DeleteUser";
+import DeleteExam from "../../components/.drafts-unused/DeleteExam";
 
 function AllExams() {
-    const history = useHistory();
     const [exams, setExams] = useState([]);
+    const [confirmDelete, toggleConfirmDelete] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         async function fetchExams() {
@@ -25,6 +29,12 @@ function AllExams() {
         }
         fetchExams();
     }, []);
+
+
+    function clickDelete() {
+        toggleConfirmDelete(!confirmDelete);
+    }
+
 
     return (
         <>
@@ -46,24 +56,41 @@ function AllExams() {
                     <table>
                         <thead>
                         <tr>
-                            <th>Toets ID</th>
+                            <th>Toets #</th>
                             <th>Username</th>
                             <th>Woordenlijst</th>
                             <th>Geslaagd</th>
                             <th>Aantal fouten</th>
                             {/*<th>Timestamp</th>*/}
+                            {/*<th>Verwijderen</th>*/}
                         </tr>
                         </thead>
                         <tbody>
                         {exams.map((exam) => {
                             return <tr key={exam.id}>
+                                {/*{confirmDelete && <div className="popup-nested">*/}
+                                {/*<Popup>*/}
+                                {/*    <DeleteExam*/}
+                                {/*        examId={exam.id}*/}
+                                {/*        togglePopup={clickDelete}*/}
+                                {/*    />*/}
+                                {/*</Popup>*/}
+                                {/*</div>}*/}
                                 <td>{exam.id}</td>
                                 <td>{exam.userProfile.username.username}</td>
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
                                 {/*<td>klopt niet {exam.timestamp}</td>*/}
-                            </tr>
+                                {/*<td><button*/}
+                                {/*    type="button"*/}
+                                {/*    id="delete"*/}
+                                {/*    onClick={clickDelete}*/}
+                                {/*>*/}
+                                {/*     Verwijder toets*/}
+                                {/*</button>*/}
+                                {/*</td>*/}
+                        </tr>
                         })}
                         </tbody>
                     </table>

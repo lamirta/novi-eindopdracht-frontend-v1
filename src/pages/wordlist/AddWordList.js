@@ -59,13 +59,7 @@ function AddWordList() {
                             type="button"
                             onClick={() => history.push('/woordenlijsten')}
                         >
-                            Alle woordenlijsten
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Alle gebruikers
+                            Terug naar alle woordenlijsten
                         </button>
                     </section>
                     <section className="content-container-row">

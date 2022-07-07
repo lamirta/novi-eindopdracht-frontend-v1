@@ -8,6 +8,7 @@ import ButtonContainer from "../../components/container/ButtonContainer";
 function Users() {
     const {user} = useContext(AuthContext);
     const [users, setUsers] = useState([]);
+    // const [profiles, setProfiles] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
@@ -20,6 +21,7 @@ function Users() {
                     }
                 })
                 setUsers(response.data)
+                // setProfiles(response.data.userProfile)
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
@@ -53,9 +55,11 @@ function Users() {
                         <tr>
                             <th>Ga naar Gebruiker</th>
                             <th>Username</th>
+                            <th>Naam</th>
                             <th>E-mailadres</th>
                             <th>Gebruikersrol</th>
                             <th>Status</th>
+                            <th>Profielpagina</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -68,6 +72,7 @@ function Users() {
                                 Naar gebruiker
                             </button></td>
                             <td>{u.username}</td>
+                            <td>{u.userProfile.firstName}</td>
                             <td>{u.email}</td>
                             <td>
                                 {(() => {
@@ -84,6 +89,12 @@ function Users() {
                                 })()}
                                 </td>
                             <td>{u.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
+                            <td><button
+                                type="button"
+                                onClick={() => history.push(`/profiel/${u.userProfile.id}`)}
+                            >
+                                Profielpagina 🙋
+                            </button></td>
                         </tr>
                         })}
                         </tbody>
