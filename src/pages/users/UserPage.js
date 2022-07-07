@@ -7,6 +7,7 @@ import UpdateUserProfile from "../../components/update/UpdateUserProfile";
 import DeleteUser from "../../components/delete/DeleteUser";
 import UpdateUser from "../../components/update/UpdateUser";
 import UpdateRole from "../../components/update/UpdateRole";
+import ButtonContainer from "../../components/container/ButtonContainer";
 // import './UserPage.css';
 
 function UserPage() {
@@ -67,12 +68,7 @@ function UserPage() {
                 <h1>Gebruiker username: "{username}"</h1>
                 <section className="table-container">
                     <section>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Alle gebruikers
-                        </button>
+                        <ButtonContainer />
                     </section>
                     <section>
                         <button

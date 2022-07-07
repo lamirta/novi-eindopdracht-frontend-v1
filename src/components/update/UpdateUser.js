@@ -10,7 +10,8 @@ function UpdateUser({togglePopup}) {
     const history = useHistory();
     const { username } = useParams();
 
-
+    // Voorkom een refresh op submit???
+    // e.preventDefault();
     async function updateUser() {
         try {
             const result = await axios.put(`http://localhost:8080/users/${username}`, {

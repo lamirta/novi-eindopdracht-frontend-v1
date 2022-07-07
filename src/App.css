@@ -94,6 +94,19 @@ section {
   background-color: #c5c5c5;
 }
 
+.button-container-column {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /*align-items: stretch;*/
+  width: 100%;
+  border-radius: 7px;
+}
+
+.button-container-column button {
+  margin: 0 15px;
+}
+
 
 /*******TABLE STYLING*******/
 table, td, th {
@@ -204,6 +217,7 @@ button[disabled]:hover {
 
 /****HIDDEN-DIVS****/
 
+/*#HIDDEN-1*/
 .hidden-div {
   display: none;
   color: #fff6f2;
@@ -226,6 +240,7 @@ button[disabled]:hover + .hidden-div {
   margin: 10px;
 }
 
+/*#HIDDEN-2*/
 .hidden-div-2 {
   display: none;
   color: #fff6f2;
@@ -247,6 +262,24 @@ button[disabled]:hover + .hidden-div-2 {
   font-size: 13px;
   margin: 10px;
 }
+
+/*#HIDDEN-3*/
+.hidden-div-3 {
+  display: none;
+  color: #fff6f2;
+  text-align: center;
+  font-size: 14px;
+  background-color: rgba(8, 59, 87, 0.44);
+  border-radius: 30px;
+  border: solid 3px #083b57;
+  transform: translate(-100px, -40px);
+}
+
+button[disabled]:hover + .hidden-div-3 {
+  display: flex;
+  flex-direction: column;
+}
+
 
 
 

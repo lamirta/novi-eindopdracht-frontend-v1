@@ -36,8 +36,8 @@ function WordLists() {
                 <section>
                     <ButtonContainer />
                 </section>
-                <section>
-                    <button
+                <div className="button-container-column">
+                    <><button
                         type="button"
                         disabled={user.role !== 'TEACHER'}
                         onClick={() => history.push('/woordenlijst-toevoegen')}
@@ -45,7 +45,18 @@ function WordLists() {
                         Nieuwe woordenlijst aanmaken
                     </button>
                     <div className="hidden-div">Sorry, geen toegang 😔</div>
-                </section>
+                    </>
+                    <>
+                    <button
+                        type="button"
+                        disabled
+                        onClick={() => history.push('/woordenlijst-toevoegen')}
+                    >
+                        Woordenlijst bestand uploaden
+                    </button>
+                        <div className="hidden-div-3">' Binnenkort: nieuwe functie.. 🚀 '</div>
+                    </>
+                </div>
                 <section className="content-container-row">
                     <table>
                         <thead>
