@@ -17,7 +17,6 @@ function ProfilePage() {
     const [image, setImage] = useState([]);
     const [confirmDelete, toggleConfirmDelete] = useState(false);
     const [confirmUpdate, toggleConfirmUpdate] = useState(false);
-    const [previewUrl, setPreviewUrl] = useState(null);
     const history = useHistory();
     const {id} = useParams();
 
@@ -33,7 +32,7 @@ function ProfilePage() {
                 setUserProfile(response.data);
                 setUserObject(response.data.username);
                 setUserRole(response.data.username.authorities[0]);
-                setExams(response.data.exams);
+                setExams(response.data.exams.sort((a, b) => { return a.wrongEntries - b.wrongEntries}));
                 setImage(response.data.profilePic);
                 console.log(response.data);
             } catch (e) {
@@ -42,8 +41,6 @@ function ProfilePage() {
             }
         }
         fetchProfile();
-
-        // setPreviewUrl(URL.createObjectURL({image}));
     }, [id]);
 
     function clickDelete() {
@@ -58,6 +55,8 @@ function ProfilePage() {
     return (
         <>
             <div className="body-outer-container">
+                {(user.profileId === userProfile.id || user.role === 'TEACHER') ? <>
+
                     <h1>Profielpagina van <i>{userProfile.firstName}</i></h1>
                     <section className="profile-button-container">
                 {user.role === 'TEACHER' && <ButtonContainer/>}
@@ -65,19 +64,21 @@ function ProfilePage() {
                     <div className="body-inner-container-wide">
                     <div className="content-outer-container-big">
                     <section>
-                    <section>
                     <div className="profile-pic-space">
-                      <label className="label-image-preview">
+                        <div className="image-cropper">
                           {!image ?
-                              <> 📸
-                                  <p><strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
-                                      Profielfoto Uploaden</Link></strong></p>
-                              </> :
-                              <img src={image.image} alt="profiel-foto"/>}
-                          {/*<img src={previewUrl} alt="profiel-foto" className="image-preview"/>*/}
-                      </label>
+                              <div className="profile-pic-upl"> 📸
+                                  <strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
+                                      Profielfoto Uploaden</Link></strong>
+                              </div> :
+                              <img src={image.url} alt="profiel-foto" className="profile-pic"/>}
+                        </div>
                     </div>
+                        <div className="table-container">{image && <p><strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
+                            Profielfoto Veranderen</Link></strong></p>}
+                        </div>
                     </section>
+                    <section>
                     <h2>Gegevens
                 {(() => {
                     switch (userRole.authority) {
@@ -130,18 +131,11 @@ function ProfilePage() {
                 <section>
                     <h2>Top score!</h2>
                 {!exams[0] ? <p>Er zijn nog geen toetsen van {userProfile.firstName}</p> :
-                    <ol>
-                {exams.map((exam) => {
-                    // TO DO: Show only first 3 & ordered best first
-                    // (exam.sort(function (a, b) {
-                    //     return a.wrongEntries - b.wrongEntries
-                    // }))
-                    return <li className="profile-page-li" key={exam.id}> Aantal
-                    fouten: {exam.wrongEntries}
-                    <strong>{exam.passed === true ? " & Geslaagd!!" : ""}</strong></li>;
-                })}
-                    </ol>
-                }
+                    <ol> {exams.slice(0, 3).map((exam) => {
+                    return <li className="profile-page-li" key={exam.id}> Aantal fouten:
+                        {exam.wrongEntries} <strong>{exam.passed === true ? " & Geslaagd 🎉!!" : ""}
+                        </strong></li> })}
+                    </ol> }
                 </section>
                     <button
                     type="button"
@@ -175,6 +169,7 @@ function ProfilePage() {
                     />
                 </Popup>
                 }
+                </> : <h1 className="error-message">Sorry, je hebt geen toegang 😔🛑</h1> }
             </div>
         </>
     );

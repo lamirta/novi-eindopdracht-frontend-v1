@@ -86,7 +86,7 @@ function SignUp() {
 
                 <br></br>
                 {addSuccess === true && <>
-                    <p className="success-message">Nieuwe gebruiker is opgeslagen!</p>
+                    <p className="success-msg-1">Nieuwe gebruiker is opgeslagen!</p>
                     <p>Ga door naar <Link to="/users">alle gebruikers</Link> <strong>of</strong> refresh de pagina</p>
                 </>}
                 {addSuccess ? <></> : <>{consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}</>}

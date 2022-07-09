@@ -29,7 +29,7 @@ function ExamsPerUser() {
             }
         }
         fetchExams();
-    }, []);
+    }, [profile.firstName]); //op deze manier refreshed de pagina na een nieuwe toetsuitslag
 
     return (
         <>
@@ -41,10 +41,10 @@ function ExamsPerUser() {
                     <button
                         type="button"
                         disabled={profile.id !== user.profileId}
-                        onClick={() => history.push('/toets-maken')}
+                        // onClick={() => history.push('/toets-maken')}
+                        onClick={() => history.push(`/toets-starten/${user.profileId}`)}
                     >
                         Nieuwe toets starten
-                    {/*    Hier een pop up maken, vragen welke woordenlijst..*/}
                     </button>
                     <div className="hidden-div-2">Je bent niet ingelogd als {profile.firstName}</div>
                     </span>
@@ -55,6 +55,8 @@ function ExamsPerUser() {
                         Terug
                     </button>
                 </section>
+                    {(user.profileId === profile.id || user.role === 'TEACHER') &&
+                    <>
                     {!exams[0] ?
                             <span className="exam-user-info">
                                 <p className="exam-p"> Nog geen toetsen van {profile.firstName}</p>
@@ -84,7 +86,7 @@ function ExamsPerUser() {
                         </tbody>
                     </table>
                 </section>
-                    }
+                    } </>}
                 </div>
             </div>
         </>

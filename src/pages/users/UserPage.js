@@ -3,7 +3,6 @@ import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import Popup from "../../components/popup/PopUp";
 import {AuthContext} from "../../context/AuthContext";
-import UpdateUserProfile from "../../components/update/UpdateUserProfile";
 import DeleteUser from "../../components/delete/DeleteUser";
 import UpdateUser from "../../components/update/UpdateUser";
 import UpdateRole from "../../components/update/UpdateRole";
@@ -19,7 +18,6 @@ function UserPage() {
     const [deleteUser, toggleDeleteUser] = useState(false);
     const [updateRole, toggleUpdateRole] = useState(false);
     const [showPopup, toggleShowPopup] = useState(false);
-    const [clicked, toggleClicked] = useState(false);
     const { username } = useParams();
     const history = useHistory();
 
@@ -65,6 +63,8 @@ function UserPage() {
     return (
         <>
             <div className="body-outer-container">
+                {(user.username === userObject.username || user.role === 'TEACHER') ? <>
+
                 <h1>Gebruiker username: "{username}"</h1>
                 <section className="table-container">
                     <section>
@@ -152,50 +152,10 @@ function UserPage() {
                     />}
                 </Popup>
                 }
+            </> : <h1 className="error-message">Sorry, je hebt geen toegang 😔🛑</h1> }
             </div>
         </>
     );
 }
 
 export default UserPage;
-
-// <AssignUserToProfile
-//     username={username}
-//     profileId={profile.id}
-// />
-
-// <div className="hidden-div">
-//                                         <span>Sorry, alleen
-//                                             "<strong>{ userObject.username }</strong>"
-//                                            kan een eigen profiel aanmaken
-//                                         </span>
-// </div>
-
-
-
-// <td>{!profile ?
-//     <button
-//         type="button"
-//         onClick={handleClick}
-//     >
-//         Profiel aanmaken
-//     </button>
-//     :
-//     <button
-//         type="button"
-//         onClick={() => history.push(`/profiel/${profile.id}`)}
-//     >
-//         Naar profielpagina
-//     </button>}
-// </td>
-// </tr>
-// </tbody>
-// </table>
-// </section>
-// </section>
-// {clicked &&
-// <section className="table-container">
-//     <CreateEmptyProfile
-//         userObject={userObject}
-//     />
-// </section>

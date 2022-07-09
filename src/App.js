@@ -15,11 +15,11 @@ import AllExams from "./pages/exam/AllExams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
 import ImagePage from "./pages/profile/image/ImagePage";
-import GetImage from "./pages/profile/image/GetImage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
 import ExamsPerUser from "./pages/exam/ExamsPerUser";
 import SideBarMenu from "./components/sidebar/SideBarMenu";
+import ExamInfo from "./pages/exam/ExamInfo";
 
 // Alert opzoeken.
 // requeired opzoeken bij input
@@ -75,10 +75,6 @@ function App() {
             <ImagePage />
           </Route>
 
-          <Route exact path="/foto-opvragen">
-            <GetImage />
-          </Route>
-
           {user.role === 'TEACHER' &&
           <Route exact path="/registreren">
             <NavBar/>
@@ -118,6 +114,11 @@ function App() {
           <Route exact path="/toetsen-van/:id">
             <NavBar/>
             <ExamsPerUser />
+          </Route>
+
+          <Route exact path="/toets-starten/:id">
+              <NavBar/>
+             <ExamInfo />
           </Route>
 
           <Route exact path="/toets-maken">

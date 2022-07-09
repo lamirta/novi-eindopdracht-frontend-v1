@@ -43,7 +43,6 @@ function StartExam() {
                 setWordList(response.data)
                 setWords(response.data.words)
                 setCurrentWord(response.data.words[0])
-                console.log(response.data);
                 console.log(currentWord);
             } catch(e) {
                 console.error(e);
@@ -131,7 +130,7 @@ function StartExam() {
                         </div>
                     </div>
 
-                {endOfExam &&
+                {!endOfExam &&
                 <Popup>
                     <SaveExam
                         wordList={wordList}

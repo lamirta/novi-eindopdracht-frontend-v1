@@ -1,36 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import axios from "axios";
 import './ImagePage.css';
 import Popup from "../../../components/popup/PopUp";
-import {useHistory, useParams} from "react-router-dom";
+import AssignImageToProfile from "../../../components/assignTo/AssignImageToProfile";
+import {AuthContext} from "../../../context/AuthContext";
+import {useParams} from "react-router-dom";
 
 function ImagePage() {
-    // const [file, setFile] = useState([]);
-    const [file, setFile] = useState();
+    const {user} = useContext(AuthContext);
+    const [file, setFile] = useState([]);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [imageId, setImageId] = useState(null);
     const [isUploaded, toggleIsUploaded] = useState(false);
-    const history = useHistory();
     const { id } = useParams();
-
-    async function sendImage(e) {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", file);
-        try {
-            const result = await axios.post(`http://localhost:8080/userprofiles/${id}/image`, formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    },
-                })
-            console.log(result.data)
-            toggleIsUploaded(true);
-        } catch (e) {
-            console.error(e)
-            console.log(e.response.data);
-        }
-    }
+    // const [showAssignImage, setShowAssignImage] = useState(false);
 
     function handleImageChange(e) {
         const uploadedFile = e.target.files[0];
@@ -39,10 +22,38 @@ function ImagePage() {
         setPreviewUrl(URL.createObjectURL(uploadedFile));
     }
 
+    async function sendImage(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", file);
+        try {
+            const result = await axios.post('http://localhost:8080/images', formData,
+                {
+                    headers: {
+                        // "Content-Type": "multipart/form-data",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                })
+            setImageId(result.data.id)
+            console.log(result.data.id)
+            console.log(result.data)
+            toggleIsUploaded(true);
+        } catch (e) {
+            console.error(e)
+            console.log(e.response.data);
+        }
+    }
+
+    // function assignToProfile() {
+    //     setShowAssignImage(!showAssignImage);
+    // }
+
     return (
         <>
           <div className="body-outer-container">
                 <h1>Profiel foto uploaden</h1>
+                {/*Implementeer element / popup met functie voor het koppelen van image aan UserProfile*/}
                 <section className="image-content-container-row">
                     <form className="image-upload-form" onSubmit={sendImage}>
                         <section className="image-form-container">
@@ -69,14 +80,10 @@ function ImagePage() {
                 </section>
               {isUploaded &&
               <Popup >
-                  <span className="success-msg-2">
-                      <h1>Afbeelding opgeslagen 🥳</h1>
-                      <p>Bekijk nu jouw nieuwe profielfoto</p>
-                  <button
-                      type="button"
-                      onClick={() => history.push(`/profiel/${id}`)}
-                  > Naar profiel
-                  </button></span>
+                  <AssignImageToProfile
+                      imageId={imageId}
+                      profileId={id}
+                  />
               </Popup>
               }
           </div>
