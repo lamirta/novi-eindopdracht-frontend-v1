@@ -1,4 +1,4 @@
-export default function wordLoop(words, wordIndexNr, undefined) {
+export default function wordLoop(words, wordIndexNr) {
         if (words[wordIndexNr] === words[0]){
             return words[0];
         } else if (words[wordIndexNr] === words[1]){

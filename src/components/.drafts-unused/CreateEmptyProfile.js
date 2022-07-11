@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
 import axios from "axios";
 import Popup from "../popup/PopUp";
-import AssignUserToProfile from "./AssignUserToProfile";
+import AssignUserToProfile from "./assignTo/AssignUserToProfile";
 // import './CreateEmptyProfile.css';
 
 function CreateEmptyProfile({userObject}) {

@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import './StartExam.css';
-import {useHistory} from "react-router-dom";
-import axios from "axios";
+import {useHistory, useLocation} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import Popup from "../../components/popup/PopUp";
 import SaveExam from "../../components/exams/SaveExam";
-import wordLoop from "../../helpers/WordLoop";
+import ExamHeader from "../../components/exams/ExamHeader";
+import ExamBtnNext from "../../components/exams/ExamBtnNext";
 
 
 // when userEntry !== indexOf original word.. +1 to wrongEntries counter..?
@@ -15,158 +15,165 @@ import wordLoop from "../../helpers/WordLoop";
 
 function StartExam() {
     const {user} = useContext(AuthContext);
-    const [userEntry, setUserEntry] = useState(null);
-    const [wordList, setWordList] = useState([]);
+    const history = useHistory();
+    const location = useLocation();
+
+    // ExamAnswer related
+    const [userEntry, setUserEntry] = useState('');
+    const [userKey, setUserKey] = useState('');
+
+    // UserInput related
+    const [title, setTitle] = useState('');
     const [words, setWords] = useState([]);
-    const [endOfExam, setEndOfExam] = useState(false);
-    const [currentWord, setCurrentWord] = useState('');
+    const [currentWord, setCurrentWord] = useState(location.state.words[wordIndexNr]);
     const [wordIndexNr, setWordIndexNr] = useState(0);
-    const [showElement, setShowElement] = useState(true)
+    const [currentLetter, setCurrentLetter] = useState(location.state.words[0].charAt(letterIndexNr));
+    const [letterIndexNr, setLetterIndexNr] = useState(0);
+
+    // Message & Layout related
+    const [endOfExam, setEndOfExam] = useState(false);
+    const [showWord, setShowWord] = useState(true);
+    const [error, toggleError] = useState(false);
     const [consoleError, setConsoleError] = useState('');
+
+    // Properties for saving Exam Object with axios.post
+    const [wordList, setWordList] = useState([]);
     const [wrongEntries, setWrongEntries] = useState(0);
     const [passed, togglePassed] = useState(false);
-    const history = useHistory();
 
-    // aparte component functie van maken
+
     useEffect(() => {
-        async function fetchLists() {
-            try {
-                const response = await axios.get('http://localhost:8080/wordlists/dieren', {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                })
-                // for (let i = 0; i < 11; i++) {
-                //     setWord(response.data.words[i]);
-                // }
-                setWordList(response.data)
-                setWords(response.data.words)
-                setCurrentWord(response.data.words[0])
-                console.log(currentWord);
-            } catch(e) {
-                console.error(e);
-            }
-        }
-        fetchLists();
+        setWordList(location.state);
+        setTitle(location.state.title);
+        setWords(location.state.words);
+        // setCurrentWord(location.state.words[0]);
+        // setCurrentLetter(location.state.words[0].charAt(0))
+        // setCurrentWord(location.state.words[wordIndexNr]);
+        // setCurrentLetter(currentWord.charAt(letterIndexNr));
     }, [wordIndexNr]);
 
 
-    useEffect(()=>{
-            setTimeout(function() {
-                setShowElement(false)
-            }, 2000);
-    }, [wordIndexNr])
+    useEffect(() => {
+        setTimeout(function () {
+            setShowWord(false);
+        }, 2000); // 2 seconds
+    }, [wordIndexNr]);
+
+
+    // even controleren in the console wat er precies geregistreerd wordt
+    useEffect(() => {
+        console.log("useEffect gaat of, userEntry dependency");
+        console.log("Dit is nu currentWord: " + currentWord);
+        console.log("Dit is nu currentLetter: " + currentLetter);
+        console.log("Dit is nu userKey: " + userKey);
+        console.log("Dit is nu letterIndex: " + letterIndexNr);
+        // console.log("Dit is nu currentLetter: " + currentWord.charAt(letterIndexNr));
+    }, [userEntry]);
 
 
     function toNextWord() {
-        setCurrentWord(currentWord + 1)
-        // const nextWord = currentWord + 1
-        // console.log(nextWord)
-        // return nextWord;
+        if (wordIndexNr > words.length - 2) {
+            setEndOfExam(true)
+            results()
+        } else {
+            setWordIndexNr(wordIndexNr + 1);
+            setShowWord(true);
+            setUserEntry('');
+            setLetterIndexNr(0)
+        }
     }
 
-    function handleClickVolgende() {
-        if (wordLoop(words, wordIndexNr) === null) {
-            setShowElement(false)
-            setEndOfExam(true);
-        } else {
-            setWordIndexNr(wordIndexNr + 1)
-            setShowElement(true)
-            setUserEntry('');
-        }
-        console.log(wordLoop());
+    function handleInputChange(e) {
+        setUserKey(e.key)
+        errorHandle(userKey)
     }
+
+    function errorHandle(userKey) {
+        if (userKey !== currentLetter) {
+            toggleError(!error)
+        }
+        // setLetterIndexNr(letterIndexNr + 1)
+    }
+
+
+    function trackErrors() {
+
+        setWrongEntries(wrongEntries + 1)
+    }
+
+    function results() {
+        if (wrongEntries < 8) {
+            togglePassed(true)
+        }
+    }
+
 
     return (
-        <>
-            <div className="main-exercise-page">
-                <header className="exercise-page-header">
-                    <h2 className="wordlist-title">Titel Woordenlijst: <span className="wordlist-title-p">"{wordList.title}"</span></h2>
-                </header>
-                    <div className="container-exercise-wrap">
-                        <div className="exercise">
-                            <div className="exercise-content">
-                                <h1 className="exercise-title">
-                                    {showElement ? <span className="text-animation-hide">
-                                        {/*{wordLoop()}*/}
-                                            {wordLoop(words, wordIndexNr)}
+        <div className="main-exercise-page">
+            <ExamHeader title={title}/>
+            <div className="container-exercise-wrap">
+                <div className="exercise">
+                    <div className="exercise-content">
+                        <h1 className="exercise-title">
+                            {showWord ? <span className="text-animation-hide">
+                                    {currentWord}
                             </span> : <>
-                                        <label htmlFor="userEntry">
-                                            <input
-                                                placeholder="typ hier jouw antwoord"
-                                                className="exam-entry-input"
-                                                type="text"
-                                                id="userEntry"
-                                                onChange={(e) => //HandleChange function met log in console && vang in variable die weer vergelijkt met woord..??
-                                                    setUserEntry(e.target.value.toLowerCase())}
-                                                value={userEntry}
-                                            />
-                                        </label>
-                                        <span className="typo-msg">
-                                {/*{userEntry !== words && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}*/}
+                                <label htmlFor="userEntry">
+                                    <input
+                                        placeholder="typ hier jouw antwoord"
+                                        className="exam-entry-input"
+                                        type="text"
+                                        id="userEntry"
+                                        onKeyPress={handleInputChange}
+                                        onChange={(e) =>
+                                            //HandleChange function met log in console && vang in variable die weer vergelijkt met woord..??
+                                        // KeyPress() ??
+                                            setUserEntry(e.target.value.toLowerCase())}
+                                        value={userEntry}
+                                    />
+                                </label>
+                                <span className="typo-msg">
+                                {error && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}
                                 </span>
-                                    </>}
-                                </h1>
-                                {/*    Hier label userEntry neerzetten als het niet lukt met elke keer vernieuwen na word change*/}
-                            </div>
-                            <div className="exercise-bottom-bar">
-                                <div className="btn-block">
-                                    {/*HIER NOG TERNARY RESPONSE MESSAGE IF WRONG LETTER*/}
-                                    <div className="btn-right">
-                                        <button
-                                            type="button"
-                                            disabled={!userEntry}
-                                            id="volgende"
-                                            onClick={() => handleClickVolgende()}
-                                        >
-                                            <div className="visual">
-                                                <span className="text-exam-btn">volgende</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </>}
+                        </h1>
+                        {/*    Hier label userEntry neerzetten als het niet lukt met elke keer vernieuwen na word change*/}
                     </div>
-
-                {!endOfExam &&
-                <Popup>
-                    <SaveExam
-                        wordList={wordList}
-                        wrongEntries={wrongEntries}
-                        passed={passed}
+                    <ExamBtnNext
+                        userEntry={userEntry}
+                        currentWord={currentWord}
+                        toNextWord={toNextWord}
                     />
-                </Popup> }
+                </div>
             </div>
-        </>
+
+            {endOfExam &&
+            <Popup>
+                <SaveExam
+                    wordList={wordList}
+                    wrongEntries={wrongEntries}
+                    passed={passed}
+                />
+            </Popup>}
+        </div>
     );
 }
 
 export default StartExam;
 
 
-
-// function wordLoop() {
-//     if (words[wordIndexNr] === words[0]){
-//         return words[0];
-//     } else if (words[wordIndexNr] === words[1]){
-//         return words[1];
-//     } else if (words[wordIndexNr] === words[2]) {
-//         return words[2];
-//     } else if (words[wordIndexNr] === words[3]) {
-//         return words[3];
-//     } else if (words[wordIndexNr] === words[4]) {
-//         return words[4];
-//     } else if (words[wordIndexNr] === words[5]) {
-//         return words[5];
-//     } else if (words[wordIndexNr] === words[6]) {
-//         return words[6];
-//     } else if (words[wordIndexNr] === words[7]) {
-//         return words[7];
-//     } else if (words[wordIndexNr] === words[8]) {
-//         return words[8];
-//     } else if (words[wordIndexNr] === words[9]) {
-//         return words[9];
+// function handleClickVolgende() {
+//     if (wordLoop(words, wordIndexNr) === null) {
+//         setShowWord(false);
+//         setEndOfExam(true);
+//     } else {
+//         setWordIndexNr(wordIndexNr + 1);
+//         setShowWord(true);
+//         setUserEntry('');
 //     }
+//     console.log(wordLoop());
 // }
+
+//             // for (let i = 0; i < 11; i++) {
+//             //     setWord(response.data.words[i]);
+//             // }

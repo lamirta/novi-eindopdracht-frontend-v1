@@ -3,11 +3,13 @@ import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import './ExamsPerUser.css';
 import {AuthContext} from "../../context/AuthContext";
+import formatTimeStamp from "../../helpers/formatTimeStamp";
 
 function ExamsPerUser() {
     const {user} = useContext(AuthContext);
     const [profile, setProfile] = useState([]);
     const [exams, setExams] = useState([]);
+    const [timeStamps, setTimeStamps] = useState([]);
     const history = useHistory();
     const { id } = useParams();
 
@@ -23,13 +25,29 @@ function ExamsPerUser() {
                 })
                 setProfile(response.data)
                 setExams(response.data.exams)
+                setTimeStamps(response.data.exams.timestamp)
                 console.log(response.data);
+                // console.log(exams[1].timestamp.toString());
             } catch(e) {
                 console.error(e);
             }
         }
         fetchExams();
-    }, [profile.firstName]); //op deze manier refreshed de pagina na een nieuwe toetsuitslag
+    }, [exams.length]); //op deze manier refreshed de pagina na een nieuwe toetsuitslag??
+
+    // function format(timestamp) {
+    //     // timeStamps.map((ts) => {
+    //     //     return ts.toString()
+    //     // })
+    //
+    //     let date = timestamp.slice(0, 10);
+    //     let time = timestamp.slice(11, 19);
+    //
+    //     console.log(date);
+    //     console.log(time);
+    //
+    //     // return date + " om " + time;
+    // }
 
     return (
         <>
@@ -80,7 +98,11 @@ function ExamsPerUser() {
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd 🎉" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                <td><i>To be implemented</i> {exam.timestamp}</td>
+                                <td>
+                                    <i>{
+                                    exam.timestamp
+                                    || "empty"}</i>
+                                </td>
                             </tr>
                         })}
                         </tbody>

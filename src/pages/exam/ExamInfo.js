@@ -4,12 +4,12 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
-function ExamInfo({props}) {
+function ExamInfo() {
     const {user} = useContext(AuthContext);
     const [userEntry, setUserEntry] = useState(null);
     const [wordLists, setWordLists] = useState([]);
     const [wordList, setWordList] = useState([]);
-    const [selectedList, setSelectedList] = useState();
+    const [selectedList, setSelectedList] = useState([]);
     const [words, setWords] = useState([]);
     const [endOfExam, setEndOfExam] = useState(false);
     const history = useHistory();
@@ -26,15 +26,16 @@ function ExamInfo({props}) {
                 });
                 setWordLists(response.data);
                 setWords(response.data.words);
-                console.log(response.data);
-                console.log(selectedList);
             } catch (e) {
                 console.error(e);
             }
         }
         fetchLists();
-    }, [selectedList]);
+    }, []);
 
+    // function objectWL() {
+    //
+    // }
 
     return (
         <>
@@ -77,7 +78,8 @@ function ExamInfo({props}) {
                                             <input
                                                 type="radio"
                                                 name="select-list"
-                                                onChange={(e) => setSelectedList(wl.title)}
+                                                // onClick={objectWL}
+                                                onChange={(e) => setSelectedList(wl)}
                                             />
                                         </label></div>
                                     </td>
@@ -86,13 +88,19 @@ function ExamInfo({props}) {
                             </tbody>
                         </table>
                     </section>
-                    {selectedList && <>
-                    <p>Ben je er helemaal klaar voor? Dan kan je beginnen!</p>
+                    {selectedList.title && <>
+                    <strong>Woordenlijst: <i>{selectedList.title}</i>.</strong><p>Ben je er helemaal klaar voor? Dan kan je beginnen!</p>
                         <button
                             type="button"
                             id="btn-start"
-                            onClick={() => history.push(`/toets-maken`)}
-                        > <span className="text-btn-start">Start de toets!</span>
+                            onClick={
+                                // () => history.push(`/toets-maken`)
+                                () => history.push({pathname: `/toets-maken`, state: selectedList})
+                            }
+                        > <span className="text-btn-start">
+                            {/*<link to={`/toets-maken`} > Start de toets! </link>*/}
+                            Start de toets!
+                        </span>
                         </button>
                     </>}
                 </section>
