@@ -6,12 +6,8 @@ import {AuthContext} from "../../context/AuthContext";
 
 function ExamInfo() {
     const {user} = useContext(AuthContext);
-    const [userEntry, setUserEntry] = useState(null);
     const [wordLists, setWordLists] = useState([]);
-    const [wordList, setWordList] = useState([]);
     const [selectedList, setSelectedList] = useState([]);
-    const [words, setWords] = useState([]);
-    const [endOfExam, setEndOfExam] = useState(false);
     const history = useHistory();
 
 
@@ -25,7 +21,6 @@ function ExamInfo() {
                     }
                 });
                 setWordLists(response.data);
-                setWords(response.data.words);
             } catch (e) {
                 console.error(e);
             }
@@ -33,9 +28,6 @@ function ExamInfo() {
         fetchLists();
     }, []);
 
-    // function objectWL() {
-    //
-    // }
 
     return (
         <>
@@ -78,7 +70,6 @@ function ExamInfo() {
                                             <input
                                                 type="radio"
                                                 name="select-list"
-                                                // onClick={objectWL}
                                                 onChange={(e) => setSelectedList(wl)}
                                             />
                                         </label></div>

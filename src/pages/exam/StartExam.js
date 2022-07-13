@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import './StartExam.css';
 import {useHistory, useLocation} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
@@ -9,32 +9,30 @@ import ExamBtnNext from "../../components/exams/ExamBtnNext";
 
 
 // when userEntry !== indexOf original word.. +1 to wrongEntries counter..?
-// get request naar wordlist > make loop voor de array met woorden?
-// get request naar authContext.. wie er ingelogd is voor ID?
 
 
 function StartExam() {
     const {user} = useContext(AuthContext);
     const history = useHistory();
     const location = useLocation();
+    const textInput = useRef(null);
 
     // ExamAnswer related
     const [userEntry, setUserEntry] = useState('');
-    const [userKey, setUserKey] = useState('');
+    // const [userKey, setUserKey] = useState('');
 
     // UserInput related
     const [title, setTitle] = useState('');
     const [words, setWords] = useState([]);
-    const [currentWord, setCurrentWord] = useState(location.state.words[wordIndexNr]);
+    const [currentWord, setCurrentWord] = useState('');
     const [wordIndexNr, setWordIndexNr] = useState(0);
-    const [currentLetter, setCurrentLetter] = useState(location.state.words[0].charAt(letterIndexNr));
-    const [letterIndexNr, setLetterIndexNr] = useState(0);
+    const [letterIndexNr, setLetterIndexNr] = useState(-1);
 
     // Message & Layout related
     const [endOfExam, setEndOfExam] = useState(false);
     const [showWord, setShowWord] = useState(true);
     const [error, toggleError] = useState(false);
-    const [consoleError, setConsoleError] = useState('');
+
 
     // Properties for saving Exam Object with axios.post
     const [wordList, setWordList] = useState([]);
@@ -46,30 +44,67 @@ function StartExam() {
         setWordList(location.state);
         setTitle(location.state.title);
         setWords(location.state.words);
-        // setCurrentWord(location.state.words[0]);
-        // setCurrentLetter(location.state.words[0].charAt(0))
-        // setCurrentWord(location.state.words[wordIndexNr]);
-        // setCurrentLetter(currentWord.charAt(letterIndexNr));
-    }, [wordIndexNr]);
+    }, []);
 
 
     useEffect(() => {
+        setCurrentWord(location.state.words[wordIndexNr]);
+        toggleError(false)
+
+
         setTimeout(function () {
             setShowWord(false);
         }, 2000); // 2 seconds
     }, [wordIndexNr]);
 
 
+    useEffect(() => {
+        if (!showWord) {
+            textInput.current.focus()
+            setLetterIndexNr(letterIndexNr + 1)
+        }
+    }, [showWord]);
+
+
     // even controleren in the console wat er precies geregistreerd wordt
     useEffect(() => {
-        console.log("useEffect gaat of, userEntry dependency");
+        console.log("useEffect is fired, w/ userEntry dependency");
         console.log("Dit is nu currentWord: " + currentWord);
-        console.log("Dit is nu currentLetter: " + currentLetter);
-        console.log("Dit is nu userKey: " + userKey);
+        console.log("Dit is nu currLetter charAt: " + currentWord.charAt(letterIndexNr));
+        // console.log("Dit is nu userKey: " + userKey);
+        console.log("Dit is nu userEntry: " + userEntry);
         console.log("Dit is nu letterIndex: " + letterIndexNr);
-        // console.log("Dit is nu currentLetter: " + currentWord.charAt(letterIndexNr));
+        console.log("Dit is nu wordIndex: " + wordIndexNr);
+        console.log("Dit is nu error: " + error);
     }, [userEntry]);
 
+
+    function handleKeyDown(e) {
+        console.log(e);
+        // setUserKey(e.key)
+        // console.log("log of userKey(down): " + userKey);
+        // errorHandle(e.key)
+        // trackErrors()
+
+        if (e.code === "Enter" || e.code === "NumpadEnter" || e.which === 13) {
+            console.log("Enter key was pressed.");
+            e.preventDefault();
+            if (userEntry === currentWord) {
+                toNextWord();
+            }
+        }
+
+        if (e.key !== currentWord.charAt(letterIndexNr)) {
+            // setWrongEntries(wrongEntries + 1)
+            e.preventDefault()
+            toggleError(true)
+            addError(e)
+        } else {
+            setLetterIndexNr(letterIndexNr + 1)
+            toggleError(false)
+        }
+
+    }
 
     function toNextWord() {
         if (wordIndexNr > words.length - 2) {
@@ -79,26 +114,27 @@ function StartExam() {
             setWordIndexNr(wordIndexNr + 1);
             setShowWord(true);
             setUserEntry('');
-            setLetterIndexNr(0)
+            toggleError(false)
+            setLetterIndexNr(-1)
         }
     }
 
-    function handleInputChange(e) {
-        setUserKey(e.key)
-        errorHandle(userKey)
-    }
 
     function errorHandle(userKey) {
-        if (userKey !== currentLetter) {
-            toggleError(!error)
+        if (userKey !== currentWord.charAt(letterIndexNr)) {
+            toggleError(true)
+
+        } else {
+            toggleError(false)
+
         }
-        // setLetterIndexNr(letterIndexNr + 1)
     }
 
-
-    function trackErrors() {
-
-        setWrongEntries(wrongEntries + 1)
+    function addError(e) {
+        if ((e.key !== "Enter") && e.key !== currentWord.charAt(letterIndexNr)) {
+            setWrongEntries(wrongEntries + 1)
+            console.log("log wrongEntries: " + wrongEntries);
+        }
     }
 
     function results() {
@@ -115,20 +151,21 @@ function StartExam() {
                 <div className="exercise">
                     <div className="exercise-content">
                         <h1 className="exercise-title">
-                            {showWord ? <span className="text-animation-hide">
+                            {showWord ? <span className="text-hide">
                                     {currentWord}
                             </span> : <>
                                 <label htmlFor="userEntry">
                                     <input
+                                        ref={textInput}
                                         placeholder="typ hier jouw antwoord"
                                         className="exam-entry-input"
                                         type="text"
                                         id="userEntry"
-                                        onKeyPress={handleInputChange}
+                                        onKeyDown={handleKeyDown}
                                         onChange={(e) =>
-                                            //HandleChange function met log in console && vang in variable die weer vergelijkt met woord..??
-                                        // KeyPress() ??
-                                            setUserEntry(e.target.value.toLowerCase())}
+                                            // setUserEntry(e.target.value.toLowerCase())}
+                                            setUserEntry(e.target.value)}
+
                                         value={userEntry}
                                     />
                                 </label>
@@ -145,6 +182,7 @@ function StartExam() {
                         toNextWord={toNextWord}
                     />
                 </div>
+                <span>Fouten: {wrongEntries}</span>
             </div>
 
             {endOfExam &&

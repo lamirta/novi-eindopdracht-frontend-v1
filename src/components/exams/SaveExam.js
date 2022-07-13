@@ -2,16 +2,14 @@ import React, {useContext, useState} from 'react';
 // import './SaveExam.css';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 function SaveExam({wordList, wrongEntries, passed}) {
     const {user} = useContext(AuthContext);
-    // const [confirmAssign, toggleConfirmAssign] = useState(false);
     const history = useHistory();
 
 
     async function saveExam() {
-        // e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/exams', {
                 wrongEntries: wrongEntries,
@@ -48,17 +46,17 @@ function SaveExam({wordList, wrongEntries, passed}) {
                 <p>Einde van de toets. Bekijk je resultaten:</p>
              <section>
             <h3>Aantal fouten: "{wrongEntries}"</h3>
-            <p>{!passed && "Blijf onder de 10 fouten om te slagen"}<strong>{passed && "Geslaagd!!! 🎉"}</strong></p>
+            <p>{!passed && "Blijf onder de 8 fouten om te slagen"}<strong>{passed && "Geslaagd!!! 🎉"}</strong></p>
              </section>
                 <div className="body-inner-container-wide">
                 <button
-                    type="button"
+                    type="submit"
                     onClick={handleClickResults}
                 >
                     Naar al mijn toetsen
                 </button>
                 <button
-                    type="button"
+                    type="submit"
                     onClick={handleClickProfile}
                 >
                     Naar mijn profiel

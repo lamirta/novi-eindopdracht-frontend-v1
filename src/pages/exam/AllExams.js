@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './AllExams.css';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import axios from "axios";
 import ButtonContainer from "../../components/container/ButtonContainer";
-import Popup from "../../components/popup/PopUp";
-import DeleteUser from "../../components/delete/DeleteUser";
-import DeleteExam from "../../components/.drafts-unused/DeleteExam";
+import {AuthContext} from "../../context/AuthContext";
 
 function AllExams() {
+    const {user} = useContext(AuthContext);
     const [exams, setExams] = useState([]);
     const [confirmDelete, toggleConfirmDelete] = useState(false);
     const history = useHistory();
@@ -47,7 +46,7 @@ function AllExams() {
                 <section>
                     <button
                         type="button"
-                        onClick={() => history.push('/toets-maken')}
+                        onClick={() => history.push(`/toets-starten/${user.profileId}`)}
                     >
                         Nieuwe toets starten
                     </button>
@@ -61,7 +60,7 @@ function AllExams() {
                             <th>Woordenlijst</th>
                             <th>Geslaagd</th>
                             <th>Aantal fouten</th>
-                            {/*<th>Timestamp</th>*/}
+                            <th>Timestamp</th>
                             {/*<th>Verwijderen</th>*/}
                         </tr>
                         </thead>
@@ -81,7 +80,9 @@ function AllExams() {
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                {/*<td>klopt niet {exam.timestamp}</td>*/}
+                                <td>{exam.timestamp}</td>
+                                {/*//implement timestamp function > maak helper*/}
+
                                 {/*<td><button*/}
                                 {/*    type="button"*/}
                                 {/*    id="delete"*/}
