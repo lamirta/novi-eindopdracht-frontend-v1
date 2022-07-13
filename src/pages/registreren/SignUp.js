@@ -1,37 +1,37 @@
-import React, {useState} from 'react';
-import {Link, useHistory} from "react-router-dom";
+import React, {useContext, useState} from 'react';
+import {Link} from "react-router-dom";
 import axios from "axios";
 import './SignUp.css';
+import {AuthContext} from "../../context/AuthContext";
 
-// hoe krijg ik een succes melding als user is aangemaakt?
-// hoe krijg ik een foutmelding als de username al bezet is? krijg die vanuit de backend hier?
-
-// <div class="status">{2 woorden opgeslagen als een concept}</div>
-// "status" veranderd wanneer er een nieuwe melding komt..
 
 function SignUp() {
+    const {user} = useContext(AuthContext);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(null);  //kan ik dit niet null maken..? en dan if null?
+    const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [consoleError, setConsoleError] = useState('');
     const [addSuccess, toggleAddSuccess] = useState(false);
-    const history = useHistory();
-
-    //Implementeer unmounting-effecten op de registreer-, inlog- en profielpagina door het request te annuleren met een Axios Canceltoken.
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/users', {
+            const result = await axios.post('http://localhost:8080/users', {
                 username: username,
                 password: password,
                 email: email,
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
             })
-            // history.push('/signin')
             toggleAddSuccess(true);
+            console.log(result.data)
         } catch(error) {
             setConsoleError(error.response.data);
             console.log(error.response.data);
+            console.log(error.response.status);
             console.error(error);
         }
     }
@@ -41,7 +41,17 @@ function SignUp() {
             <div className="body-outer-container">
                 <h1>Nieuwe gebruiker aanmaken</h1>
             <section className="body-inner-container-small">
-            <p>Alleen een admin kan nieuwe users aanmaken. Kijk bij jouw gebruikersrol of jij een admin bent.</p>
+            <p>Alleen een docent kan nieuwe gebruikers aanmaken. Jij bent: <strong>
+                {(() => {
+                    switch (user.role) {
+                        case "STUDENT":
+                            return " Leerling";
+                        case "TEACHER":
+                            return " Docent ☑️";
+                        default:
+                            return " Undefined";
+                    }
+                })()}</strong></p>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username
                     <input
@@ -52,7 +62,7 @@ function SignUp() {
                         value={username}
                     />
                 </label>
-                {!username && <p className="error-message">Alle velden zijn verplicht</p>}
+                {!username && <><p className="error-message">Alle velden zijn verplicht</p></>}
                 <label htmlFor="email">Email
                     <input
                         type="email"
@@ -76,7 +86,7 @@ function SignUp() {
 
                 <br></br>
                 {addSuccess === true && <>
-                    <p className="success-message">Nieuwe gebruiker is opgeslagen!</p>
+                    <p className="success-msg-1">Nieuwe gebruiker is opgeslagen!</p>
                     <p>Ga door naar <Link to="/users">alle gebruikers</Link> <strong>of</strong> refresh de pagina</p>
                 </>}
                 {addSuccess ? <></> : <>{consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}</>}

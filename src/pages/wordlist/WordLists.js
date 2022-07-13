@@ -1,16 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './WordLists.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import {AuthContext} from "../../context/AuthContext";
+import ButtonContainer from "../../components/container/ButtonContainer";
 
 function WordLists() {
+    const {user} = useContext(AuthContext);
     const history = useHistory();
     const [wordLists, setWordLists] = useState([]);
 
     useEffect(() => {
         async function fetchLists() {
             try {
-                const response = await axios.get('http://localhost:8080/wordlists');
+                const response = await axios.get('http://localhost:8080/wordlists',{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
                 setWordLists(response.data);
                 console.log(response.data);
             } catch(e) {
@@ -24,20 +32,31 @@ function WordLists() {
         <>
             <div className="body-outer-container">
                 <h1>Woordenlijsten</h1>
-                <section className="content-container-row">
-                    <button
+                <section className="table-container">
+                <section>
+                    <ButtonContainer />
+                </section>
+                <div className="button-container-column">
+                    <><button
                         type="button"
+                        disabled={user.role !== 'TEACHER'}
                         onClick={() => history.push('/woordenlijst-toevoegen')}
                     >
                         Nieuwe woordenlijst aanmaken
                     </button>
+                    <div className="hidden-div">Sorry, geen toegang 😔</div>
+                    </>
+                    <>
                     <button
                         type="button"
-                        onClick={() => history.push('/users')}
+                        disabled
+                        onClick={() => history.push('/woordenlijst-toevoegen')}
                     >
-                        Gebruikers
+                        Woordenlijst bestand uploaden
                     </button>
-                </section>
+                        <div className="hidden-div-3">' Binnenkort: nieuwe functie.. 🚀 '</div>
+                    </>
+                </div>
                 <section className="content-container-row">
                     <table>
                         <thead>
@@ -62,6 +81,7 @@ function WordLists() {
                         })}
                         </tbody>
                     </table>
+                </section>
                 </section>
         </div>
         </>

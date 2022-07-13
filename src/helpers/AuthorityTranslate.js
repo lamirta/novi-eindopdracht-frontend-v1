@@ -1,5 +1,4 @@
 import React from 'react';
-import './AuthorityTranslate.css';
 
 // if / else statement to translate:
 // user.authorities[0].authority === ROLE_USER >> Leerling

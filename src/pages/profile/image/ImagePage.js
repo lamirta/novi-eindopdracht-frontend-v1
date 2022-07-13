@@ -1,66 +1,61 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import './ImagePage.css';
-import {useHistory} from "react-router-dom";
+import Popup from "../../../components/popup/PopUp";
+import {useHistory, useParams} from "react-router-dom";
 
 function ImagePage() {
-    const [file, setFile] = useState([]);
+    // const [file, setFile] = useState([]);
+    const [file, setFile] = useState();
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [imageId, setImageId] = useState(null);
+    const [isUploaded, toggleIsUploaded] = useState(false);
     const history = useHistory();
-
-    function handleImageChange(e) {
-        // Sla het gekozen bestand op
-        const uploadedFile = e.target.files[0];
-        console.log(uploadedFile);
-        // Sla het gekozen bestand op in de state
-        setFile(uploadedFile);
-        // Sla de preview URL op zodat we deze kunnen laten zien in een <img>
-        setPreviewUrl(URL.createObjectURL(uploadedFile));
-    }
+    const { id } = useParams();
 
     async function sendImage(e) {
-        // Voorkom een refresh op submit
         e.preventDefault();
-        // maak een nieuw FormData object (ingebouwd type van JavaScript)
         const formData = new FormData();
-        // Voeg daar ons bestand uit de state aan toe onder de key "file"
         formData.append("file", file);
-
         try {
-            // verstuur ons formData object en geef in de header aan dat het om een form-data type gaat
-            // Let op: we wijzigen nu ALTIJD de afbeelding voor student 1001, als je een andere student wil kiezen of dit dynamisch wil maken, pas je de url aan!
-            const result = await axios.post('http://localhost:8080/images', formData,
+            const result = await axios.post(`http://localhost:8080/userprofiles/${id}/image`, formData,
                 {
                     headers: {
-                        "Content-Type": "multipart/form-data"
+                        "Content-Type": "multipart/form-data",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
                 })
-            setImageId(result.data.id);
-            console.log(result.data.id)
-            history.push('/foto-koppelen');
+            console.log(result.data)
+            toggleIsUploaded(true);
         } catch (e) {
             console.error(e)
             console.log(e.response.data);
         }
     }
 
+    function handleImageChange(e) {
+        const uploadedFile = e.target.files[0];
+        console.log(uploadedFile);
+        setFile(uploadedFile);
+        setPreviewUrl(URL.createObjectURL(uploadedFile));
+    }
+
     return (
         <>
           <div className="body-outer-container">
                 <h1>Profiel foto uploaden</h1>
-                {/*Implementeer element / popup met functie voor het koppelen van image aan UserProfile*/}
                 <section className="image-content-container-row">
                     <form className="image-upload-form" onSubmit={sendImage}>
                         <section className="image-form-container">
                         <label htmlFor="user-image">
                             Kies een afbeelding (JPEG formaat)
-                            <input type="file" name="user-image-field" id="user-image" />
-                            {/*onChange={handleImageChange}*/}
+                            <input
+                                type="file"
+                                name="user-image-field"
+                                id="user-image"
+                                onChange={handleImageChange}/>
                         </label>
-                        {/*Als er een preview url is, dan willen we deze in een afbeelding tonen*/}
                         {previewUrl &&
-                        <label className="label-image-preview">
+                        <label className="label-img-upl-preview">
                             Preview:
                             <img src={previewUrl} alt="Voorbeeld van gekozen afbeelding" className="image-preview"/>
                         </label>
@@ -72,7 +67,18 @@ function ImagePage() {
                         >Uploaden</button>
                     </form>
                 </section>
-
+              {isUploaded &&
+              <Popup >
+                  <span className="success-msg-2">
+                      <h1>Afbeelding opgeslagen 🥳</h1>
+                      <p>Bekijk nu jouw nieuwe profielfoto</p>
+                  <button
+                      type="button"
+                      onClick={() => history.push(`/profiel/${id}`)}
+                  > Naar profiel
+                  </button></span>
+              </Popup>
+              }
           </div>
         </>
     );

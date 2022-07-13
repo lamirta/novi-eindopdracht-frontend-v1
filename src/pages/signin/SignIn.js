@@ -16,7 +16,7 @@ function SignIn() {
     const {login} = useContext(AuthContext);
     const history = useHistory();
 
-
+    // hier hoeft geen config met header & token in?
     async function handleSubmit(e) {
         e.preventDefault();
         toggleError(false);
@@ -24,8 +24,6 @@ function SignIn() {
             const result = await axios.post('http://localhost:8080/authenticate', {
                 username: username,
                 password: password,
-                // deze paarse keys heten hetzelfde omdat dit vooraf is bepaald in de fake server die we nu gebruiken..
-                // Note: dus zelf in mijn eigen beckend aanpassen..
             });
             login(result.data.jwt);
             history.push(`/user/${username}`);

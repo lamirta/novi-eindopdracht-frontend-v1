@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
 import './NavBar.css';
 import logo from '../../assets/nav_logo.png';
-import {Link, useHistory, useParams} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 
 function NavBar() {
-    const {auth, logout} = useContext(AuthContext);
-    console.log(auth);
-    const { username } = useParams();
+    const {auth, user, logout} = useContext(AuthContext);
     const history = useHistory();
 
+    function NavToProfile() {
 
+    }
 
     return (
         <nav>
@@ -41,7 +41,7 @@ function NavBar() {
                     : <>
                     <button
                         type="button"
-                        onClick={() => history.push(`/user/${auth.user.username}`)}
+                        onClick={() => history.push(`/profiel/${user.profileId}`)}
                     >
                         Mijn Profiel
                     </button>
@@ -57,6 +57,6 @@ function NavBar() {
             </div>
         </nav>
     );
-};
+}
 
 export default NavBar;

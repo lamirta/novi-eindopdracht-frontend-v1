@@ -1,18 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 import './WordListPage.css';
+import {AuthContext} from "../../context/AuthContext";
+import Popup from "../../components/popup/PopUp";
+import DeleteWordList from "../../components/delete/DeleteWordList";
 
 function WordListPage() {
+    const {user, auth} = useContext(AuthContext);
     const [wordList, setWordList] = useState([]);
     const [words, setWords] = useState([]);
+    const [confirmDelete, toggleConfirmDelete] = useState(false);
     const history = useHistory();
     const { title } = useParams();
 
     useEffect(() => {
         async function fetchLists() {
             try {
-                const response = await axios.get(`http://localhost:8080/wordlists/${title}`);
+                const response = await axios.get(`http://localhost:8080/wordlists/${title}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
                 setWordList(response.data);
                 setWords(response.data.words);
                 console.log(response.data);
@@ -34,21 +44,8 @@ function WordListPage() {
     }
     // propertiesMap.forEach((key, value) -> System.out.printf("%s=%s%n", key, value));
 
-    async function handleDelete(e) {
-        // e.preventDefault();
-        // try {
-        //     await axios.post('http://localhost:8080/exams', {
-        //         wrongEntries: wrongEntries,
-        //         passed: passed,
-        //         userProfile: userProfileID,
-        //         wordList: wordListTitle,
-        //     });
-        //     history.push('/toetsen');
-        // } catch (error) {
-        //     setConsoleError(error.response.data);
-        //     console.log(error.response.data);
-        //     console.error(error);
-        // }
+    function clickDelete() {
+        toggleConfirmDelete(!confirmDelete);
     }
 
     return (
@@ -65,16 +62,25 @@ function WordListPage() {
                     <button
                         type="button"
                         id="delete"
-                        onClick={() => handleDelete()}
+                        disabled={user.role !== 'TEACHER'}
+                        onClick={clickDelete}
                     >
                         Verwijder deze lijst
                     </button>
+                    <div className="hidden-div">Sorry, geen toegang 😔</div>
                 </section>
                 <section className="content-container-row">
                     <div className="content-container-row-page-list">
                         {mapWords()}
                     </div>
                 </section>
+                {confirmDelete &&
+                <Popup>
+                    <DeleteWordList
+                        togglePopup={clickDelete}
+                    />
+                </Popup>
+                }
             </div>
         </>
     )

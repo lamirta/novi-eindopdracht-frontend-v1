@@ -16,7 +16,7 @@ import React from "react";
 //
 // <div className="response-msg">RESPONSE
 //     <div className="resp-success">
-//         {/*            /!*{{word (after onBlick volgende btn} && <p className="success-message">Goed gedaan! Dit is de correcte spelling: {word} </p>}*!/*/}
+//         {/*            /!*{{word (after onBlick volgende btn} && <p className="success-msg-1">Goed gedaan! Dit is de correcte spelling: {word} </p>}*!/*/}
 //     </div>
 //     <div className="resp-typo">
 //         {/*            /!*{{!word[i]} && <p className="error-message">Dat is niet de goede letter, probeer nog eens</p>}*!/*/}

@@ -1,0 +1,40 @@
+:root {
+    --menu-bar-width: 60px;
+    --menu-bar-height: 10px;
+}
+
+.tool-bar {
+    background-color: #c5c5c5;
+}
+
+.sidebar-title {
+    color: #083b57;
+}
+
+.menu-burger {
+    background-color: #083b57;
+    position: relative;
+    width: var(--menu-bar-width);
+    height: var(--menu-bar-height);
+    margin: 100px;
+}
+
+.menu-burger::before,
+.menu-burger::after {
+    background-color: #083b57;
+    display: block;
+    content: "";
+    width: var(--menu-bar-width);
+    height: var(--menu-bar-height);
+    position: absolute;
+}
+
+.menu-burger::before {
+    left: 0;
+    top: -20px;
+}
+
+.menu-burger::after {
+    left: 0;
+    top: 20px;
+}

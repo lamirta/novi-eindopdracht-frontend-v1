@@ -9,6 +9,10 @@ footer {
     padding: 3px;
     align-items: center;
     justify-content: center;
+    border-style: solid;
+    border-color: rgba(8, 59, 87, 0.25);
+    border-width: 3px 0 0 0;
+    /*box-shadow: 3px 3px 0 rgba(189, 74, 74, 0.35);*/
 }
 
 footer a,
@@ -20,7 +24,7 @@ footer a:active {
 }
 
 footer a:hover {
-    color: #006e7f;
+    color: #083b57;
 }
 
 .footer-content {

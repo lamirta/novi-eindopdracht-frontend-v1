@@ -17,8 +17,10 @@
 
 .image-content-container-row form {
     display: flex;
-    background-color: #fff8e9;
-    border: solid .1px #083b57;
+    background-color: rgba(0, 110, 127, 0.44);
+    border: solid 0.1px rgba(8, 59, 87, 0.37);
+    box-shadow: 0 3px 5px rgba(8, 59, 87, 0.50);
+    border-radius: 10px;
     flex-direction: column;
     align-items: center;
     min-width: 700px;
@@ -37,12 +39,12 @@
 label input[type=file] {
     cursor: pointer;
     padding-bottom: 100px;
-    background-color: rgba(8, 59, 87, 0.4);
+    background-color: #ededed;
+    box-shadow: 0 3px 5px rgba(8, 59, 87, 0.50);
     border: double 7px #fffaf7;
 }
 
-.label-image-preview {
+.label-img-upl-preview {
     margin-left: 30px;
     padding-left: 20px;
-
 }

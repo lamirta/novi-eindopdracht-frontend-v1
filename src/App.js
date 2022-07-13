@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route, useHistory} from 'react-router-dom';
 import NavBar from './components/nav/NavBar';
 import ProfilePage from './pages/profile/ProfilePage';
 import Home from './pages/home/Home';
@@ -11,72 +11,88 @@ import Footer from "./components/foot/Footer";
 import WordLists from "./pages/wordlist/WordLists";
 import Users from "./pages/users/Users";
 import AllProfiles from "./pages/profile/AllProfiles";
-import Exams from "./pages/exam/Exams";
+import AllExams from "./pages/exam/AllExams";
 import AddWordList from "./pages/wordlist/AddWordList";
 import StartExam from "./pages/exam/StartExam";
 import ImagePage from "./pages/profile/image/ImagePage";
-import AssignImage from "./pages/profile/image/AssignImage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
-import MyExams from "./pages/exam/MyExams";
+import ExamsPerUser from "./pages/exam/ExamsPerUser";
+import SideBarMenu from "./components/sidebar/SideBarMenu";
+import ExamInfo from "./pages/exam/ExamInfo";
 
 // Alert opzoeken.
 // requeired opzoeken bij input
 
+// Check if empty?
+// useEffect(() => {
+//   /* Check if a comment is being typed */
+//   const textArea = document.getElementById("commentInput");
+//   textArea.addEventListener("input", checkIfEmpty)
+
 function App() {
-  const {auth} = useContext(AuthContext);
+  const {auth, user} = useContext(AuthContext);
+    const history = useHistory();
 
   return (
     <>
       <div className="content">
+          {/*<SideBarMenu />*/}
         <Switch>
           <Route exact path="/">
             <NavBar/>
             <Home/>
           </Route>
 
-          {/*{auth &&*/}
-          <Route path="/profile/:id">
-            <NavBar/>
-            <ProfilePage />
-          </Route>
-          {/*}*/}
-
-          <Route path="/userprofiles">
-            <NavBar/>
-            <AllProfiles />
-          </Route>
-
-          <Route path="/foto-uploaden">
-            <NavBar/>
-            <ImagePage />
-          </Route>
-
-          <Route path="/foto-koppelen">
-            <AssignImage />
-          </Route>
-
-          <Route path="/signin">
+          <Route exact path="/signin">
             <NavBar/>
             <SignIn />
           </Route>
 
-          <Route path="/registreren">
+            {/*dit even netjes in een component zetten straks*/}
+          {!auth ?
+              <div className="content-container-column">
+                  <h1 className="error-message"> Sorry, je moet ingelogd zijn voor dit deel van de applicatie 😔 </h1>
+                  <button
+                      type="button"
+                      onClick={() => history.push('/signin')}
+                  >
+                      Inloggen
+                  </button>
+              </div> : <>
+          <Route exact path="/profiel/:id">
             <NavBar/>
-            <SignUp />
+            <ProfilePage />
           </Route>
 
-          <Route path="/woordenlijsten">
+          <Route exact path="/userprofiles">
+            <NavBar/>
+            <AllProfiles />
+          </Route>
+
+          <Route exact path="/profiel/:id/foto-uploaden">
+            <NavBar/>
+            <ImagePage />
+          </Route>
+
+          {user.role === 'TEACHER' &&
+          <Route exact path="/registreren">
+            <NavBar/>
+            <SignUp/>
+          </Route>
+          }
+
+          <Route exact path="/woordenlijsten">
             <NavBar/>
             <WordLists />
           </Route>
 
-          <Route path="/woordenlijst/:title">
+          <Route exact path="/woordenlijst/:title">
             <NavBar/>
             <WordListPage />
           </Route>
 
-          <Route path="/woordenlijst-toevoegen">
+          <Route exact path="/woordenlijst-toevoegen">
             <AddWordList />
           </Route>
 
@@ -85,24 +101,30 @@ function App() {
             <Users />
           </Route>
 
-          <Route exact path="/user/:username">
+          <Route path="/user/:username">
             <NavBar/>
             <UserPage />
           </Route>
 
-          <Route path="/toetsen">
+          <Route exact path="/toetsen">
             <NavBar/>
-            <Exams />
+            <AllExams />
           </Route>
 
-          <Route path="/mijn-toetsen/:id">
+          <Route exact path="/toetsen-van/:id">
             <NavBar/>
-            <MyExams />
+            <ExamsPerUser />
           </Route>
 
-          <Route path="/toets-maken">
+          <Route exact path="/toets-starten/:id">
+              <NavBar/>
+             <ExamInfo />
+          </Route>
+
+          <Route exact path="/toets-maken">
             <StartExam />
           </Route>
+          </>}
       </Switch>
       </div>
       <Footer/>

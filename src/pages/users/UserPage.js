@@ -1,22 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
+import Popup from "../../components/popup/PopUp";
+import {AuthContext} from "../../context/AuthContext";
+import DeleteUser from "../../components/delete/DeleteUser";
+import UpdateUser from "../../components/update/UpdateUser";
+import UpdateRole from "../../components/update/UpdateRole";
+import ButtonContainer from "../../components/container/ButtonContainer";
 // import './UserPage.css';
 
 function UserPage() {
-    const [user, setUser] = useState([]);
-    const [userRoles, setUserRoles] = useState([]);
+    const {user} = useContext(AuthContext);
+    const [userObject, setUserObject] = useState([]);
+    const [userRole, setUserRole] = useState([]);
     const [profile, setProfile] = useState([]);
+    const [updateUser, toggleUpdateUser] = useState(false);
+    const [deleteUser, toggleDeleteUser] = useState(false);
+    const [updateRole, toggleUpdateRole] = useState(false);
+    const [showPopup, toggleShowPopup] = useState(false);
     const { username } = useParams();
     const history = useHistory();
 
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await axios.get(`http://localhost:8080/users/${username}`);
-                setUser(response.data);
-                setUserRoles(response.data.authorities[0]);
-                setProfile(response.data.userProfile);
+                const response = await axios.get(`http://localhost:8080/users/${username}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                setUserObject(response.data)
+                setUserRole(response.data.authorities[0])
+                setProfile(response.data.userProfile)
                 console.log(response.data);
             } catch(e) {
                 console.error(e);
@@ -27,33 +43,58 @@ function UserPage() {
     }, []);
 
 
+    function handleUpdateUser() {
+        toggleShowPopup(!showPopup)
+        toggleUpdateUser(!updateUser)
+    }
+
+    function handleClickDelete() {
+        toggleShowPopup(!showPopup)
+        toggleDeleteUser(!deleteUser)
+    }
+
+    function handleUpdateRole() {
+        toggleShowPopup(!showPopup)
+        toggleUpdateRole(!updateRole)
+    }
+
+
+
     return (
         <>
             <div className="body-outer-container">
+                {(user.username === userObject.username || user.role === 'TEACHER') ? <>
+
                 <h1>Gebruiker username: "{username}"</h1>
-                <section className="users-table-container">
+                <section className="table-container">
                     <section>
-                        <button
-                            type="button"
-                            onClick={() => history.push('/users')}
-                        >
-                            Alle gebruikers
-                        </button>
+                        <ButtonContainer />
                     </section>
                     <section>
                         <button
+                            type="button"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleUpdateUser}
                         >
                             Gebruiker aanpassen
                         </button>
                         <button
+                            type="button"
+                            id="delete"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleClickDelete}
                         >
                             Gebruiker verwijderen
                         </button>
                         <button
+                            type="button"
+                            disabled={user.role !== 'TEACHER'}
+                            onClick={handleUpdateRole}
                         >
-                            Gebruikersrol toevoegen / verwijderen
+                            Gebruikersrol aanpassen
                         </button>
                     </section>
+                    {/*// component van maken table*/}
                     <section className="content-container-row">
                         <table>
                             <thead>
@@ -67,33 +108,51 @@ function UserPage() {
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{user.username}</td>
-                                <td>{user.email}</td>
-                                <td>{user.enabled === true ? "Actief" : "Gedeactiveerd"}</td>
+                                <td>{userObject.username}</td>
+                                <td>{userObject.email}</td>
+                                <td>{userObject.enabled === true ? "Actief " : "Gedeactiveerd "}
+                                </td>
                                     <td>
-                                        {/*<i>To Be Implemented..</i>*/}
-                                        {/*{userRoles.authority}*/}
                                         {(() => {
-                                            //Hier nog een manier verzinnen als een user 2 authorities heeft. User & Docent..
-                                            switch (userRoles.authority) {
-                                                case "ROLE_USER":
-                                                    return "Leerling";
-                                                case "ROLE_DOCENT":
-                                                    return "Docent";
-                                                case "ROLE_ADMIN":
-                                                    return "Admin";
+                                            switch (userRole.authority) {
+                                                case "STUDENT":
+                                                    return " Leerling";
+                                                case "TEACHER":
+                                                    return " Docent";
                                                 default:
-                                                    return "Undefined";
+                                                    return " Undefined";
                                             }
                                         })()}
                                     </td>
-                                <td>{profile.id}
+                                <td>
+                                    <button
+                                        type="button"
+                                        onClick={() => history.push(`/profiel/${profile.id}`)}
+                                    >
+                                        Naar profielpagina
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </section>
                 </section>
+                {showPopup &&
+                <Popup>
+                    {updateUser && <UpdateUser
+                        togglePopup={handleUpdateUser}
+                    />}
+                    {deleteUser && <DeleteUser
+                        profileId={profile.id}
+                        togglePopup={handleClickDelete}
+                    />}
+                    {updateRole && <UpdateRole
+                        togglePopup={handleUpdateRole}
+                        userRole={userRole}
+                    />}
+                </Popup>
+                }
+            </> : <h1 className="error-message">Sorry, je hebt geen toegang 😔🛑</h1> }
             </div>
         </>
     );
