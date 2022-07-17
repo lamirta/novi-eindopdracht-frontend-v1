@@ -6,6 +6,7 @@ import Popup from "../../components/popup/PopUp";
 import SaveExam from "../../components/exams/SaveExam";
 import ExamHeader from "../../components/exams/ExamHeader";
 import ExamBtnNext from "../../components/exams/ExamBtnNext";
+import ExamInfoPopUp from "../../components/popup/ExamInfoPopUp";
 
 
 // when userEntry !== indexOf original word.. +1 to wrongEntries counter..?
@@ -31,8 +32,10 @@ function StartExam() {
     // Message & Layout related
     const [endOfExam, setEndOfExam] = useState(false);
     const [showWord, setShowWord] = useState(true);
+    const [info, toggleInfo] = useState(false);
     const [error, toggleError] = useState(false);
-
+    const [progress, setProgress] = useState(0);
+    const [wordsTotal, setWordsTotal] = useState(0);
 
     // Properties for saving Exam Object with axios.post
     const [wordList, setWordList] = useState([]);
@@ -44,11 +47,13 @@ function StartExam() {
         setWordList(location.state);
         setTitle(location.state.title);
         setWords(location.state.words);
+        setWordsTotal(location.state.words.length);
     }, []);
 
 
     useEffect(() => {
         setCurrentWord(location.state.words[wordIndexNr]);
+        setProgress((wordIndexNr / wordsTotal) * 100)
         toggleError(false)
 
 
@@ -143,10 +148,14 @@ function StartExam() {
         }
     }
 
+    function clickInfo() {
+        toggleInfo(!info)
+    }
+
 
     return (
         <div className="main-exercise-page">
-            <ExamHeader title={title}/>
+            <ExamHeader title={title} progress={progress} wordsDone={wordIndexNr} wordsTotal={wordsTotal} toggleInfo={clickInfo} />
             <div className="container-exercise-wrap">
                 <div className="exercise">
                     <div className="exercise-content">
@@ -157,6 +166,7 @@ function StartExam() {
                                 <label htmlFor="userEntry">
                                     <input
                                         ref={textInput}
+                                        autoComplete="off"
                                         placeholder="typ hier jouw antwoord"
                                         className="exam-entry-input"
                                         type="text"
@@ -193,6 +203,18 @@ function StartExam() {
                     passed={passed}
                 />
             </Popup>}
+            {info &&
+            <Popup>
+                <div className="content-container-column-fff">
+                         {/*"exam-exercise-info-message"*/}
+                <ExamInfoPopUp />
+                </div>
+                <button
+                    type="button" onClick={clickInfo}>
+                    <span className="text-btn-start">Terug naar de toets!</span>
+                </button>
+            </Popup>}
+
         </div>
     );
 }

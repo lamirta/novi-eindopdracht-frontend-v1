@@ -10,67 +10,6 @@
     z-index: 1;
 }
 
-.exercise-page-header {
-    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
-    border-radius: 1px;
-    padding: 16px 8px;
-    background-color: #bd4a4a;
-
-}
-
-.exercise-header-inner {
-    display: flex;
-    align-items: center;
-}
-
-.exercise-header .progress-bar {
-    flex: 1 1 auto;
-    max-width: 100%;
-}
-.exercise-header-item+.exercise-header-item, .exercise-header-item+.progress-bar {
-    margin-left: 16px;
-}
-
-.progress-bar {
-    position: relative;
-    width: 100%;
-    height: 16px;
-    border-radius: 8px;
-    background-color: rgba(0,0,0,.05);
-    overflow: hidden;
-    z-index: 1;
-}
-
-.exercise-header .counter {
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: .2px;
-    font-weight: 400;
-}
-
-.progress-bar .progress.transparent {
-    background-color: #dccbf4;
-}
-
-/*!*@media (min-width: 1024px) {*!*/
-/*    .exercise-header {*/
-/*        padding-left: 0;*/
-/*        padding-right: 0;*/
-/*    }*/
-/*!*}*!*/
-
-/*!*@media (min-width: 768px) {*!*/
-/*    .exercise-header {*/
-/*        position: fixed;*/
-/*        top: 0;*/
-/*        left: 0;*/
-/*        width: 100%;*/
-/*        padding: 16px;*/
-/*        background-color: #fff;*/
-/*        z-index: 50;*/
-/*    }*/
-/*!*}*!*/
-
 
 /******CONTAINER-STYLING******/
 .container-exercise-wrap{
@@ -144,19 +83,11 @@
     max-width: 100%;
     padding: 10px 24px;
     border-radius: inherit;
-    font-size: 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    transition: all .08s linear 0s;
-    z-index: 1;
-    pointer-events: none;
 }
 
 .btn-right {
-    justify-content: flex-end;
     display: flex;
+    justify-content: flex-end;
     margin: -4px;
     align-items: center;
     flex-wrap: wrap;
@@ -196,15 +127,6 @@
 
 
 
-
-.wordlist-title {
-    font-weight: 200;
-}
-
-.wordlist-title-p {
-    font-style: italic;
-    font-weight: 800;
-}
 
 @media (min-width: 768px) {
     .container-exercise-wrap {
