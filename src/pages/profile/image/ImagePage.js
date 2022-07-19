@@ -9,6 +9,8 @@ function ImagePage() {
     const [file, setFile] = useState();
     const [previewUrl, setPreviewUrl] = useState(null);
     const [isUploaded, toggleIsUploaded] = useState(false);
+    const [consoleError, setConsoleError] = useState();
+    const [errorMsg, setErrorMsg] = useState('');
     const history = useHistory();
     const { id } = useParams();
 
@@ -29,7 +31,9 @@ function ImagePage() {
         } catch (e) {
             console.error(e)
             console.log(e.response.data);
+            setConsoleError(e.response.data.message);
         }
+        consoleErr()
     }
 
     function handleImageChange(e) {
@@ -37,6 +41,14 @@ function ImagePage() {
         console.log(uploadedFile);
         setFile(uploadedFile);
         setPreviewUrl(URL.createObjectURL(uploadedFile));
+    }
+
+    //Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field file exceeds its maximum permitted size of 1048576 bytes.
+
+    function consoleErr() {
+        if (consoleError.includes("Maximum upload size exceeded")) {
+            setErrorMsg("Deze afbeelding is te groot: upload maximaal 1MB")
+        }
     }
 
     return (
@@ -61,6 +73,7 @@ function ImagePage() {
                         </label>
                         }
                         </section>
+                        {consoleError !== null && <h2 className="error-message">{errorMsg}</h2>}
                         <button
                             type="submit"
                             disabled={!previewUrl}

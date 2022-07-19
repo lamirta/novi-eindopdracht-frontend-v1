@@ -33,37 +33,25 @@ function ExamInfo() {
     return (
         <>
             <div className="body-outer-container">
-                <section className="content-container-column-fff">
+                <section className="content-container-column-exam">
                     <h1>Toets Starten 💪</h1>
                     <section>
-                    <strong>Je staat op het punt om een nieuwe toets te starten, {user.profile.firstName}!</strong>
+                    <h3><strong>Je staat op het punt om een nieuwe toets te starten, {user.profile.firstName}!</strong></h3>
                     <p><i> Lees de instructies van de toets goed door voor je begint, zodat je weet wat je moet doen. </i></p>
                     </section>
-
-                    <section>
-                    <h3>Uitleg</h3>
+                    <section className="exam-exercise-explanation">
                         <ExamInfoPopUp />
-                    {/*<p>Je kiest een woordenlijst en gaat daar een toets mee maken. De woorden uit de woordenlijst*/}
-                    {/*    zijn kort in beeld te zien en verdwijnen dan weer. Zodra het woord uit beeld is, verschijnt*/}
-                    {/*    er een invoerveld waar jij het woord kan natypen. Je kan pas op de "volgende" knop drukken,*/}
-                    {/*    wanneer het woord goed is ingevuld.*/}
-                    {/*    Als je een foute letter intypt, komt deze niet in beeld. Zo krijg je het woord pas te zien als*/}
-                    {/*alles goed gespeld is! Wel telt een foute letter als 1 fout.*/}
-                    {/*    Als alle woorden geweest zijn, zie je of je de toets gehaald hebt. Je slaagd als je onder de 8*/}
-                    {/*    fouten blijft.*/}
-                    {/*</p>*/}
                     </section>
-
-                    <section className="choose-wl">
+                    <section>
                         <h3>Kies een woordenlijst</h3>
                         <table>
-                            <thead>
-                            <tr>
+                            <thead className="choose-wl">
+                            <tr className="choose-wl-tr">
                                 <th>Title</th>
                                 <th>Selecteer</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="choose-wl">
                             {wordLists.map((wl) => {
                                 return <tr key={wl.title}>
                                     <td>{wl.title}</td>

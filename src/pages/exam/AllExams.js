@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import ButtonContainer from "../../components/container/ButtonContainer";
 import {AuthContext} from "../../context/AuthContext";
+import formatTimeStamp from "../../helpers/formatTimeStamp";
 
 function AllExams() {
     const {user} = useContext(AuthContext);
@@ -67,22 +68,12 @@ function AllExams() {
                         <tbody>
                         {exams.map((exam) => {
                             return <tr key={exam.id}>
-                                {/*{confirmDelete && <div className="popup-nested">*/}
-                                {/*<Popup>*/}
-                                {/*    <DeleteExam*/}
-                                {/*        examId={exam.id}*/}
-                                {/*        togglePopup={clickDelete}*/}
-                                {/*    />*/}
-                                {/*</Popup>*/}
-                                {/*</div>}*/}
                                 <td>{exam.id}</td>
                                 <td>{exam.userProfile.username.username}</td>
                                 <td>{exam.wordList.title}</td>
                                 <td>{exam.passed ? "Geslaagd" : "Gezakt"}</td>
                                 <td>{exam.wrongEntries}</td>
-                                <td>{exam.timestamp}</td>
-                                {/*//implement timestamp function > maak helper*/}
-
+                                <td>{formatTimeStamp(exam.timestamp)}</td>
                                 {/*<td><button*/}
                                 {/*    type="button"*/}
                                 {/*    id="delete"*/}

@@ -71,7 +71,10 @@ function ProfilePage() {
                                   <strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
                                       Profielfoto Uploaden</Link></strong>
                               </div> :
-                              <img src={image.url} alt="profiel-foto" className="profile-pic"/>}
+                              <div id="photo-div">
+                              <img src={image.url} alt="profiel-foto" className="profile-pic"
+                                   // style={{width: 125, height: 125, borderRadius: 125/ 2}}
+                              /></div>}
                         </div>
                     </div>
                         <div className="table-container">{image && <p><strong><Link to={`/profiel/${userProfile.id}/foto-uploaden`}>
@@ -128,11 +131,11 @@ function ProfilePage() {
                             Deze gebruiker verwijderen
                         </button> }
                         <br></br>
-                <section>
+                <section className="profile-top-score">
                     <h2>Top score!</h2>
                 {!exams[0] ? <p>Er zijn nog geen toetsen van {userProfile.firstName}</p> :
                     <ol> {exams.slice(0, 3).map((exam) => {
-                    return <li className="profile-page-li" key={exam.id}> Aantal fouten:
+                    return <li className="profile-page-li" key={exam.id}> Aantal fouten: {""}
                         {exam.wrongEntries} <strong>{exam.passed === true ? " & Geslaagd 🎉!!" : ""}
                         </strong></li> })}
                     </ol> }

@@ -66,10 +66,10 @@ input {
 input:focus, select, textarea {
     /*box-sizing: border-box;*/
     width: 100%;
-    border-top-color: rgba(189, 74, 74, 0.04);
-    border-left-color: rgba(189, 74, 74, 0.04);
-    border-right-color: rgba(189, 74, 74, 0.04);
-    border-bottom-color: #bd4a4a;
+    border-top-color: rgba(8, 59, 87, 0.04);
+    border-left-color: rgba(8, 59, 87, 0.04);
+    border-right-color: rgba(8, 59, 87, 0.04);
+    border-bottom-color: #006e7f;
     outline: none;
     font-weight: 400;
 }

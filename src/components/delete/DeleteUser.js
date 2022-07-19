@@ -33,7 +33,7 @@ function DeleteUser({profileId, togglePopup}) {
         <>
                 <h1>Account Verwijderen</h1>
                 <br></br>
-                Weet je zeker dat je <i>{username || "deze gebruiker"}</i> wilt verwijderen?
+                Weet je zeker dat je <i>dit profiel</i> wilt verwijderen? Het hele account van deze gebruiker wordt daarmee verwijderd
                 <section>
                     <button
                         type="button"

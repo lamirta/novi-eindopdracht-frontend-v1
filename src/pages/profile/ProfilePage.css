@@ -1,17 +1,21 @@
 .profile-page-li {
-    margin: 10px 20px
+    margin: 10px 20px;
+    color: #292b2d;
 }
 
 .content-outer-container-big {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /*align-items: center;*/
     width: 500px;
     border-radius: 7px;
     padding: 10px;
     margin: 10px;
     background-color: #c5c5c5;
+}
+
+.content-outer-container-big p {
+    color: #292b2d;
 }
 
 .profile-button-container {
@@ -35,13 +39,28 @@
     border-radius: 50%;
     padding: -5px;
 }
+
+
 .profile-pic {
-    display: inline;
+    align-self: center;
+    width: min-content;
+    /*height: border-box;*/
+    border-radius: 60px;
+
     /*margin: 0 auto 0 -25%;*/
          /*to not center img in circle when rectangle*/
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     height: 100%;
-    width: auto;
+    /*width: auto;*/
+}
+
+#photo-div {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: -20px 0 0 -20px;
+    width: 164px;
+    height: 164px;
 }
 
 .profile-pic-upl {
