@@ -15,7 +15,9 @@ function ExamBtnNext({userEntry, currentWord, toNextWord}) {
                         onClick={toNextWord}
                     >
                         <div className="visual">
-                            <span className="text-exam-btn">volgende</span>
+                            <span className="text-exam-btn">
+                                volgende
+                            </span>
                         </div>
                     </button>
                 </div>

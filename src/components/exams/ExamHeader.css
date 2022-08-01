@@ -1,0 +1,120 @@
+
+.exercise-page-header {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1px;
+    padding: 16px 8px;
+    color: #f3f3f3;
+    background-color: #bd4a4a;
+    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+}
+
+.exercise-header-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.wordlist-title {
+    font-size: 22px;
+    font-weight: 200;
+}
+
+.wordlist-title-p {
+    font-style: italic;
+    font-weight: 700;
+}
+
+.exercise-page-header .progress-bar {
+    max-width: 100%;
+}
+
+.progress-bar {
+    display: block;
+    position: relative;
+    width: 400px;
+    height: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.progress-bar .progress {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 8px;
+    background-color: rgba(8, 59, 87, 0.84);
+    box-shadow: 3px 1px 4px rgb(0 0 0 / 25%);
+    transition: width .2s ease-out 0s;
+}
+
+.progress-text {
+    margin-left: 20px;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.exercise-header-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.94);
+    margin: 0 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
+    max-width: 55px;
+    max-height: 55px;
+    min-width: 55px;
+    min-height: 55px;
+}
+
+.exercise-header-info img {
+    width: 40px;
+}
+
+.exercise-header-inner button {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+
+
+
+/*#info-icon {*/
+/*    max-width: content-box;*/
+/*    */
+/*}*/
+
+
+/*.exercise-header-inner {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+
+/*.exercise-header-item+.exercise-header-item, .exercise-header-item+.progress-bar {*/
+/*    margin-left: 16px;*/
+/*}*/
+
+
+/*.exercise-header .counter {*/
+/*    font-size: 14px;*/
+/*    line-height: 20px;*/
+/*    letter-spacing: .2px;*/
+/*    font-weight: 400;*/
+/*}*/
+
+/*.progress-bar .progress.transparent {*/
+/*    background-color: #dccbf4;*/
+/*}*/

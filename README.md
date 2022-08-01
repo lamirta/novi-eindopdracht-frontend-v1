@@ -1,8 +1,7 @@
 
-
 ## Introduction
 
-**Schrijf hier een volledige Read-Me**
+**To Implement: REST-endpoint documentation**
 
 In the project directory, you can run:
 

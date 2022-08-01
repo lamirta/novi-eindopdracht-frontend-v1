@@ -18,7 +18,7 @@ import ImagePage from "./pages/profile/image/ImagePage";
 import UserPage from "./pages/users/UserPage";
 import WordListPage from "./pages/wordlist/WordListPage";
 import ExamsPerUser from "./pages/exam/ExamsPerUser";
-import SideBarMenu from "./components/sidebar/SideBarMenu";
+import SideBarMenu from "./components/.drafts-unused/sidebar/SideBarMenu";
 import ExamInfo from "./pages/exam/ExamInfo";
 
 // Alert opzoeken.

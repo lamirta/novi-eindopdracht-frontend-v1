@@ -14,6 +14,8 @@ nav {
 
 nav button {
     min-width: 100px;
+    background-color: #bd4a4a;
+    color: white;
 }
 
 .nav-container {

@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 import './SignUp.css';
 import {AuthContext} from "../../context/AuthContext";
+import Popup from "../../components/popup/PopUp";
 
 
 function SignUp() {
     const {user} = useContext(AuthContext);
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -27,11 +29,8 @@ function SignUp() {
                 },
             })
             toggleAddSuccess(true);
-            console.log(result.data)
         } catch(error) {
             setConsoleError(error.response.data);
-            console.log(error.response.data);
-            console.log(error.response.status);
             console.error(error);
         }
     }
@@ -83,13 +82,8 @@ function SignUp() {
                     />
                 </label>
                 {!password && <p className="error-message">Alle velden zijn verplicht</p>}
-
                 <br></br>
-                {addSuccess === true && <>
-                    <p className="success-msg-1">Nieuwe gebruiker is opgeslagen!</p>
-                    <p>Ga door naar <Link to="/users">alle gebruikers</Link> <strong>of</strong> refresh de pagina</p>
-                </>}
-                {addSuccess ? <></> : <>{consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}</>}
+                {consoleError && <p className="error-message">{consoleError}: kies een andere username</p>}
                 <button
                     type="submit"
                     disabled={!username || !email || !password}
@@ -98,6 +92,17 @@ function SignUp() {
             </form>
                 <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
             </section>
+
+                {addSuccess &&
+                <Popup>
+                    <div className="content-container-column-2">
+                        <p className="success-msg-1">Nieuwe gebruiker is opgeslagen!</p>
+                        <p>Ga door naar</p>
+                            <button id="blue-btn" onClick={() => history.push('/users')}>
+                                Alle gebruikers
+                            </button>
+                    </div>
+                </Popup>}
             </div>
         </>
     );
