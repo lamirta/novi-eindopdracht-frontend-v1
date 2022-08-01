@@ -30,7 +30,7 @@ function ExamsPerUser() {
             }
         }
         fetchExams();
-    }, [exams.length]); //op deze manier refreshed de pagina na een nieuwe toetsuitslag?? >> button click opslaan submit?
+    }, [exams.length]);
 
 
     const format = (timestamp) => {
