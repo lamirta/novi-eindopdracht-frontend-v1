@@ -83,8 +83,52 @@ Endpoint for modifying a specific 'word list' from the database, based on the un
 ```
 
 ### Exam
+#### GET `/exams`
+Endpoint for retrieving all 'exams' from the database.
 
+#### GET `/exams/{id}`
+Endpoint for requesting a specific 'exam' from the database, based on the unique id.
 
+#### POST `/exams/`
+Endpoint for starting and thus creating a new 'exam'. This endpoint expects a body (in JSON format) with the necessary information to create a new exam object - that is, all required fields are filled in correctly.
+* It is important that full wordList and userProfile objects are included. This is also arranged in the frontend. If both are left out, they can still be linked with the PUT requests below.
+
+```javascript
+{
+  wrongEntries: 6,
+  passed: true,
+  wordList: {
+              title: "vormen"
+             }
+  userProfile: {
+              id: 1002
+               }             
+}
+```
+
+#### PUT `/exams/{id}/profileId`
+Endpoint for linking a 'user profile' to an 'exam' based on the unique ID of both. The 'exam' id is passed as a parameter in the uri and the 'user profile' id is passed in the body via a JSON object, see example on the left
+
+```javascript
+{
+  id: 1002  
+}
+```
+
+#### PUT `/exams/{id}/title`
+Endpoint for linking a 'wordlist' to an 'exam' based on the unique id of both. The 'exam' id is passed as a parameter in the uri and the 'wordlist' title is passed in the body via the JSON object.
+
+```javascript
+{
+  title: "vormen"  
+}
+```
+
+#### DELETE `/exams/{id}`
+Endpoint for removing a specific 'exam' from the database, based on the unique identifier.
+
+#### DELETE `/exams/userprofile/{id}`
+Endpoint for removing all 'exams' from a 'user profile', based on the unique identifier of the 'user profile'.
 
 
 
