@@ -19,7 +19,7 @@ You may also see any lint errors in the console.
 _Note_: because this project runs on localhost:3000 it is important to start this project before starting/running another project. React will then automatically ask to run that project on a different port.
 
 ## REST-endpoint documentation
-These are the endpoints that are available in the backend code. The backend code is running on http://localhost:8080 , so make sure to check if this. Copy+Paste the reuqest path to access the endpoint. 
+These are the endpoints that are available in the backend code. The backend code is running on http://localhost:8080 , so make sure to check this. Copy+Paste the reuqest path to access the endpoint. 
 
 ### Authentication
 #### POST `/authenticate`
