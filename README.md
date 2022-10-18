@@ -35,11 +35,116 @@ Endpoint for user login. UserDetail authentication is used. The body is a JSON o
 #### GET `/authenticated`
 Endpoint to check if user is logged in. Returns a JSON object containing information about user, such as username, password (encrypted) and authorities/roles.
 
+
 ### User
+#### GET `/users/{username}`
+Endpoint for requesting a specific 'user' from the database, based on the unique id, in this case the username. This is passed as a parameter in the uri.
+
+#### GET `/users`
+Endpoint for requesting all 'users' from the database.
+
+#### POST `/users`
+Endpoint for creating a new user. This endpoint expects a body (in JSON format) with the necessary information to create a new user object - that is, all required fields are filled in correctly.
+*When creating a new user, a user profile is automatically created and linked.
+
+```javascript
+{
+  username: "johndoe",
+  password: "password",
+  email: "johndoe@test.nl",
+  enabled: true,
+  authorities:
+          [{
+            username: "johndoe",
+            authority: "STUDENT"
+          }]
+}
+```
+
+#### PUT `/users/{username}`
+Endpoint for modifying a specific 'user' from the database, based on the unique id, in this case the username. This should be included as a parameter in the uri. Furthermore, a body is provided (in JSON format) with the necessary information to update the user object - that is, all required fields are correctly filled in / modified.
+*The username itself cannot be changed, because this concerns the unique id. The enabled and authority fields are modified via other request.
+
+```javascript
+{
+  password: "password",
+  email: "johndoe@test.nl"
+}
+```
+
+#### PUT `/users/{username}/enabled`
+Endpoint for modifying the 'enabled' field of a specific 'user' from the database, based on the unique id, in this case the username. This endpoint can only edit said field and this can only be done with the Authority 'TEACHER'.
+*This is still being implemented: A user with the field 'enabled' set to false will not be able to log in and use the application.
+
+```javascript
+{
+  enabled: false
+}
+```
+
+#### GET `/users/{username}/authorities`
+Endpoint for requesting the Authorities of a specific 'user' from the database, based on the unique id, in this case the username. This is passed as a parameter in the uri request.
+
+#### POST `/users/{username}/authorities`
+Endpoint for adding an 'authority' to a specific 'user' from the database, based on the unique id, in this case the username. This is passed as a parameter in the uri request. An 'authority' object must be included in the body (in JSON format).
+
+```javascript
+{
+  username: "johndoe",
+  authority: "TEACHER"
+}
+```
+
+#### DELETE `/users/{username}/authorities/{authority}`
+Endpoint for removing an 'authority' of a specific 'user' from the database, based on the unique id, in this case the username. The latter is passed as a parameter in the uri request, also as a parameter of the 'authority' that needs to be removed.
+*In the current frontend, the old authority is removed and a new one added.
+
 
 ### UserProfile
+#### GET `/userprofiles`
+Endpoint for retrieving all user profiles from the database.
+
+#### GET `/userprofiles/{id}`
+Endpoint for requesting a specific 'user profiles' from the database, based on the unique id. This is passed as a parameter in the uri request.
+
+#### POST `/userprofiles`
+Endpoint for creating a new user profile. This endpoint expects a body (in JSON format) with the necessary information to create a new user profile object - that is, all required fields are filled in correctly.
+*In the current frontend, this endpoint is not used, because a profile is automatically created with a new 'user'.
+
+```javascript
+{
+  firstName: "Willem",
+  lastName: "Willemsen",
+  age: 1,
+  school: "School"
+}
+```
+
+#### PUT `/userprofiles/{id}`
+Endpoint for adjusting a specific 'user profile' from the database, based on the unique id. This should be included as a parameter in the uri. Furthermore, a body is provided (in JSON format) with the necessary information to update the user profile object - that is, all required fields are correctly filled in / modified.
+
+#### DELETE `/userprofiles/{id}`
+Endpoint for removing a specific user profile from the database, based on the unique identifier.
+*This endpoint also immediately removes the associated 'user'.
+
+#### PUT `/userprofiles/{id}/image`
+Endpoint for uploading and linking an 'image' to a 'user profile' based on the unique id. The 'user profile' id is given as a parameter and the 'image' id (fileName) is given in the body.
+*It is the intention that an image is given here. Maximum size is 1MB.
+
 
 ### Image
+#### POST `/upload`
+Endpoint for uploading an 'image'. This endpoint expects a file that is given under the key 'file' (fileName). The intention is to provide an image. Maximum size is 1MB. *Upload also returns the URL for getting the 'image'. This can be used with the GET request below.
+
+#### GET `/download/{fileName}`
+Endpoint for requesting a specific 'image' from the database, based on the unique id, fileName in this case.
+
+#### GET `/images`
+Endpoint for querying all 'images' in the database.
+
+#### DELETE `/images/{fileName}`
+Endpoint for removing a specific 'image' from the database, based on the unique id, fileName in this case.
+
 
 ### WordList
 #### GET `/wordlists`
@@ -82,6 +187,7 @@ Endpoint for modifying a specific 'word list' from the database, based on the un
 }
 ```
 
+
 ### Exam
 #### GET `/exams`
 Endpoint for retrieving all 'exams' from the database.
@@ -91,7 +197,7 @@ Endpoint for requesting a specific 'exam' from the database, based on the unique
 
 #### POST `/exams/`
 Endpoint for starting and thus creating a new 'exam'. This endpoint expects a body (in JSON format) with the necessary information to create a new exam object - that is, all required fields are filled in correctly.
-* It is important that full wordList and userProfile objects are included. This is also arranged in the frontend. If both are left out, they can still be linked with the PUT requests below.
+*It is important that full wordList and userProfile objects are included. This is also arranged in the frontend. If both are left out, they can still be linked with the PUT requests below.
 
 ```javascript
 {
