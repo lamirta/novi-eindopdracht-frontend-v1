@@ -1,7 +1,8 @@
+# Graduation Project
 
 ## Introduction
 
-**To Implement: REST-endpoint documentation**
+## Instructions
 
 In the project directory, you can run:
 
@@ -13,6 +14,23 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes and safe them.\
 You may also see any lint errors in the console.
 
-## Learn More
+## Endpoints
+**REST-endpoint documentation**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### GET
+
+### POST
+
+### PUT 
+
+### DELETE
+
+
+
+
+
+
+
+
+
+
